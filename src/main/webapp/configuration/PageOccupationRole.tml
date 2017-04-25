@@ -1,0 +1,42 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+			<div>
+				<table>
+				<tr>
+					<td>${message:OccupationRoleName}:</td>
+					<td><t:textfield value="occupationRole.name"/></td>
+				</tr>
+				<tr>
+					<td>Удирдах эсэх: &nbsp; <t:checkbox t:value="occupationRole.isUdirdah"/></td>
+					<td align="right"><t:submit t:id="save" t:value="${message:save}" class="btnFind save"  /></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<t:grid t:source="listOccupationRole"  t:row="valueOccupationRole" t:include="name" 
+					t:add="number,edit,delete" reOrder="number" style="width:100%;"  rowsPerPage="25" >
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="edit" t:context="valueOccupationRole">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="delete" t:context="valueOccupationRole">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+					</td>
+				</tr>
+				</table> 
+			</div>
+		
+	</t:form> </body> 
+</html>

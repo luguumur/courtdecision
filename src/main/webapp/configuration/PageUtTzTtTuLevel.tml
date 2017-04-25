@@ -1,0 +1,42 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				ТТ, ТҮ, ТҮЭМ-ний албаны зэрэглэл <br/>
+				<t:select t:model="UtTzTtTuSortSelectionModel" value="utTzTtTuLevel.utTzTtTuSort" t:validate="required"/>&nbsp;
+				<t:select t:model="occupationRankSelectionModel" value="utTzTtTuLevel.utTzTtTuRank" t:validate="required"/>
+				
+				&nbsp;&nbsp;&nbsp;<t:submit t:id="save" t:value="${message:save}" class="btnFind save" />
+			</div>
+			<div>
+				<t:grid t:source="listUtTzTtTuLevel" t:row="valueUtTzTtTuLevel" t:include="utTzTtTuSort,utTzTtTuRank" t:add="number,edit,delete"
+				rowClass="gridRowCSS" reOrder="number"  rowsPerPage="25" >
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueUtTzTtTuLevel">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueUtTzTtTuLevel">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+					<p:utTzTtTuSortCell>
+						${SortName}
+					</p:utTzTtTuSortCell>
+					<p:utTzTtTuRankCell>
+						${RankName}
+					</p:utTzTtTuRankCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

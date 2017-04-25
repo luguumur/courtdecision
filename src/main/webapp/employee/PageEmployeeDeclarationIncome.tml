@@ -1,0 +1,832 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+<t:form>
+	<div style="width: 100%">
+	<table id="newspaper-c" bgcolor="#E5E5E5">
+		<div>
+		<tr>
+			<td>
+		<thead>
+			<td>${message:selfInterest}</td>
+		</thead>
+		<tr>
+			<td>
+			<fieldset>
+			<table style="width: 100%">
+				<tr>
+					<td>${message:relSubjects} :</td>
+					<td>${message:oneDirectionSubjects} :</td>
+					<td>${message:nonGovOrg}:</td>
+				</tr>
+				<tr>
+					<td><t:textfield t:id="relSubjects"
+						t:value="income.relSubjects" /></td>
+					<td><t:textfield t:id="oneDirectionSubjects"
+						t:value="income.oneDirectionSubjects" /></td>
+					<td><t:textfield t:id="nonGovOrg" t:value="income.nonGovOrg" /></td>
+				</tr>
+				<tr>
+					<td>${message:delegationAccomplished} :</td>
+					<td colspan="2">${message:preReference} :</td>
+				</tr>
+				<tr>
+					<td><t:textfield t:id="delegationAccomplished"
+						t:value="income.delegationAccomplished" /></td>
+					<td colspan="2"><t:textfield t:id="preReference"
+						t:value="income.preReference" /></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:giftService}</legend>
+
+			<table style="width: 100%">
+				<tr>
+					<td>${message:authorship}:</td>
+					<td>${message:estimate}:</td>
+				</tr>
+				<tr>
+					<td><t:textfield t:id="authorship"
+						t:value="declrGifts.authorship" /></td>
+					<td><t:textfield t:id="estimate" t:value="declrGifts.estimate" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: left; margin-top: 10px;"><t:submit
+						t:id="SaveGifts" id="SaveGifts" class="btnFind save"
+						t:value="${message:save}" /></td>
+				</tr>
+			</table>
+
+			<table>
+				<tr>
+					<td colspan="3"><t:grid t:source="listGifts"
+						t:row="valueGifts" t:include="authorship,estimate"
+						t:options="options" t:add="edit,delete,numberGift"
+						style="width:100%" rowClass="gridRowCSS" rowsPerPage="25"
+						reOrder="numberGift">
+
+						<p:numberGiftCell>${numberGift}</p:numberGiftCell>
+						<p:authorshipCell>${authorship}</p:authorshipCell>
+						<p:estimateCell>${estimate}</p:estimateCell>
+
+						<p:editCell>
+							<t:actionlink t:id="editGifts" t:context="valueGifts">
+								<img src="${editIcon}" />
+							</t:actionlink>
+						</p:editCell>
+
+						<p:deleteCell>
+							<t:actionlink t:id="deleteGifts" t:context="valueGifts">
+								<img src="${deleteIcon}" />
+							</t:actionlink>
+						</p:deleteCell>
+
+						<p:empty>${message:noData}</p:empty>
+					</t:grid></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		</td>
+		</tr>
+		</div>
+	</table>
+
+	<br />
+
+	<table id="newspaper-c">
+		<thead>
+			<td>${message:profits}</td>
+		</thead>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:profitUnit}</legend>
+			<table>
+				<tr>
+					<td>${message:desciplineProfit}:</td>
+					<td>${message:desciplineParentProfit}:</td>
+				</tr>
+				<tr>
+					<td><t:textfield t:id="desciplineProfit"
+						t:value="income.desciplineProfit" /></td>
+					<td><t:textfield t:id="desciplineParentProfit"
+						t:value="income.desciplineParentProfit" /></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:apartmentBuildings}</legend>
+			<table>
+				<tr>
+					<td>${message:apartment} :</td>
+					<td>${message:prodService} :</td>
+					<td>${message:others} :</td>
+					<td>${message:amount} :</td>
+				</tr>
+				<tr>
+					<td><t:textfield t:id="apartment" t:value="income.apartment" /></td>
+					<td><t:textfield t:id="prodService"
+						t:value="income.prodService" /></td>
+					<td><t:textfield t:id="others" t:value="income.others" /></td>
+					<td><t:textfield t:id="amountApartment"
+						t:value="income.amountApartment" /></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:transports}</legend>
+			<table>
+				<tr>
+					<td>${message:type} :</td>
+					<td>${message:counts} :</td>
+					<td>${message:amount} :</td>
+				</tr>
+
+				<tr>
+					<td><t:textfield t:id="transportType"
+						t:value="declrTransport.transportType" /></td>
+					<td><t:textfield t:id="transports"
+						t:value="declrTransport.transports" /></td>
+					<td><t:textfield t:id="amountTransport"
+						t:value="declrTransport.amountTransport" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: left; margin-top: 10px;"><t:submit
+						t:id="SaveTransport" class="btnFind save"
+						t:value="${message:save}" /></td>
+				</tr>
+
+				<tr>
+					<td colspan="3"><t:grid t:source="listTransport"
+						t:row="valueTransport"
+						t:include="transportType,transports,amountTransport"
+						t:add="edit,delete,numberTransport" style="width:100%"
+						rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberTransport">
+
+						<p:numberTransportCell>
+									${numberTransport}
+								</p:numberTransportCell>
+
+						<p:transportTypeCell>
+									${transportType}
+								</p:transportTypeCell>
+
+						<p:transportsCell>
+									${transports}
+								</p:transportsCell>
+
+						<p:amountTransportCell>
+									${amountTransport}
+								</p:amountTransportCell>
+
+						<p:ownerNameCell>
+									${ownerName}
+								</p:ownerNameCell>
+
+						<p:editCell>
+							<t:actionlink t:id="editTransport" t:context="valueTransport">
+								<img src="${editIcon}" />
+							</t:actionlink>
+						</p:editCell>
+
+						<p:deleteCell>
+							<t:actionlink t:id="deleteTransport" t:context="valueTransport">
+								<img src="${deleteIcon}" />
+							</t:actionlink>
+						</p:deleteCell>
+
+						<p:empty>
+									${message:noData}
+								</p:empty>
+
+					</t:grid></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:animal}</legend>
+			<table>
+				<tr>
+					<td>${message:type} :</td>
+					<td>${message:counts} :</td>
+					<td>${message:amount} :</td>
+				</tr>
+
+				<tr>
+					<td><t:textfield t:id="animalType"
+						t:value="declrAnimal.animalType" /></td>
+					<td><t:textfield t:id="animals" t:value="declrAnimal.animals" /></td>
+					<td><t:textfield t:id="amountAnimals"
+						t:value="declrAnimal.amountAnimals" /></td>
+				</tr>
+				<tr>
+					<td style="text-align: left; margin-top: 10px;" colspan="3"><t:submit
+						t:id="SaveAnimal" class="btnFind save" t:value="${message:save}" /></td>
+				</tr>
+				<tr>
+					<td colspan="4"><t:grid t:source="listAnimal"
+						t:row="valueAnimal" t:include="animalType,animals,amountAnimals"
+						t:add="edit,delete,numberAnimal" style="width:100%"
+						rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberAnimal">
+
+						<p:numberAnimalCell>
+									${numberAnimal}
+								</p:numberAnimalCell>
+
+						<p:animalTypeCell>
+									${animalType}
+								</p:animalTypeCell>
+
+						<p:animalsCell>
+									${animals}
+								</p:animalsCell>
+
+						<p:amountAnimalsCell>
+									${amountAnimals}
+								</p:amountAnimalsCell>
+
+						<p:editCell>
+							<t:actionlink t:id="editAnimal" t:context="valueAnimal">
+								<img src="${editIcon}" />
+							</t:actionlink>
+						</p:editCell>
+
+						<p:deleteCell>
+							<t:actionlink t:id="deleteAnimal" t:context="valueAnimal">
+								<img src="${deleteIcon}" />
+							</t:actionlink>
+						</p:deleteCell>
+
+						<p:empty>
+									${message:noData}
+								</p:empty>
+					</t:grid></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:Land}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td>${message:apartmentIntent} :</td>
+							<td>${message:type} :</td>
+							<td>${message:apartmentSize-label} :</td>
+							<td>${message:amount} :</td>
+						</tr>
+
+						<tr>
+							<td><t:select t:model="landIntentionSelectionModel"
+								t:value="declrLand.landIntention" /></td>
+							<td><t:textfield t:id="apartmentType"
+								t:value="declrLand.apartmentType" /></td>
+							<td><t:textfield t:id="apartmentSize"
+								t:value="declrLand.apartmentSize" /></td>
+							<td><t:textfield t:id="amountIntent"
+								t:value="declrLand.amountIntent" /></td>
+						</tr>
+						<tr>
+							<td style="text-align: left; margin-top: 10px;" colspan="4">
+							<t:submit t:id="SaveLand" class="btnFind save"
+								t:value="${message:save}" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="4"><t:grid t:source="listLand"
+								t:row="valueLand"
+								t:include="landIntention,apartmentType,apartmentSize,amountIntent"
+								t:add="edit,delete,numberLand" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberLand">
+
+								<p:numberLandCell>
+											${numberLand}
+										</p:numberLandCell>
+
+								<p:landIntentionCell>
+											${landIntention}
+										</p:landIntentionCell>
+
+								<p:apartmentTypeCell>
+											${apartmentType}
+										</p:apartmentTypeCell>
+
+								<p:apartmentSizeCell>
+											${apartmentSize}
+										</p:apartmentSizeCell>
+
+								<p:amountIntentCell>
+											${amountIntent}
+										</p:amountIntentCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editDeclrLand" t:context="valueLand">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deleteDeclrLand" t:context="valueLand">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+											${message:noData}
+										</p:empty>
+
+							</t:grid></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:properties}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td>${message:propertyName} :</td>
+							<td>${message:counts} :</td>
+							<td>${message:amount} :</td>
+						</tr>
+
+						<tr>
+							<td><t:textfield t:id="propertyName"
+								t:value="declrProperty.propertyName" /></td>
+							<td><t:textfield t:id="properties"
+								t:value="declrProperty.properties" /></td>
+							<td><t:textfield t:id="amountProperty"
+								t:value="declrProperty.amountProperty" /></td>
+						<tr>
+
+						</tr>
+						<td style="text-align: left; margin-top: 10px;" colspan="3">
+						<t:submit t:id="SaveProperty" class="btnFind save"
+							t:value="${message:save}" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="3"><t:grid t:source="listProperty"
+								t:row="valueProperty"
+								t:include="propertyName,properties,amountProperty"
+								t:add="edit,delete,numberProperty" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberProperty">
+
+								<p:numberPropertyCell>
+											${numberProperty}
+										</p:numberPropertyCell>
+
+								<p:propertyNameCell>
+											${propertyName}
+										</p:propertyNameCell>
+
+								<p:propertiesCell>
+											${properties}
+										</p:propertiesCell>
+
+								<p:amountPropertyCell>
+											${amountProperty}
+										</p:amountPropertyCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editProperty" t:context="valueProperty">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deleteProperty" t:context="valueProperty">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+											${message:noData}
+										</p:empty>
+
+							</t:grid></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:savings}</legend>
+			<table>
+				<tr>
+					<td>${message:amount} :</td>
+				</tr>
+				<tr>
+					<td><t:textfield t:id="amountSavings"
+						t:value="income.amountSavings" /></td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:Receivable}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td>${message:legalBody}:</td>
+							<td>${message:amount}:</td>
+						</tr>
+
+						<tr>
+							<td><t:textfield t:id="legalBody"
+								t:value="declrReceivable.legalBody" /></td>
+							<td><t:textfield t:id="amountLegalBody"
+								t:value="declrReceivable.amountLegalBody" /></td>
+						</tr>
+						<tr>
+							<td style="text-align: left; margin-top: 10px;" colspan="2">
+							<t:submit t:id="SaveReceivable" class="btnFind save"
+								t:value="${message:save}" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="2"><t:grid t:source="listReceivable"
+								t:row="valueReceivable" t:include="legalBody,amountLegalBody"
+								t:add="edit,delete,numberReceivable" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="10"
+								reOrder="numberReceivable">
+
+								<p:numberReceivableCell>
+											${numberReceivable}
+										</p:numberReceivableCell>
+
+								<p:legalBodyCell>
+											${legalBody}
+										</p:legalBodyCell>
+
+								<p:amountLegalBodyCell>
+											${amountLegalBody}
+										</p:amountLegalBodyCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editReceivable" t:context="valueReceivable">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deleteReceivable"
+										t:context="valueReceivable">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+											${message:noData}
+										</p:empty>
+
+							</t:grid></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:Loan}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td>${message:loanPersonRecieveable} :</td>
+							<td>${message:firstLoanAmount} :</td>
+						</tr>
+
+						<tr>
+							<td><t:textfield t:id="loanPersonRecieveable"
+								t:value="declrLoan.loanPersonRecieveable" /></td>
+							<td><t:textfield t:id="firstLoanAmount"
+								t:value="declrLoan.firstLoanAmount" /></td>
+						</tr>
+						<tr>
+							<td style="text-align: left; margin-top: 10px;" colspan="2">
+							<t:submit t:id="SaveLoan" class="btnFind save"
+								t:value="${message:save}" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="2"><t:grid t:source="listLoan"
+								t:row="valueLoan"
+								t:include="loanPersonRecieveable,firstLoanAmount"
+								t:add="edit,delete,numberLoan" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberLoan">
+
+								<p:numberLoanCell>
+											${numberLoan}
+										</p:numberLoanCell>
+
+								<p:loanPersonRecieveableCell>
+											${loanPersonRecieveable}
+										</p:loanPersonRecieveableCell>
+
+								<p:firstLoanAmountCell>
+											${firstLoanAmount}
+										</p:firstLoanAmountCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editLoan" t:context="valueLoan">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deleteLoan" t:context="valueLoan">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+											${message:noData}
+										</p:empty>
+
+							</t:grid></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:Company}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td>${message:loanCompanyPerson}:</td>
+							<td>${message:stock}:</td>
+							<td>${message:amountInventory}:</td>
+							<td>${message:concern}:</td>
+						</tr>
+
+						<tr>
+							<td><t:textfield t:id="loanCompanyPerson"
+								t:value="declrCompany.loanCompanyPerson" /></td>
+							<td><t:textfield t:id="stock" t:value="declrCompany.stock" /></td>
+							<td><t:textfield t:id="amountInventory"
+								t:value="declrCompany.amountInventory" /></td>
+							<td><t:textfield t:id="concern"
+								t:value="declrCompany.concern" /></td>
+						</tr>
+
+						<tr>
+							<td style="text-align: left; margin-top: 10px;" colspan="4">
+							<t:submit t:id="SaveCompany" class="btnFind save"
+								t:value="${message:save}" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="4"><t:grid t:source="listCompany"
+								t:row="valueCompany"
+								t:include="loanCompanyPerson,stock,amountInventory,concern"
+								t:add="edit,delete,numberCompany" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberCompany">
+
+								<p:numberCompanyCell>
+										${numberCompany}
+									</p:numberCompanyCell>
+
+								<p:loanCompanyPersonCell>
+										${loanCompanyPerson}
+									</p:loanCompanyPersonCell>
+
+								<p:stockCell>
+										${stock}
+									</p:stockCell>
+
+								<p:amountInventoryCell>
+										${amountInventory}
+									</p:amountInventoryCell>
+
+								<p:concernCell>
+										${concern}
+									</p:concernCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editCompany" t:context="valueCompany">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deleteCompany" t:context="valueCompany">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+										${message:noData}
+									</p:empty>
+
+							</t:grid></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:Patient}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td>${message:priviligeType} :</td>
+							<td>${message:ownerName} :</td>
+						</tr>
+
+						<tr>
+							<td><t:textfield t:id="priviligeType"
+								t:value="declrPatient.priviligeType" /></td>
+							<td><t:textfield t:id="ownerName"
+								t:value="declrPatient.ownerName" /></td>
+						</tr>
+						<tr>
+							<td style="text-align: left; margin-top: 10px;" colspan="2">
+							<t:submit t:id="SavePatient" class="btnFind save"
+								t:value="${message:save}" /></td>
+						</tr>
+
+						<tr>
+							<td colspan="2"><t:grid t:source="listPatient"
+								t:row="valuePatient" t:include="priviligeType,ownerName"
+								t:add="edit,delete,numberPatient" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="10" reOrder="numberPatient">
+
+								<p:numberPatientCell>
+											${numberPatient}
+										</p:numberPatientCell>
+
+								<p:priviligeTypeCell>
+											${priviligeType}
+										</p:priviligeTypeCell>
+
+								<p:ownerNameCell>
+											${ownerName}
+										</p:ownerNameCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editPatient" t:context="valuePatient">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deletePatient" t:context="valuePatient">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+											${message:noData}
+										</p:empty>
+
+							</t:grid></td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: right; margin-top: 10px;"><t:submit
+				t:id="SaveState" class="btnFind save" t:value="${message:save}" />
+			<t:actionlink t:id="CancelState">
+				<input type="submit" class="btnFind refresh"
+					value="${message:cancel}" />
+			</t:actionlink></td>
+		</tr>
+		<tr>
+			<td>
+			<fieldset><legend class="legendTitle2">
+			${message:listIncome}</legend>
+			<table>
+				<tr>
+					<td>
+					<table>
+						<tr>
+							<td colspan="2"><t:grid t:source="listIncome"
+								t:row="valueIncome"
+								t:include="declarationYear,desciplineProfit,delegationAccomplished,apartment"
+								t:add="edit,delete,number" style="width:100%"
+								rowClass="gridRowCSS" rowsPerPage="15" reOrder="number">
+
+								<p:numberCell>
+												${number}
+											</p:numberCell>
+
+								<p:declarationYearCell>
+												${declarationYear}
+											</p:declarationYearCell>
+
+								<p:desciplineProfitCell>
+												${desciplineProfits}
+											</p:desciplineProfitCell>
+
+								<p:apartmentCell>
+												${apartments}
+											</p:apartmentCell>
+
+								<p:editCell>
+									<t:actionlink t:id="editState" t:context="valueIncome">
+										<img src="${editIcon}" />
+									</t:actionlink>
+								</p:editCell>
+
+								<p:deleteCell>
+									<t:actionlink t:id="deleteState" t:context="valueIncome">
+										<img src="${deleteIcon}" />
+									</t:actionlink>
+								</p:deleteCell>
+
+								<p:empty>
+												${message:noData}
+											</p:empty>
+
+							</t:grid>
+							<p align="right"><!--<t:security.HasPermission permission= "excel_declaration">-->
+							<t:actionlink t:id="export">
+								<img src="${imgExcel}" />
+							</t:actionlink> <!--</t:security.HasPermission>	--></p>
+							</td>
+						</tr>
+					</table>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+			</td>
+		</tr>
+	</table>
+	</div>
+</t:form>
+</body>
+</html>

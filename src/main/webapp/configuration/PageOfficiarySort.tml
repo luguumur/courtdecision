@@ -1,0 +1,33 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<t:textfield value="officiarySort.name" t:validate="required"/><br/>
+				<t:select t:model="officiaryCategorySelectionModel" value="officiarySort.category" t:validate="required"/>
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listOfficiarySort" t:row="valueOfficiarySort" t:include="id,name" t:add="officiary,edit,delete">
+					<p:officiaryCell>
+						${officiaryCategory}
+					</p:officiaryCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueOfficiarySort">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueOfficiarySort">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

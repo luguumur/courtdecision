@@ -1,0 +1,195 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns="tapestryarameter" xmlns:p="tapestry:parameter">
+	<fieldset>
+		<legend class="legendTitle">${message:place-holder}</legend>
+		<t:zone t:id="expZone" id="expZone">
+			<t:form t:zone="expZone">
+				<table class="form">
+					<t:if test="show">
+						<tr>
+							<td><label><span class="red">*</span>${message:Status}</label>
+								<t:select t:id="status" t:model="EmployeeStatusSelectionModel"
+									t:value="experience.status" t:validate="required"
+									t:zone="orgZone" /></td>
+							<td><label><span class="red">*</span>${message:organizationSort}</label>
+								<t:select t:id="orgType" t:zone="orgZone"
+									t:model="OrganizationTypeSelectionModel"
+									t:value="experience.organizationType" t:validate="required" />
+							</td>
+							<td><label><span class="red">*</span>${message:organizationname}</label>
+								<t:textfield t:id="organizationName"
+									t:value="experience.organizationName" t:validate="required" />
+							</td>
+							<td><t:zone t:id="appointmentTypeZone"
+									id="appointmentTypeZone">
+									<t:if test="shshgeg">
+										<td><label><span class="red">*</span>
+												${message:OccupationType}</label> <t:select t:id="occupationType"
+												t:model="OccupationTypeSelectionModel"
+												t:value="experience.occupationType" t:blankOption="ALWAYS"
+												t:blankLabel="${message:Choose}" t:zone="appointmentZone" /></td>
+									</t:if>
+								</t:zone></td>
+						</tr>
+						<tr>
+							<td><span class="red">*</span>${message:appointment} <t:zone
+									t:id="appointmentZone" id="appointmentZone">
+									<t:if test="shshgeg">
+										<t:select t:model="AppointmentSelectionModel"
+											t:value="experience.appointmentName" t:validate="required" />
+										<p:else>
+											<t:textfield t:value="experience.appointment" />
+										</p:else>
+									</t:if>
+								</t:zone></td>
+							<td><label><span class="red">*</span>${message:ingoDate}</label>
+								<t:datefield t:id="ingoDate" t:value="experience.startDate"
+									t:validate="required" t:format="yyyy-MM-dd" /></td>
+							<td><label>${message:commandNumber}</label> <t:textfield
+									t:id="commandNumber" t:value="experience.commandNumber" /></td>
+							<td><label>${message:commandStartDate}</label> <t:datefield
+									t:id="commandStartDate" t:value="experience.commandStartDate"
+									t:format="yyyy-MM-dd" /></td>
+						</tr>
+						<tr>
+							<td><label>${message:commandSubject}</label> <t:select
+									t:model="commandSubjectSelectionModel"
+									t:value="experience.commandSubject" /></td>
+
+							<td>${message:MilitaryOrSimple} <t:select
+									t:model="militaryOrSimpleSelectionModel"
+									t:value="experience.MilitaryOrSimple"/>
+							</td>
+							<td>${message:outgoingDate} <t:datefield t:id="outgoingDate"
+									t:value="experience.endDate" 
+									t:format="yyyy-MM-dd" />
+							</td>
+							<td>${message:commandEndDate} <t:datefield
+									t:id="commandEndDate" t:value="experience.commandEndDate"
+									t:format="yyyy-MM-dd" />
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td><t:submit t:id="save" value="${message:save}" /> <t:actionlink
+									t:id="cancel" t:zone="expZone">
+									<input type="button" value="${message:cancel}" />
+								</t:actionlink></td>
+						</tr>
+					</t:if>
+				</table>
+			</t:form>
+
+			<t:grid t:source="listExperience" t:row="valueExperience"
+				t:include="organizationType,organizationName,status,militaryOrSimple"
+				t:add="number,ingoDate,outgoingDate,workedYear,edit,delete,appointmentValue"
+				t:reOrder="number,organizationType,appointmentValue" rowsPerPage="25">
+				<p:numberCell>
+					${number}
+				</p:numberCell>
+				<p:ingoDateCell>
+					${startday}
+				</p:ingoDateCell>
+				<p:outgoingDateCell>
+					${endday}
+				</p:outgoingDateCell>
+				<p:workedYearCell>
+					${workedYear}
+				</p:workedYearCell>
+				<p:appointmentValueCell>
+					${appointmentName}
+				</p:appointmentValueCell>
+					<p:editCell>	
+						<t:security.hasPermission permission="edit_experience">
+							<t:actionlink t:id="edit" t:context="valueExperience"
+								t:zone="expZone"> 
+							Засах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_experience">
+						<t:actionlink t:id="delete" t:context="valueExperience"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}"
+							t:zone="expZone">
+						Устгах
+					</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+			</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="export">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend class="legendTitle">${message:place-holder}</legend>
+		<t:zone t:id="examPlaceHolderZone" id="examPlaceHolderZone">
+			<t:form t:zone="examPlaceHolderZone">
+				<table id="newspaper-layEmp">
+					<tr>
+						<td>${message:examPlaceHolder}</td>
+						<td>&nbsp;</td>
+						<td><t:radiogroup t:value="employee.examPlaceHolder"
+								style="width: 90%">
+						${message:taken}
+		                <t:radio t:id="yes" />
+		                ${message:nottaken}
+		                <t:radio t:id="no" />
+							</t:radiogroup></td>
+						<td>&nbsp;</td>
+						<td><t:datefield class="swearDate"
+								t:value="employee.SwearDate" t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td>${message:swearPlaceHolder}</td>
+						<td>&nbsp;</td>
+						<td><t:radiogroup t:value="employee.swear" style="width: 90%">
+							${message:swear}
+			                <t:radio t:id="yesSwear" />
+			                ${message:notswear}
+			                <t:radio t:id="noSwear" />
+							</t:radiogroup></td>
+						<td>&nbsp;</td>
+						<td><t:datefield class="swearDate"
+								t:value="employee.examPlaceholderDate" t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td>${message:declarationPlaceHolder}</td>
+						<td>&nbsp;</td>
+						<td><t:radiogroup t:value="employee.declaration"
+								style="width: 90%">
+							${message:yes}
+			                <t:radio t:id="yesDeclaration" />
+			                ${message:no}
+			                <t:radio t:id="noDeclaration" />
+							</t:radiogroup></td>
+						<td></td>
+						<td></td>
+					</tr>
+					<t:security.hasPermission permission="edit_examPlaceholder">
+						<tr>
+							<t:if test="show">
+								<td colspan="5">
+									<p align="right">
+										<t:submit t:id="saveExamPlaceholder" class="btnFind save"
+											value="${message:save}" />
+									</p>
+								</td>
+							</t:if>
+						</tr>
+					</t:security.hasPermission>
+				</table>
+			</t:form>
+		</t:zone>
+	</fieldset>
+</t:container>

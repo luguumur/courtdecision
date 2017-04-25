@@ -1,0 +1,48 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>Сургуулийн төрөл :</td>
+						<td>${message:country} :</td>	
+						<td>${message:school} :</td>											
+					</tr>					
+					<tr>
+						<td><t:select t:model="universityTypeSelectionModel" value="school.universityType" validate="required"/></td>						
+						<td><t:select t:model="countrySelectionModel" value="school.country" validate="required"/></td>
+						<td><t:textfield t:id="school" value="school.name" t:validate="required" style="width: 250px"/></td>						
+					</tr>	
+					<tr>
+						<td></td>
+						<td></td>
+						<td align="right"><t:submit t:id="save" class="btnFind save" t:value="${message:save}"/></td>
+					</tr>
+				</table>	
+			</div><br/>
+			<div>
+				<t:grid t:source="listSchool" t:row="valueSchool" t:include="id,universityType,name" t:add="countryName,edit,delete"
+				 rowsPerPage="25" >
+					<p:countryNameCell>
+						${valueSchool.country.countryName}
+					</p:countryNameCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueSchool">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueSchool">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

@@ -1,0 +1,33 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				${message:skillGroupType} :
+				<t:textfield value="skill.name" t:validate="required" t:style="width: 200px"/> &nbsp;
+				<t:submit t:id="save" t:value="${message:save}"  class="btnFind save" />
+			</div><br/>
+			<div>
+				<t:grid t:source="listSkill" t:row="valueSkill" t:include="id,name" t:add="edit,delete"  rowsPerPage="25">
+					<p:countryNameCell>
+						${valueSkill.name}
+					</p:countryNameCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueSkill">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueSkill">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

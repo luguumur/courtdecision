@@ -1,0 +1,160 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<body>
+	<t:zone t:id="formZone" id="formZone">
+		<t:form t:zone="formZone">
+			<fieldset>
+				<legend>${message:establishment}</legend>
+				<table class="form">
+					<tr>
+						<td>
+							<label>Анги/алба <span class="red">*</span></label>
+							<t:select 
+								t:model="organizationSelectionModel" 
+								t:value="establishment.organization"
+								t:validate="required"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</td>
+						<td>
+							<label>Орон тооны нэр <span class="red">*</span></label>
+							<t:textfield 
+								t:value="establishment.name"
+								t:validate="required"
+								t:label="message:name" />
+						</td>
+						<td>
+							<label>Албан тушаалын төрөл <span class="red">*</span></label>
+							<t:select 
+								t:id="appointmentType"
+								t:model="appointmentTypeSelectionModel" 
+								t:value="establishment.appointmentType"
+								t:validate="required"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}"
+								t:zone="appointmentZone" />
+						</td>
+						<td>
+							<label>Албан тушаал <span class="red">*</span></label>
+							<t:zone t:id="appointmentZone" id="appointmentZone">
+								<t:select
+									t:model="appointmentSelectionModel" 
+									t:value="establishment.appointment"
+									t:validate="required"
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" />
+							</t:zone>
+						</td>
+					</tr>
+					<tr>						
+						<td>
+							<label>Цалингийн ангилал <span class="red">*</span></label>
+							<t:select 
+								t:id="utTzTtTuSort"
+								t:model="utTzTtTuSortSelectionModel" 
+								t:value="establishment.utTzTtTuSort"
+								t:zone="utTzTtTuLevelZone"
+								t:validate="required"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</td>
+						<td>
+							<label>Цалинжих хэлбэр <span class="red">*</span></label>
+							<t:select 
+								t:model="salaryNetworkSelectionModel" 
+								t:value="establishment.salaryNetwork"
+								t:blankOption="ALWAYS"
+								t:validate="required"
+								t:blankLabel="${message:Choose}" />	
+						</td>
+						<td>
+							<label>Цалингийн зэрэглэл <span class="red">*</span></label>
+							<t:zone t:id="utTzTtTuLevelZone" id="utTzTtTuLevelZone">
+								<t:select 
+									t:model="utTzTtTuLevelSelectionModel" 
+									t:value="establishment.utTzTtTuLevel"
+									t:validate="required"
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" />
+							</t:zone>	
+						</td>
+						<td>
+							<label>Цолны түвшин <span class="red">*</span></label>
+							<t:select 
+								t:model="militaryRankSelectionModel" 
+								t:value="establishment.militaryRankType"
+								t:validate="required"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>Батлагдсан орон тоо <span class="red">*</span></label>
+							<t:textfield 
+								t:validate="required"
+								t:value="establishment.num" />		
+						</td>	
+						<td>
+							<label>Идэвхитэй эсэх</label>
+							<t:checkbox 
+								t:value="establishment.status" />		
+						</td>
+						<td>
+							<label>Үндсэн эсэх</label>
+							<t:checkbox 
+								t:value="establishment.main" />	
+						</td>
+						<td style="text-align:right;">				    
+							<t:submit 
+								t:id="save" 
+								t:value="${message:save}" />
+								
+							<t:pagelink t:page="establishmentList" class="button">
+								${message:cancel}
+							</t:pagelink>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<fieldset>
+				<legend>Ажилчид</legend>
+				<t:zone t:id="listZone" id="listZone">
+					<div>
+						<t:grid 
+							t:source="listEmployee" 
+							t:row="valueEmployee"
+							t:rowsPerPage="20"
+							t:pagerPosition="bottom"
+							t:add="number,edit,organizationName"
+							t:include="firstname,lastname"
+							t:reOrder="number,organizationName,firstname,lastname,edit">
+							<p:numberCell>
+								${number}
+							</p:numberCell>
+							<p:organizationNameCell>
+								${valueEmployee?.organization?.name}
+							</p:organizationNameCell>
+							<p:editCell>
+								<t:pagelink t:page="pageEmployeeGeneral"
+									t:context="valueEmployee.id">
+									Засах
+								</t:pagelink>
+							</p:editCell>
+							<p:empty>
+								${message:noData}
+							</p:empty>
+						</t:grid>
+					</div>
+				</t:zone>
+			</fieldset>
+		</t:form>
+	</t:zone>	
+</body>
+
+</html>
+
+

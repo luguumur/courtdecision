@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<head>
+<title>${message:header}</title>
+<link rel="icon" type="image/ico" href="${favicon}" />
+</head>
+
+<body>
+	<div class="container">
+		<div class="header">
+			<div class="logo"></div>
+			<h3>${message:header}</h3>
+
+			<div class="hr">Хүний нөөцийн систем</div>
+			<div class="appointment">
+				${organiz} / 
+				
+				${appointment} /
+
+				<t:jquery.dialoglink t:id="link2" t:dialog="changePassword">
+					<span>${username} / </span>
+				</t:jquery.dialoglink>
+				<t:actionlink t:id="logout">
+					${message:logout}
+				</t:actionlink>
+
+			</div>
+		</div>
+
+		<div class="main">
+			<div class="left">
+				<ul>
+					<li class="title"><t:pagelink t:page="home" class="main">+ Эхлэл</t:pagelink>
+					</li>
+					<li class="title">+ Анги албад</li>
+					<li><t:pagelink t:page="organization/pageHierarchy">Бүтэц</t:pagelink></li>
+					<li><t:pagelink t:page="organization/pageOrganizationList">Жагсаалт</t:pagelink></li>
+
+					<t:security.HasPermission permission="go_config_page">
+						<li class="title">+ Орон тоо</li>
+						<li><t:pagelink t:page="establishmentList">Жагсаалт</t:pagelink></li>
+					</t:security.HasPermission>
+
+					<li class="title">+ Хүний нөөц</li>
+					<li><t:actionlink t:id="nowWorking">Ажиллаж буй</t:actionlink></li>
+					<li><t:pagelink t:page="pageEmployeePregnant">Жирэмсний амралтанд байгаа</t:pagelink></li>
+					<li><t:pagelink t:page="pageEmployeeAtTraining">Сургалтанд байгаа</t:pagelink></li>
+					<li><t:pagelink t:page="pageEmployeePrevious">Урьд ажиллаж байсан</t:pagelink></li>
+					<li class="title">+ Тайлан</li>  
+					<li><t:pagelink t:page="pageReport">Үндсэн тайлан</t:pagelink></li>
+					<li><t:pagelink t:page="establishmentReport">Орон тоо</t:pagelink></li>
+					<li><t:pagelink t:page="employee/pageEmployeeList">Судалгаа</t:pagelink></li>
+					<li class="title"><t:pagelink t:page="warning" class="main">+ Анхааруулга</t:pagelink></li>
+					<li class="title"><t:pagelink t:page="notification"
+							class="main">+ Зарлал</t:pagelink></li>
+					<li class="title"><a target="blank"
+						href="${context:/documents/Screen_manual.pdf}" class="main">+
+							Гарын авлага</a></li>
+
+					<t:security.HasPermission permission="go_config_page">
+						<li class="title">+ Системийн тохиргоо</li>
+						<li><t:pagelink t:page="configuration/userConfig">Хэрэглэгчийн тохиргоо</t:pagelink></li>
+						<li><t:pagelink t:page="configuration/pageConfig">Тохиргоо</t:pagelink></li>
+						<li><t:pagelink t:page="configuration/pageEmployeeConfig">Ажилтны мэдээлэл</t:pagelink></li>
+						<li><t:pagelink t:page="configuration/pageOrganizationConfig">Байгууллагын мэдээлэл</t:pagelink></li>
+						<li><t:pagelink t:page="configuration/pagePrizeConfig">Шагнал, шийтгэл</t:pagelink></li>
+						<li><t:pagelink t:page="configuration/pageExcelConfig">Excel импорт</t:pagelink></li>
+					</t:security.HasPermission>
+
+					<t:security.HasPermission permission="go_config_page">
+						<li class="title"><t:pagelink
+								t:page="configuration/pageUserLoginHistory">+ Нэвтэрсэн түүх</t:pagelink>
+						</li>
+					</t:security.HasPermission>
+				</ul>
+			</div>
+			<div class="mainBody">
+				<t:jquery.jgrowl />
+				<t:body />
+			</div>
+		</div>
+		<div class="footer">Copyright@2013 Шүүхийн шийдвэр гүйцэтгэх
+			ерөнхий газар.</div>
+
+	</div>
+</body>
+
+<t:jquery.dialog t:clientId="changePassword" t:params="param"
+	t:title="message:changePassword">
+	<t:form>
+		<table class="form">
+			<tr>
+				<td><span class="red">*</span>${message:currentPassword} :</td>
+				<td><t:passwordfield t:value="currentPassword" /></td>
+			</tr>
+			<tr>
+				<td><span class="red">*</span>${message:newPassword} :</td>
+				<td><t:passwordfield t:value="newPassword" /></td>
+			</tr>
+			<tr>
+				<td><span class="red">*</span>${message:confirmPassword} :</td>
+				<td><t:passwordfield t:value="confirmPassword" /></td>
+			</tr>
+			<tr>
+				<td colspan="2" style="text-align: right;"><t:submit
+						t:id="changePass" t:value="${message:save}"
+						t:mixins="jquery/button" /></td>
+			</tr>
+		</table>
+	</t:form>
+</t:jquery.dialog>
+
+</html>

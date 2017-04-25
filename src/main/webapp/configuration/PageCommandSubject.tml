@@ -1,0 +1,35 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+			    <span class="red">*</span>${message:commandSubject} :<br/>
+				<t:textfield value="commandSubject.subjectName" t:validate="required" style="width:30%"/> &nbsp;
+				
+				<t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>
+			</div><br/>
+			<div>
+				<t:grid t:source="listCommandSubject"  t:row="valueCommandSubject" t:include="subjectName" t:add="edit,delete,number" 
+				rowClass="gridRowCSS" rowsPerPage="15" reOrder="number" style="width:75%">
+				    <p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueCommandSubject">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueCommandSubject">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

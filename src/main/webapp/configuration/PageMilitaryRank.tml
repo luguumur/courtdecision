@@ -1,0 +1,48 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>${message:Type} :</td>
+						<td>${message:Military} :</td>
+							<td>${message:periodTime} :</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><t:select t:model="typeSelectionModel" value="militaryRank.militaryRankType" validate="required"/></td>
+						<td><t:textfield t:id="rank" value="militaryRank.militaryName" t:validate="required"/></td>
+							<td><t:textfield t:id="period" value="militaryRank.period" /></td>
+						<td><t:submit t:id="save" class="btnFind save" t:value="${message:save}"/></td>
+					</tr>	
+				</table>	
+			</div><br/>
+			<div>
+				<t:grid t:source="listMilitaryRank" t:row="valueMilitaryRank" t:include="militaryRankType,militaryName" 
+				t:add="number,periods,edit,delete"  reOrder="number" rowsPerPage="15" >
+				 	<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:periodsCell>
+						${period}
+					</p:periodsCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueMilitaryRank">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueMilitaryRank">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

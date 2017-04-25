@@ -1,0 +1,1469 @@
+<html t:type="layoutCD" title="${message:configuration}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<script>
+	$(function() {
+		$("#accordion").accordion({
+			heightStyle : "content",
+			autoHeight : false,
+			collapsible : true,
+			active : false
+		});
+	});
+</script>
+</head>
+
+<body>
+	<div class="accordBox">
+		<div id="accordion">
+			<h3>Албан тушаалын үүрэг</h3>
+			<div>
+				<t:zone t:id="occupationRoleFormZone" id="occupationRoleFormZone">
+					<t:form t:zone="occupationRoleFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:OccupationRoleName}</label> <t:textfield
+										value="occupationRole.name" /></td>
+								<td><label>Удирдах эсэх</label> <t:checkbox
+										t:value="occupationRole.isUdirdah" /></td>
+								<td><t:submit t:id="saveOccRole" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="occupationRoleListZone" id="occupationRoleListZone">
+					<t:grid t:source="listOccupationRole" t:row="valueOccupationRole"
+						t:include="name" t:add="occupationNumber,edit,delete"
+						inplace="true" rowsPerPage="10" reOrder="occupationNumber">
+						<p:occupationNumberCell>
+							${occupationNumber}
+						</p:occupationNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editOccRole" t:context="valueOccupationRole"
+								t:zone="occupationRoleFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteOccRole"
+								t:context="valueOccupationRole" t:zone="occupationRoleFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Албан тушаалын төрөл</h3>
+			<div>
+				<t:zone t:id="occupationTypeFormZone" id="occupationTypeFormZone">
+					<t:form t:zone="occupationTypeFormZone">
+						<table class="form">
+							<tr>
+								<td><t:textfield t:value="occupationType.name" /></td>
+								<td><t:submit t:id="saveOccupationType"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="occupationTypeListZone" id="occupationTypeListZone">
+					<t:grid t:source="listOccupationType" t:row="valueOccupationType"
+						t:include="name" t:add="occupationTypeNumber,edit,delete"
+						reOrder="occupationTypeNumber">
+						<p:occupationTypeNumberCell>
+							${occupationTypeNumber}
+						</p:occupationTypeNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editOccupationType"
+								t:context="valueOccupationType" t:zone="occupationTypeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteOccupationType"
+								t:context="valueOccupationType" t:zone="occupationTypeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Албан тушаал</h3>
+			<div>
+				<t:zone t:id="appointmentFormZone" id="appointmentFormZone">
+					<t:form t:zone="appointmentFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:appointment}</label> <t:select
+										t:model="occupationTypeSelectionModel"
+										t:value="appointment.occupationType" t:validate="required" />
+								</td>
+								<td><t:textfield t:value="appointment.AppointmentName"
+										t:validate="required" /></td>
+								<td><label>${message:guitsetgehAjliinNemegdel}</label> <t:checkbox
+										t:value="appointment.gaNemegdel" /></td>
+								<td></td>
+								<td><t:submit t:id="saveAppointment"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="appointmentListZone" id="appointmentListZone">
+					<t:grid t:source="listAppointment" t:row="valueAppointment"
+						t:include="appointmentName"
+						reOrder="number,rowId,occupationTypeName,appointmentName,guitsetgehAjliinNemegdel"
+						t:add="number,guitsetgehAjliinNemegdel,edit,delete,occupationTypeName,rowId"
+						rowsPerPage="10" inPlace="true">
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:rowIdCell>
+							${valueAppointment?.id}
+						</p:rowIdCell>
+						<p:occupationTypeNameCell>
+							${valueAppointment?.occupationType?.name}
+						</p:occupationTypeNameCell>
+						<p:guitsetgehAjliinNemegdelCell>
+							${guitsetgehAjliinNemegdel}
+						</p:guitsetgehAjliinNemegdelCell>
+						<p:editCell>
+							<t:actionlink t:id="editAppointment" t:context="valueAppointment"
+								t:zone="appointmentFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteAppointment"
+								t:context="valueAppointment" t:zone="appointmentListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Цалинжих хэлбэр</h3>
+			<div>
+				<t:zone t:id="salaryNetworkFormZone" id="salaryNetworkFormZone">
+					<t:form t:zone="salaryNetworkFormZone">
+						<table class="form">
+							<tr>
+								<td>${message:salaryNetworkName} <t:textfield
+										t:value="salaryNetwork.salaryNetworkName"
+										t:validate="required" />
+								</td>
+								<td><t:select t:model="wageSelectionMoel"
+										t:value="salaryNetwork.getWage" t:validate="required" /></td>
+								<td><t:submit t:id="saveSalaryNetwork"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="salaryNetworkListZone" id="salaryNetworkListZone">
+					<t:grid t:source="listSalaryNetwork" t:row="valueSalaryNetwork"
+						t:include="salaryNetworkName"
+						t:add="salaryNetworkNumber,edit,delete" rowsPerPage="10"
+						reOrder="salaryNetworkNumber">
+						<p:salaryNetworkNumberCell>
+					 		${salaryNetworkNumber}
+					 	</p:salaryNetworkNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editSalaryNetwork"
+								t:context="valueSalaryNetwork" t:zone="salaryNetworkFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSalaryNetwork"
+								t:context="valueSalaryNetwork" t:zone="salaryNetworkListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Цалингийн шатлал</h3>
+			<div>
+				<t:zone t:id="salaryScaleFormZone" id="salaryScaleFormZone">
+					<t:form t:zone="salaryScaleFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:salaryScale}</label> <t:textfield
+										t:value="salaryScale.salaryScale" t:validate="required" /></td>
+								<td><t:submit t:id="saveSalaryScale"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="salaryScaleListZone" id="salaryScaleListZone">
+					<t:grid t:source="listSalaryScale" t:row="valueSalaryScale"
+						t:include="salaryScale" t:add="salaryScaleNumber,edit,delete"
+						rowsPerPage="10" reOrder="salaryScaleNumber">
+						<p:salaryScaleNumberCell>
+					 		${salaryScaleNumber}
+					 	</p:salaryScaleNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editSalaryScale" t:context="valueSalaryScale"
+								t:zone="salaryScaleFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSalaryScale"
+								t:context="valueSalaryScale" t:zone="salaryScaleListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Шилжих шалтгааны төрөл</h3>
+			<div>
+				<t:zone t:id="displacementCauseFormZone"
+					id="displacementCauseFormZone">
+					<t:form t:zone="displacementCauseFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Төрөл</label> <t:textfield
+										value="displacementCause.name" t:validate="required" /></td>
+								<td><t:submit t:id="saveDisplacementCause"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="displacementCauseListZone"
+					id="displacementCauseListZone">
+					<t:grid t:source="listDisplacementCause"
+						t:row="valueDisplacementCause" t:include="name"
+						t:add="displacementCauseNumber,edit,delete" rowsPerPage="25"
+						reOrder="displacementCauseNumber">
+						<p:displacementCauseNumberCell>
+					 		${displacementCauseNumber}
+					 	</p:displacementCauseNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editDisplacementCause"
+								t:context="valueDisplacementCause"
+								t:zone="displacementCauseFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteDisplacementCause"
+								t:context="valueDisplacementCause"
+								t:zone="displacementCauseListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Чөлөөлөгдөх шалтгааны төрөл</h3>
+			<div>
+				<t:zone t:id="quitJobCauseFormZone" id="quitJobCauseFormZone">
+					<t:form t:zone="quitJobCauseFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Чөлөөлөгдөх шалтгааны төрөл</label> <t:select
+										t:model="QuitTypeSelectionModel"
+										t:value="quitJobCause.causeType" t:validate="required" /></td>
+								<td><label>${message:cause}</label> <t:textfield
+										t:value="quitJobCause.causeName" t:validate="required" /></td>
+								<td><t:submit t:id="saveQuitJobCause"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="quitJobCauseListZone" id="quitJobCauseListZone">
+					<t:grid t:source="listQuitJobCause" t:row="valueQuitJobCause"
+						t:include="causeType,causeName"
+						t:add="quitJobCauseNumber,edit,delete"
+						reOrder="quitJobCauseNumber" rowsPerPage="10">
+						<p:quitJobCauseNumberCell>
+					 		${quitJobCauseNumber}
+					 	</p:quitJobCauseNumberCell>
+						<p:quitJobCauseCell>
+							${quitJobCauseNumber}
+						</p:quitJobCauseCell>
+						<p:commandSubjectCell>
+							${valueQuitJobCause?.causeType?.name}
+						</p:commandSubjectCell>
+						<p:editCell>
+							<t:actionlink t:id="editQuitJobCause"
+								t:context="valueQuitJobCause" t:zone="quitJobCauseFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteQuitJobCause"
+								t:context="valueQuitJobCause" t:zone="quitJobCauseListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+
+			</div>
+			<h3>Цалингийн сүлжээний тохиргоо</h3>
+			<div>
+				<t:zone t:id="salaryNetworkConfigFormZone"
+					id="salaryNetworkConfigFormZone">
+					<t:form t:zone="salaryNetworkConfigFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Төрийн захиргааны зэрэглэл</label> <t:select
+										t:model="levelSelectionModel" t:value="salary.level"
+										t:validate="required" /></td>
+								<td><label>Цалингийн сүлжээний шатлал</label> <t:select
+										t:model="salaryPhaseSelectionModel" t:value="salary.phase" />
+								</td>
+								<td><label><span class="red">*</span>Цалингийн дүн</label>
+									<t:textfield t:value="salary.amount" t:validate="required" /></td>
+								<td><label><span class="red">*</span>Огноо</label> <t:datefield
+										t:value="salary.date" t:format="yyyy-MM-dd"
+										t:validate="required" /></td>
+							</tr>
+							<tr>
+								<td><label><span class="red">*</span>Хүчинтэй
+										хугацаа/жилээр/</label> <t:textfield t:value="salary.validTime"
+										t:validate="required" /></td>
+								<td><label>Идэвхитэй</label> <t:checkbox
+										t:value="salary.active" /></td>
+								<td></td>
+								<td><t:submit t:id="saveSalary" class="button"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="salaryNetworkConfigListZone"
+					id="salaryNetworkConfigListZone">
+					<t:grid t:source="listTuriinZahirgaaSalaryNetwork"
+						t:row="valueTuriinZahirgaaSalaryNetwork"
+						t:add="salaryNetworkConfigNumber,edit,delete,levelName,salaryScaleName,dateName,amountName,validTimeName"
+						rowsPerPage="25" t:include="id"
+						t:reOrder="salaryNetworkConfigNumber,levelName,salaryScaleName,amountName,validTimeName,dateName"
+						inPlace="true">
+						<p:salaryNetworkConfigNumberCell>
+							${salaryNetworkConfigNumber}
+						</p:salaryNetworkConfigNumberCell>
+						<p:levelNameCell>
+							${valueTuriinZahirgaaSalaryNetwork?.level?.utTzTtTuSort?.name} - ${valueTuriinZahirgaaSalaryNetwork?.level?.utTzTtTuRank?.rank}
+						</p:levelNameCell>
+						<p:salaryScaleNameCell>
+							${valueTuriinZahirgaaSalaryNetwork?.phase?.salaryScale}
+						</p:salaryScaleNameCell>
+						<p:dateNameCell>
+							${valueTuriinZahirgaaSalaryNetwork?.date}
+						</p:dateNameCell>
+						<p:amountNameCell>
+							${valueTuriinZahirgaaSalaryNetwork?.amount}
+						</p:amountNameCell>
+						<p:validTimeNameCell>
+							${valueTuriinZahirgaaSalaryNetwork?.validTime}
+						</p:validTimeNameCell>
+						<p:editCell>
+							<t:actionlink t:id="editSalaryNetworkConfig"
+								t:context="valueTuriinZahirgaaSalaryNetwork"
+								t:zone="salaryNetworkConfigFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSalaryNetworkConfig"
+								t:context="valueTuriinZahirgaaSalaryNetwork"
+								t:zone="salaryNetworkConfigListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Нэмэгдэл цалингийн төрөл</h3>
+			<div>
+				<t:zone t:id="additionalSalaryFormZone"
+					id="additionalSalaryFormZone">
+					<t:form t:zone="additionalSalaryFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:additionalSalaryType}</label> <t:textfield
+										t:value="additionalSalary.name" t:validate="required" /></td>
+								<td><label>${message:category}</label> <t:select
+										t:model="categorySelectionModel"
+										t:value="additionalSalary.category" t:validate="required" /></td>
+								<td><t:submit t:id="saveAdditionalSalary"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="additionalSalaryListZone"
+					id="additionalSalaryListZone">
+					<t:grid t:source="listAdditionalSalaryType"
+						t:row="valueAdditionalSalaryType" t:include="name,category"
+						t:add="additionalSalaryNumber,edit,delete" rowsPerPage="10"
+						reorder="additionalSalaryNumber">
+						<p:additionalSalaryNumberCell>
+							${additionalSalaryNumber}
+						</p:additionalSalaryNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editAdditionalSalary"
+								t:context="valueAdditionalSalaryType"
+								t:zone="additionalSalaryFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteAdditionalSalary"
+								t:context="valueAdditionalSalaryType"
+								t:zone="additionalSalaryListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+
+			</div>
+			<h3>Тэтгэвэрт гарах нас</h3>
+			<div>
+				<t:zone t:id="retireAgeFormZone" id="retireAgeFormZone">
+					<t:form t:zone="retireAgeFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:male}</label> <t:textfield
+										t:value="retireAge.maleAge" t:validate="required" /></td>
+								<td><label>${message:female}</label> <t:textfield
+										value="retireAge.femaleAge" validate="required" /></td>
+								<td><t:submit t:id="saveRetireAge"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="retireAgeListZone" id="retireAgeListZone">
+					<t:grid t:source="listRetireAge" t:row="valueRetireAge"
+						t:include="id,maleAge,femaleAge" t:add="edit">
+						<p:maleAgeCell>
+							${maleAge}
+						</p:maleAgeCell>
+
+						<p:femaleAgeCell>
+							${femaleAge}
+						</p:femaleAgeCell>
+						<p:editCell>
+							<t:actionlink t:id="editRetireAge" t:context="valueRetireAge"
+								t:zone="retireAgeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+					</t:grid>
+				</t:zone>
+			</div>
+
+			<h3>Зэрэглэлийн ангилал</h3>
+			<div>
+				<t:zone t:id="occupationRankFormZone" id="occupationRankFormZone">
+					<t:form t:zone="occupationRankFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Ангилал</label> <t:textfield
+										t:value="occupationRank.rank" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveOccupationRank"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="occupationRankListZone" id="occupationRankListZone">
+					<t:grid t:source="listOccupationRank" t:row="valueOccupationRank"
+						t:include="id" t:add="rankQuantity,edit,delete" rowsPerPage="10">
+						<p:editCell>
+							<t:actionlink t:id="editOccupationRank"
+								t:context="valueOccupationRank" t:zone="occupationRankFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteOccupationRank"
+								t:context="valueOccupationRank" t:zone="occupationRankListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+						<p:rankQuantityCell>
+							${rank}
+						</p:rankQuantityCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Улс</h3>
+			<div>
+				<t:zone t:id="countryFormZone" id="countryFormZone">
+					<t:form t:zone="countryFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:country}</label> <t:textfield
+										t:id="country" t:value="country.countryName"
+										t:validate="required" /></td>
+								<td><label>${message:language}</label> <t:textfield
+										t:id="language" t:value="country.language"
+										t:validate="required" /></td>
+								<td><label>${message:isMongolia}</label> <t:checkbox
+										value="country.isMongolia" /></td>
+								<td><t:submit t:id="saveCountry" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="countryListZone" id="countryListZone">
+					<t:grid t:source="listCountry" t:row="valueCountry"
+						t:include="countryName,language" t:add="countryNumber,edit,delete"
+						rowsPerPage="10" reorder="countryNumber">
+						<p:countryNumberCell>
+							${countryNumber}
+						</p:countryNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editCountry" t:context="valueCountry"
+								t:zone="countryFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteCountry" t:context="valueCountry"
+								t:zone="countryListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+
+			</div>
+			<h3>Хот /Гадаад улсын/</h3>
+			<div>
+				<t:zone t:id="cityProvinceFormZone" id="cityProvinceFormZone">
+					<t:form t:zone="cityProvinceFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Хотын нэр /Гадаад улсын/</label> <t:select
+										t:model="countrySelectionModel" value="cityProvince.country"
+										t:validate="required" /></td>
+								<td><label>${message:country}</label> <t:textfield
+										value="cityProvince.cityProvinceName" t:validate="required" />
+
+								</td>
+								<td></td>
+								<td><t:submit t:id="save" t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="cityProvinceListZone" id="cityProvinceListZone">
+					<t:grid t:source="listCityProvince" t:row="valueCityProvince"
+						t:include="cityProvinceName"
+						t:add="cityProvinceNumber,countryName,edit,delete"
+						rowsPerPage="25" inPlace="true" reorder="cityProvinceNumber">
+						<p:cityProvinceNumberCell>
+							${cityProvinceNumber}
+						</p:cityProvinceNumberCell>
+						<p:countryNameCell>
+							${valueCityProvince?.country?.countryName}
+						</p:countryNameCell>
+						<p:editCell>
+							<t:actionlink t:id="edit" t:context="valueCityProvince"
+								t:zone="cityProvinceFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="delete" t:context="valueCityProvince"
+								t:zone="cityProvinceFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Хот, аймаг</h3>
+			<div>
+				<t:zone t:id="cityFormZone" id="cityFormZone">
+					<t:form t:zone="cityFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Хот, аймгийн нэр</label> <t:textfield
+										value="city.cityName" /></td>
+								<td></td>
+								<td></td>
+								<td><t:submit t:id="saveCity" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="cityListZone" id="cityListZone">
+					<t:grid t:source="listCity" t:row="valueCity" t:include="cityName"
+						t:add="cityNumber,edit,delete" inPlace="true" reorder="cityNumber">
+						<p:cityNumberCell>
+							${cityNumber}
+						</p:cityNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editCity" t:context="valueCity"
+								t:zone="cityFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteCity" t:context="valueCity"
+								t:zone="cityFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Сум, дүүрэг</h3>
+			<div>
+				<t:zone t:id="sumFormZone" id="sumFormZone">
+					<t:form t:zone="sumFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:districtSumName}</label> <t:textfield
+										value="districtSum.districtSumName" /></td>
+								<td><label>${message:cityProvinceName}</label> <t:select
+										t:model="cityProvinceSelectionModel" value="districtSum.city"
+										validate="required" /></td>
+								<td></td>
+								<td colspan="2"><t:submit t:id="saveSum"
+										t:value="${message:save}" /> <t:submit t:id="searchSum"
+										t:value="${message:search}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="sumListZone" id="sumListZone">
+					<t:grid t:source="listDistrictSum" t:row="valueDistrictSum"
+						t:include="districtSumName" t:add="sumNumber,cityName,edit,delete"
+						rowsPerPage="25" inPlace="true" reorder="sumNumber">
+						<p:sumNumberCell>
+							${sumNumber}
+						</p:sumNumberCell>
+						<p:cityNameCell>
+							${valueDistrictSum?.city?.cityName}
+						</p:cityNameCell>
+						<p:editCell>
+							<t:actionlink t:id="editSum" t:context="valueDistrictSum"
+								t:zone="sumFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSum" t:context="valueDistrictSum"
+								t:zone="sumFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Сургууль</h3>
+			<div>
+				<t:zone t:id="schoolFormZone" id="schoolFormZone">
+					<t:form t:zone="schoolFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Сургуулийн төрөл</label> <t:select
+										t:model="universityTypeSelectionModel"
+										value="school.universityType" validate="required" /></td>
+								<td><label>${message:country}</label> <t:select
+										t:model="countrySelectionModel" value="school.country"
+										validate="required" /></td>
+								<td><label>${message:school}</label> <t:textfield
+										t:id="school" value="school.name" t:validate="required" /></td>
+								<td><t:submit t:id="saveSchool" t:value="${message:save}" />
+
+									<t:submit t:id="searchSchool" t:value="${message:search}" /> <t:actionlink
+										t:id="cancelSchool">
+										${message:cancel}
+									</t:actionlink></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="schoolListZone" id="schoolListZone">
+					<t:grid t:source="listSchool" t:row="valueSchool"
+						t:include="universityType,name"
+						t:add="schoolNumber,countryName,edit,delete" rowsPerPage="25"
+						inPlace="true" reorder="schoolNumber">
+						<p:schoolNumberCell>
+							${schoolNumber}
+						</p:schoolNumberCell>
+						<p:countryNameCell>
+							${valueSchool?.country?.countryName}
+						</p:countryNameCell>
+						<p:editCell>
+							<t:actionlink t:id="editSchool" t:context="valueSchool"
+								t:zone="schoolFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSchool" t:context="valueSchool"
+								t:zone="schoolFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Эзэмшсэн боловсрол</h3>
+			<div>
+				<t:zone t:id="degreeTypeFormZone" id="degreeTypeFormZone">
+					<t:form t:zone="degreeTypeFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:degreeName}</label> <t:textfield
+										t:value="degreeType.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveDegreeType"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="degreeTypeListZone" id="degreeTypeListZone">
+					<t:grid t:source="listDegreeType" t:row="valueDegreeType"
+						t:include="name" t:add="degreeTypeNumber,edit,delete"
+						rowsPerPage="10" reorder="degreeTypeNumber">
+						<p:degreeTypeNumberCell>
+							${degreeTypeNumber}
+						</p:degreeTypeNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editDegreeType" t:context="valueDegreeType"
+								t:zone="degreeTypeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteDegreeType" t:context="valueDegreeType"
+								t:zone="degreeTypeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Боловсролын зэрэг</h3>
+			<div>
+				<t:zone t:id="educationDegreeFormZone" id="educationDegreeFormZone">
+					<t:form t:zone="educationDegreeFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:DoctorType}</label> <t:textfield
+										t:value="educationDegree.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveEducationDegree"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="educationDegreeListZone" id="educationDegreeListZone">
+					<t:grid t:source="listEducationDegree" t:row="valueEducationDegree"
+						t:include="name" t:add="educationDegreeNumber,edit,delete"
+						rowsPerPage="25" reorder="educationDegreeNumber">
+						<p:educationDegreeNumberCell>
+							${educationDegreeNumber}
+						</p:educationDegreeNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editEducationDegree"
+								t:context="valueEducationDegree"
+								t:zone="educationDegreeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteEducationDegree"
+								t:context="valueEducationDegree"
+								t:zone="educationDegreeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Мэргэжил</h3>
+			<div>
+				<t:zone t:id="occupationFormZone" id="occupationFormZone">
+					<t:form t:zone="occupationFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:position}</label> <t:textfield
+										value="occupation.name" /></td>
+								<td><label>${message:SchoolType}</label> <t:select
+										t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+										t:model="SchoolTypeSelectionModel"
+										t:value="occupation.schoolType" /></td>
+								<td colspan="2"><t:submit t:id="saveOccupation"
+										t:value="${message:save}" /> <t:submit
+										t:id="searchOccupation" t:value="${message:search}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="occupationListZone" id="occupationListZone">
+					<t:grid t:source="listOccupation" t:row="valueOccupation"
+						t:include="id,name,schoolType"
+						t:add="occupationListNumber,edit,delete" rowsPerPage="25"
+						inPlace="true" reorder="occupationListNumber">
+						<p:occupationListNumberCell>
+							${occupationListNumber}
+						</p:occupationListNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editOccupation" t:context="valueOccupation"
+								t:zone="occupationFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteOccupation" t:context="valueOccupation"
+								t:zone="occupationFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Ур чадварын ангилал</h3>
+			<div>
+				<t:zone t:id="skillTypeFormZone" id="skillTypeFormZone">
+					<t:form t:zone="skillTypeFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:skillGroupType}</label> <t:textfield
+										t:value="skillType.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveSkillType"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="skillTypeListZone" id="skillTypeListZone">
+					<t:grid t:source="listSkillType" t:row="valueSkillType"
+						t:include="id,name" t:add="edit,delete" rowsPerPage="25">
+						<p:countryNameCell>
+							${valueSkillType.name}
+						</p:countryNameCell>
+						<p:editCell>
+							<t:actionlink t:id="editSkillType" t:context="valueSkillType"
+								t:zone="skillTypeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSkillType" t:context="valueSkillType"
+								t:zone="skillTypeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+
+			</div>
+			<h3>Ур чадвар</h3>
+			<div>
+				<t:zone t:id="skillFormZone" id="skillFormZone">
+					<t:form t:zone="skillFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:skillGroupType}</label> <t:select
+										t:model="skillGroupSelectionModel" t:value="skill.skillGroup"
+										t:validate="required" /></td>
+								<td><label>${message:skill}</label> <t:textfield
+										t:value="skill.name" t:validate="required" /></td>
+								<td><t:submit t:id="saveSkill" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="skillListZone" id="skillListZone">
+					<t:grid t:source="listSkill" t:row="valueSkill"
+						t:include="id,name,skillGroup" t:add="edit,delete">
+						<p:skillGroupCell>
+							${valueSkill?.skillGroup?.name}
+						</p:skillGroupCell>
+						<p:editCell>
+							<t:actionlink t:id="editSkill" t:context="valueSkill">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteSkill" t:context="valueSkill">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+
+			<h3>Үндэс угсаа</h3>
+			<div>
+				<t:zone t:id="originFormZone" id="originFormZone">
+					<t:form t:zone="originFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:persuasion}</label> <t:textfield
+										t:value="origin.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveOrigin" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="originListZone" id="originListZone">
+					<t:grid t:source="listOrigin" t:row="valueOrigin"
+						t:include="id,name" t:add="edit,delete" rowsPerPage="15">
+						<p:editCell>
+							<t:actionlink t:id="editOrigin" t:context="valueOrigin"
+								t:zone="originFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteOrigin" t:context="valueOrigin"
+								t:zone="originListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Нийгмийн гарал</h3>
+			<div>
+				<t:zone t:id="ascriptionFormZone" id="ascriptionFormZone">
+					<t:form t:zone="ascriptionFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:ascription}</label> <t:textfield
+										t:value="ascription.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveAscription"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="ascriptionListZone" id="ascriptionListZone">
+					<t:grid t:source="listAscription" t:row="valueAscription"
+						t:include="id,name" t:add="ascriptionNumber,edit,delete"
+						rowsPerPage="15" reorder="ascriptionNumber">
+						<p:ascriptionNumberCell>
+							${ascriptionNumber}
+						</p:ascriptionNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editAscription" t:context="valueAscription">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteAscription" t:context="valueAscription">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+
+			<h3>Гадаад хэл</h3>
+			<div>
+				<t:zone t:id="languageFormZone" id="languageFormZone">
+					<t:form t:zone="languageFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Гадаад хэл</label> <t:textfield
+										t:value="foreignLanguage.languageName" /></td>
+								<td></td>
+								<td><t:submit t:id="saveLanguage" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="languageListZone" id="languageListZone">
+					<t:grid t:source="listForeignLanguage" t:row="valueForeignLanguage"
+						t:include="languageName" t:add="languageNumber,edit,delete"
+						rowsPerPage="25" reorder="languageNumber">
+						<p:languageNumberCell>
+							${languageNumber}
+						</p:languageNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editLanguage"
+								t:context="valueForeignLanguage" t:zone="languageFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteLanguage"
+								t:context="valueForeignLanguage" t:zone="languageListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Компьютерийн програм</h3>
+			<div>
+				<t:zone t:id="computerFormZone" id="computerFormZone">
+					<t:form t:zone="computerFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:programName}</label> <t:textfield
+										t:value="computerProgram.programName" t:validate="required" />
+								</td>
+								<td></td>
+								<td><t:submit t:id="saveComputer" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="computerListZone" id="computerListZone">
+					<t:grid t:source="listComputerProgram" t:row="valueComputerProgram"
+						t:include="id,programName" t:add="edit,delete" rowsPerPage="25">
+
+						<p:editCell>
+							<t:actionlink t:id="editComputer"
+								t:context="valueComputerProgram" t:zone="computerFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteComputer"
+								t:context="valueComputerProgram" t:zone="computerListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Оффисийн тоног төхөөрөмж</h3>
+			<div>
+				<t:zone t:id="facilityFormZone" id="facilityFormZone">
+					<t:form t:zone="facilityFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:facilityName}</label> <t:textfield
+										t:value="facility.facilityName" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveFacility" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="facilityListZone" id="facilityListZone">
+					<t:grid t:source="listFacility" t:row="valueFacility"
+						t:include="facilityName" t:add="facilityNumber,edit,delete"
+						reorder="facilityNumber">
+						<p:facilityNumberCell>
+							${facilityNumber}
+						</p:facilityNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editFacility" t:context="valueFacility">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteFacility" t:context="valueFacility">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Эрдмийн цол</h3>
+			<div>
+				<t:zone t:id="academicRankFormZone" id="academicRankFormZone">
+					<t:form t:zone="academicRankFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:employeeAcademicRank}</label> <t:textfield
+										t:value="academicRank.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveAcademicRank"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="academicRankListZone" id="academicRankListZone">
+					<t:grid t:source="listAcademicRank" t:row="valueAcademicRank"
+						t:include="id,name" t:add="edit">
+						<p:editCell>
+							<t:actionlink t:id="editAcademicRank"
+								t:context="valueAcademicRank" t:zone="academicRankFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteAcademicRank"
+								t:context="valueAcademicRank" t:zone="academicRankListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Таны юу болох</h3>
+			<div>
+				<t:zone t:id="relativeTypeFormZone" id="relativeTypeFormZone">
+					<t:form t:zone="relativeTypeFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Таны юу болох</label> <t:textfield
+										t:value="relativeType.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveRelativeType"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="relativeTypeListZone" id="relativeTypeListZone">
+					<t:grid t:source="listRelativeType" t:row="valueRelativeType"
+						t:include="id, name" t:add="edit">
+						<p:editCell>
+							<t:actionlink t:id="editRelativeType"
+								t:context="valueRelativeType" t:zone="relativeTypeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:editCell>
+							<t:actionlink t:id="deleteRelativeType"
+								t:context="valueRelativeType" t:zone="relativeTypeListZone">
+								Устгах
+							</t:actionlink>
+						</p:editCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Гадаадад зорчсон чиглэл</h3>
+			<div>
+				<t:zone t:id="travelTypeFormZone" id="travelTypeFormZone">
+					<t:form t:zone="travelTypeFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Гадаадад зорчсон чиглэл</label> <t:textfield
+										t:value="travelType.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveTravelType"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="travelTypeListZone" id="travelTypeListZone">
+					<t:grid t:source="listTravelType" t:row="valueTravelType"
+						t:include="id,name" t:add="edit,delete">
+
+						<p:editCell>
+							<t:actionlink t:id="editTravelType" t:context="valueTravelType"
+								t:zone="travelTypeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteTravelType" t:context="valueTravelType"
+								t:zone="travelTypeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Гэр бүлийн хүний албан тушаалын төрөл</h3>
+			<div>
+				<t:zone t:id="FamilyAppointmentFormZone"
+					id="FamilyAppointmentFormZone">
+					<t:form t:zone="FamilyAppointmentFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Гэр бүлийн хүний албан тушаалын төрөл</label> <t:textfield
+										t:value="familyAppointmentType.name" t:validate="required" />
+								</td>
+								<td></td>
+								<td><t:submit t:id="saveFamilyAppointment"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="familyAppointmentListZone"
+					id="familyAppointmentListZone">
+					<t:grid t:source="listFamilyAppointmentType"
+						t:row="valueFamilyAppointmentType" t:include="name"
+						t:add="familyAppointmentNumber,edit,delete"
+						reorder="familyAppointmentNumber">
+						<p:familyAppointmentNumberCell>
+							${familyAppointmentNumber}
+						</p:familyAppointmentNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editFamilyAppointment"
+								t:context="valueFamilyAppointmentType"
+								t:zone="travelTypeListZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteFamilyAppointment"
+								t:context="valueFamilyAppointmentType"
+								t:zone="travelTypeFormZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Докторын зэрэг</h3>
+			<div></div>
+			<h3>Магистрын зэрэг</h3>
+			<div>
+				<t:zone t:id="ScienceDoctorFormZone" id="ScienceDoctorFormZone">
+					<t:form t:zone="ScienceDoctorFormZone">
+						<table class="form">
+							<tr>
+								<td><label>Нэр</label> <t:textfield
+										t:value="scienceDoctor.name" t:validate="required" /></td>
+								<td></td>
+								<td><t:submit t:id="saveScienceDoctor"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="ScienceDoctorListZone" id="ScienceDoctorListZone">
+					<t:grid t:source="listScienceDoctorType" t:row="valueScienceDoctor"
+						t:include="name" t:add="number,edit,delete"
+						reorder="number">
+						<p:numberCell>
+							${ScienceDoctorNumber}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="editScienceDoctor"
+								t:context="valueScienceDoctor" t:zone="ScienceDoctorFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteScienceDoctor"
+								t:context="valueScienceDoctor" t:zone="ScienceDoctorListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Цэргийн цол</h3>
+			<div>
+				<t:zone t:id="militaryRankFormZone" id="militaryRankFormZone">
+					<t:form t:zone="militaryRankFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:Type}</label> <t:select
+										t:model="militaryRankTypeSelectionModel"
+										t:value="militaryRank.militaryRankType" validate="required" />
+								</td>
+								<td><label>${message:Military}</label> <t:textfield
+										t:id="rank" t:value="militaryRank.militaryName"
+										t:validate="required" /></td>
+								<td><label>${message:periodTime}</label> <t:textfield
+										t:id="period" t:value="militaryRank.period" /></td>
+								<td><label>Тулах эсэх</label> <t:checkbox t:id="top"
+										t:value="militaryRank.istop"></t:checkbox></td>
+								<td><t:submit t:id="saveMilitaryRank"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="militaryRankListZone" id="militaryRankListZone">
+					<t:grid t:source="listMilitaryRank" t:row="valueMilitaryRank"
+						t:include="militaryRankType,militaryName"
+						t:add="militaryRankNumber,periods,top,edit,delete"
+						reorder="militaryRankNumber">
+						<p:militaryRankNumberCell>
+							${militaryRankNumber}
+						</p:militaryRankNumberCell>
+						<p:periodsCell>
+							${period}
+						</p:periodsCell>
+						<p:topCell>
+							${top}
+						</p:topCell>
+						<p:editCell>
+							<t:actionlink t:id="editMilitaryRank"
+								t:context="valueMilitaryRank" t:zone="militaryRankFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteMilitaryRank"
+								t:context="valueMilitaryRank" t:zone="militaryRankListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Тушаал гаргасан субъект</h3>
+			<div>
+				<t:zone t:id="commandSubjectFormZone" id="commandSubjectFormZone">
+					<t:form t:zone="commandSubjectFormZone">
+						<table class="form">
+							<tr>
+								<td><label>${message:commandSubject}</label> <t:textfield
+										t:value="commandSubject.subjectName" t:validate="required" />
+								</td>
+								<td></td>
+								<td><t:submit t:id="saveCommandSubject"
+										t:value="${message:save}" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+
+				<t:zone t:id="commandSubjectListZone" id="commandSubjectListZone">
+					<t:grid t:source="listCommandSubject" t:row="valueCommandSubject"
+						t:include="subjectName"
+						t:add="commandSubjectNumber,edit,delete,number"
+						reorder="commandSubjectNumber">
+						<p:commandSubjectNumberCell>
+							${commandSubjectNumber}
+						</p:commandSubjectNumberCell>
+						<p:editCell>
+							<t:actionlink t:id="editCommandSubject"
+								t:context="valueCommandSubject" t:zone="commandSubjectFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteCommandSubject"
+								t:context="valueCommandSubject" t:zone="commandSubjectListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Тэтгэмж тусламж</h3>
+			<div>
+				<t:zone t:id="allowanceTypeFormZone" id="allowanceTypeFormZone">
+					<t:form t:zone="allowanceTypeFormZone">
+						<table class="form">
+							<tr>
+								<td>${message:allowanceTypeConfig} : <t:textfield
+										value="allowanceType.allowanceTypeName" t:validate="required" />
+									&nbsp;
+								</td>
+								<td></td>
+								<td><t:submit t:id="saveAllowanceType"
+										t:value="${message:save}" class="btnFind save" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="allowanceTypeListZone" id="allowanceTypeListZone">
+					<t:grid t:source="listAllowanceType" t:row="valueAllowanceType"
+						t:include="allowanceTypeName" reorder="numberAllowanceType"
+						t:add="numberAllowanceType,edit,delete" rowsPerPage="15">
+						<p:numberAllowanceTypeCell>
+							${numberAllowanceType}
+						</p:numberAllowanceTypeCell>
+						<p:editCell>
+							<t:actionlink t:id="editAllowanceType"
+								t:context="valueAllowanceType">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteAllowanceType"
+								t:context="valueAllowanceType">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Чөлөө</h3>
+			<div>
+				<t:zone t:id="vacationTypeFormZone" id="vacationTypeFormZone">
+					<t:form t:zone="vacationTypeFormZone">
+						<table class="form">
+							<tr>
+								<td>Чөлөө хүсэх төрөл : <t:textfield
+										value="vacationType.vacationTypeName" t:validate="required" />
+									&nbsp;
+								</td>
+								<td></td>
+								<td><t:submit t:id="saveVacationType"
+										t:value="${message:save}" class="btnFind save" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="vacationTypeListZone" id="vacationTypeListZone">
+					<t:grid t:source="listVacationType" t:row="valueVacationType"
+						t:include="vacationTypeName" reorder="numberVacationType"
+						t:add="numberVacationType,edit,delete" rowsPerPage="15">
+						<p:numberVacationTypeCell>
+						${numberVacationType}
+					</p:numberVacationTypeCell>
+						<p:editCell>
+							<t:actionlink t:id="editVacationType"
+								t:context="valueVacationType">
+							Засах
+						</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteVacationType"
+								t:context="valueVacationType">
+							Устгах
+						</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

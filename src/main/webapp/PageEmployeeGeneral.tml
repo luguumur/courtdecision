@@ -1,0 +1,187 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<script>
+	$(function() {
+		$("#tabs").tabs();
+	});
+
+	$(function() {
+		$("#tabs2").tabs();
+	});
+
+	$(function() {
+		$("#tabs3").tabs();
+	});
+
+	$(function() {
+		$("#accordion").accordion({
+			heightStyle : "content",
+			autoHeight : false,
+			collapsible : true,
+			active : false
+		});
+	});
+
+	$(function() {
+		$('.hasdatepicker').datepicker({
+			dateFormat : 'yyyy-mm-dd'
+		});
+	});
+</script>
+</head>
+
+<body>
+	<t:zone t:id="yearCount" id="yearCount">
+		<t:form t:id="generalForm" t:zone="yearCount">
+			<table class="form">
+				<tr>
+					<td rowspan="5" class="profile"><t:zone t:id="uploadResult">
+							<div class="picture">
+								<img src="${imageUrl}" />
+							</div>
+						</t:zone>
+						<div>
+							<t:jquery.ajaxUpload t:id="uploadImage" t:multiple="false"
+								t:allowedExtensions="[jpg, png, gif]" t:sizeLimit="1M">
+								<!-- The units K, M and G are valid for size limits. Anything else will be treated as 0 -->
+								<noscript>
+									<p>${message:enableJavaScript}</p>
+								</noscript>
+							</t:jquery.ajaxUpload>
+						</div>
+					</td>
+					<td><label><span class="red">*</span>${message:registerNo}</label>
+						<t:textfield t:value="valueEmployee.registerNo"
+							t:validate="required" /></td>
+					<td><label><span class="red">*</span>${message:lastname}</label>
+						<t:textfield t:value="valueEmployee.lastname"
+							t:validate="required" /></td>
+					<td><label><span class="red">*</span>${message:firstname}</label>
+						<t:textfield t:value="valueEmployee.firstname"
+							t:validate="required" /></td>
+				</tr>
+				<tr>
+					<td><label>${message:age}</label> <t:textfield t:value="age"
+							disabled="true" /></td>
+					<td><label>${message:healthInsuranceNumber}</label> <t:textfield
+							t:value="valueEmployee.healthInsuranceNumber" /></td>
+					<td><label>${message:socialInsuranceNumber}</label> <t:textfield
+							t:value="valueEmployee.socialInsuranceNumber" /></td>
+				</tr>
+
+				<tr>
+					<td><label>${message:militaryNumber}</label> <t:textfield
+							t:value="valueEmployee.militaryNumber" /></td>
+					<td><label>Улсад нийт ажилласан жил</label> <t:textfield
+							t:value="totalWorkedYear" disabled="true" /></td>
+					<td><label>Улсад ажилласан жил /Энгийн/</label> <t:textfield
+							t:value="simpleStateWorkedYear" disabled="true" /></td>
+				</tr>
+				<tr>
+					<td><label>Улсад ажилласан жил /Цэргийн/</label> <t:textfield
+							t:value="militaryStateWorkedYear" disabled="true" /></td>
+					<td><label>ШШГБ-д нийт ажилласан жил</label> <t:textfield
+							t:value="courtTotalWorkedYear" disabled="true" /></td>
+					<td><label>ШШГБ-д ажилласан жил /Энгийн/</label> <t:textfield
+							t:value="simpleCourtWorkedYear" disabled="true" /></td>
+				</tr>
+				<tr>
+					<td><label>ШШГБ-д ажилласан жил /Цэргийн/</label> <t:textfield
+							t:value="militaryCourtWorkedYear" disabled="true" /></td>
+					<td colspan="2" align="right" valign="bottom"><t:submit
+							t:id="save" t:value="${message:save}" /> <t:actionlink
+							t:id="goAnket" class="button"> 
+							${message:downloadAnket}
+						</t:actionlink> <t:submit t:id="export" t:value="Танилцуулга" /> <t:actionlink
+							t:id="cancel"></t:actionlink></td>
+				</tr>
+
+			</table>
+		</t:form>
+	</t:zone>
+
+	<t:if test="activated">
+		<div class="accordBox">
+			<div id="accordion">
+				<h3>Анкет 1-р маягт</h3>
+				<div>
+					<div id="tabs">
+						<ul>
+							<li><a href="#tabs-1">Хувийн мэдээлэл</a></li>
+							<li><a href="#tabs-2">Гэр бүл</a></li>
+							<li><a href="#tabs-3">Боловсрол</a></li>
+							<li><a href="#tabs-4">Сургалт</a></li>
+							<li><a href="#tabs-5">Цол</a></li>
+							<li><a href="#tabs-6">Ур чадвар</a></li>
+							<li><a href="#tabs-7">Гадаад хэл</a></li>
+							<li><a href="#tabs-8">Туршлага</a></li>
+							<li><a href="#tabs-9">Нэмэгдэл</a></li>
+							<li><a href="#tabs-10">Бусад</a></li>
+						</ul>
+						<div id="tabs-1">
+							<t:compEmployeePersonal t:id="personal" />
+						</div>
+						<div id="tabs-2">
+							<t:compEmployeeFamily t:id="empFamily" />
+						</div>
+						<div id="tabs-3">
+							<t:compEmployeeEducation t:id="education" />
+						</div>
+						<div id="tabs-4">
+							<t:compEmployeeTraining t:id="training" />
+						</div>
+						<div id="tabs-5">
+							<t:compEmployeeGrade t:id="empGrade" />
+						</div>
+						<div id="tabs-6">
+							<t:compEmployeeSkill t:id="skill" />
+						</div>
+						<div id="tabs-7">
+							<t:compEmployeeLanguage t:id="empLanguage" />
+						</div>
+						<div id="tabs-8">
+							<t:compEmployeeExperience t:id="experience" />
+						</div>
+						<div id="tabs-9">
+							<t:compEmployeeAddition t:id="addition" />
+						</div>
+						<div id="tabs-10">
+							<t:compEmployeeOther t:id="other" />
+						</div>
+					</div>
+				</div>
+
+				<h3>Бүрэлдэхүүн хөдөлгөөн</h3>
+				<div>
+					<div id="tabs2">
+						<ul>
+							<li><a href="#tabs-1">Албан тушаал</a></li>
+							<li><a href="#tabs-2">Ажлаас гарах</a></li>
+						</ul>
+						<div id="tabs-1">
+							<t:compEmployeeOccupation t:id="occupation" />
+						</div>
+						<div id="tabs-2">
+							<t:compEmployeeMovement t:id="empMovement" />
+						</div>
+					</div>
+				</div>
+
+				<h3>Цалин</h3>
+				<div>
+					<t:salary.compSalary t:id="salaryComp" />
+				</div>
+
+				<h3>Үр дүн</h3>
+				<div>
+					<t:compEmployeePreResult t:id="empPreResult" />
+				</div>
+			</div>
+		</div>
+	</t:if>
+</body>
+</html>

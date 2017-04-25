@@ -1,0 +1,180 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+</head>
+<body> 
+	<t:form>
+	<div>
+	<table id="newspaper-c">
+		<t:if test="show">
+		<tr>
+			<td><span class="red">*</span>${message:Status} :</td>
+			<td><span class="red">*</span>${message:organizationSort} :</td>
+			<td><span class="red">*</span>${message:organizationname} :</td>			
+		</tr>
+		<tr>
+			<td><t:select t:model="EmployeeStatusSelectionModel" t:value="experience.status" t:disabled="${editMode}" t:validate="required" onChange="this.form.submit();" style="width:150px"/></td>
+			<td>
+			    <t:select t:model="OrganizationTypeSelectionModel" t:value="experience.organizationType" t:validate="required" zone="" style="width:200px" onChange="this.form.submit();" />
+			</td>
+			<td>
+				<!--<t:zone t:id="statusZone" id="albanTushaalZone" style="display: inline;" >-->
+					<t:if test="notWorking">
+						<t:textfield t:id="organizationName" t:value="experience.organizationName" t:validate="required" t:style="width:70%"/>
+					</t:if>
+					<t:if test="nowWorking">
+						<t:textfield t:value="organizationName" t:validate="required" disabled="true" t:style="width:70%"/>
+					</t:if>
+			</td>
+		</tr>
+		<tr>
+			<td><span class="red">*</span>${message:appointment} :</td>
+			<td><span class="red">*</span>${message:ingoDate} :</td>	
+			<td></td>		
+		</tr>
+		<tr>
+			<td>
+				<t:select t:model="AppointmentSelectionModel" t:value="appointment" t:validate="required" style="width:155px"/>
+			</td>
+			<td><t:datefield t:id="ingoDate" t:value="experience.startDate" t:validate="required" t:format="yyyy-MM-dd"/></td>
+		</tr>
+		<tr>
+			<td>${message:commandNumber} :</td>
+			<td>${message:commandStartDate} :</td>
+			<td>${message:commandSubject} :</td>
+		</tr>
+		<tr>
+		    <td><t:textfield t:id="commandNumber" t:value="experience.commandNumber"/></td>
+		    <td><t:datefield t:id="commandStartDate" t:value="experience.commandStartDate" t:format="yyyy-MM-dd"/></td>
+		    <td><t:select t:model="commandSubjectSelectionModel" t:value="experience.commandSubject" style="width:150px"/></td>
+		</tr>
+		<tr>
+		    <td>${message:MilitaryOrSimple} :</td>
+			<td>${message:outgoingDate} :</td>
+			<td>${message:commandEndDate} :</td>			
+		</tr>
+		<tr>		
+		    <td><t:select t:model="militaryOrSimpleSelectionModel" t:value="experience.MilitaryOrSimple" t:validate="required" /></td>	
+			<td><t:datefield t:id="outgoingDate" t:value="experience.endDate" t:validate="prop:customValidation" t:format="yyyy-MM-dd"/></td>
+			<td><t:datefield t:id="commandEndDate" t:value="experience.commandEndDate" t:validate="prop:customValidation" t:format="yyyy-MM-dd"/></td>			
+		</tr>
+		<tr>
+		<!--<td>${message:isWorkingJudge} :<t:checkbox t:value="experience.isJudge" t:validate="required"/></td>
+		<td>${message:isWorkingMajor} :<t:checkbox t:value="experience.isMajor" t:validate="required"/></td>-->		
+		</tr>
+		<tr>
+			<td colspan="3" style="text-align:right;">
+				<t:submit t:id="save" value="${message:save}" class="btnFind save" />
+				<t:actionlink t:id="cancel">
+					<input type="button" value="${message:cancel}" class="btnFind refresh"/>
+				</t:actionlink>
+			</td>
+		</tr>
+		</t:if>
+		<tr>
+			<td colspan="6">
+				<t:grid t:source="listExperience" t:row="valueExperience" rowClass="gridRowCSS"  style="width:100%"
+				include="organizationType,organizationName,appointment,status,militaryOrSimple" add="number,ingoDate,outgoingDate,workedYear,edit,delete"
+				reOrder="number,organizationType" rowsPerPage="25">
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+				    <p:ingoDateCell>
+						${startday}
+					</p:ingoDateCell>
+					<p:outgoingDateCell>
+						${endday}
+					</p:outgoingDateCell>
+					<p:workedYearCell>
+						${workedYear}
+					</p:workedYearCell>
+					<p:editCell>
+						<t:security.hasPermission permission="edit_experience">
+							<t:actionlink t:id="edit" t:context="valueExperience">
+									<img src="${editIcon}"/>
+								</t:actionlink>
+						</t:security.hasPermission>
+					</p:editCell>
+					<p:deleteCell>
+						<t:security.hasPermission permission="delete_experience">
+							<t:actionlink t:id="delete" t:context="valueExperience" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+									<img src="${deleteIcon}"/>
+								</t:actionlink>
+						</t:security.hasPermission>
+					</p:deleteCell>	
+					<p:empty>
+							${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="export">
+						<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+			</td>
+		</tr>	
+	</table>
+	</div>
+	</t:form>
+	<t:form>
+	<fieldset>
+		<legend class="legendTitle">${message:place-holder}</legend>
+		<table id="newspaper-layEmp" >
+			<tr>
+				<td>
+				${message:examPlaceHolder}
+				</td>
+				<td>
+				<t:radiogroup t:value="employee.examPlaceHolder">
+						${message:taken}
+		                <t:radio t:id="yes"/>
+		                ${message:nottaken}
+		                <t:radio t:id="no"/>
+		          </t:radiogroup>
+		          </td>
+		          <td><t:datefield class="swearDate" t:value="employee.SwearDate" t:format="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<td>
+					${message:swearPlaceHolder}
+				</td>
+				<td>
+					<t:radiogroup t:value="employee.swear">
+							${message:swear}
+			                <t:radio t:id="yesSwear"/>
+			                ${message:notswear}
+			                <t:radio t:id="noSwear"/>
+			          </t:radiogroup>
+		         </td>
+		         <td><t:datefield class="swearDate" t:value="employee.examPlaceholderDate" t:format="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<td>
+					${message:declarationPlaceHolder}
+				</td>
+				<td>
+					<t:radiogroup t:value="employee.declaration">
+							${message:yes}
+			                <t:radio t:id="yesDeclaration"/>
+			                ${message:no}
+			                <t:radio t:id="noDeclaration"/>
+			          </t:radiogroup>
+		         </td>
+			</tr>
+			<t:security.hasPermission permission="edit_examPlaceholder">
+			<tr>
+			<t:if test="show">
+				<td colspan="3">
+				<p align="right">
+				<t:submit t:id="saveExamPlaceholder" class="btnFind save" value="${message:save}" />
+				</p>
+				</td>
+			</t:if>
+			</tr>
+			</t:security.hasPermission>
+		</table>	
+	</fieldset>
+</t:form> 
+</body> 
+</html>

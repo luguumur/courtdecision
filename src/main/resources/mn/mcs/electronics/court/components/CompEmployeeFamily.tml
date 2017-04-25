@@ -1,0 +1,199 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<t:zone t:id="familyZone" id="familyZone">
+		<t:form t:id="formFamily" t:zone="familyZone">
+			<table class="form">
+				<tr>
+					<td>
+						<label><span class="red">*</span>${message:relativeType}</label>
+						<t:select 
+							t:model="relativeSelectionModel"
+							t:value="relative.relativeType" 
+							t:validate="required"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:relation}</label>
+						<t:select 
+							t:model="relationSelectionModel"
+							t:value="relative.relation" 
+							t:validate="required"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />	
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:lastname}</label>
+						<t:textfield 
+							t:id="lastname" 
+							t:value="relative.lastname"
+							t:validate="required,minlength=2" />
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:firstname}</label>
+						<t:textfield 
+							t:id="firstname" 
+							t:value="relative.firstname"
+							t:validate="required,minlength=2" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>${message:birthdateFamily}</label>
+						<t:textfield 
+							t:value="relative.birthDate" />
+					</td>
+					<td>
+						<label>${message:birthCity}</label>
+						<t:select 
+							t:id="aimagHotClick"
+							t:model="CityProvinceSelectionModel"
+							t:value="relative.birthCityProvince" 
+							t:validate="required"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}"
+							t:zone="familyAimagZone" />
+					</td>
+					<td>
+						<label>${message:birthSum}</label>
+						<t:zone t:id="familyAimagZone" id="familyAimagZone">
+							<t:select 
+								t:model="DistrictSumSelectionModel"
+								t:value="relative.districtSum" 
+								t:validate="required"
+								t:label="districtSum"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</t:zone>	
+					</td>
+					<!-- <td>
+						<label>${message:appointmentType}</label>
+						<t:select 
+							t:model="FamilyAppointmentSelectionModel"
+							t:value="relative.appointmentType"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />
+					</td> -->
+					<td>
+						<label>${message:currentJob}</label>
+						<t:textfield 
+							t:value="relative.occupation" />
+					</td>
+				</tr>
+				<tr>
+					
+					<td colspan="4">
+						<t:security.hasPermission permission="add_employee_relative">
+							<t:submit 
+								t:id="save"
+								t:value="${message:save}" />
+						</t:security.hasPermission> 
+						<t:actionlink 
+							t:id="cancel" 
+							t:zone="familyZone">
+							<input type="button" value="${message:cancel}" />
+						</t:actionlink>
+					</td>
+				</tr>
+			</table>
+		</t:form>
+	</t:zone>
+	
+	<t:zone t:id="listZone" id="listZone">
+	<fieldset>
+		<legend>${message:FamilyDescription}</legend>
+		<t:grid t:source="listFamily"
+			t:row="valueRelative"
+			t:include="relation, lastname,firstname"
+			t:add="birthDateFamily,currentJob,edit,delete,number"
+			reOrder="number" 
+			rowsPerPage="10"
+			inPlace="true">
+			<p:relationCell>
+				${relationName}
+			</p:relationCell>
+			<p:numberCell>
+				${numberF}
+			</p:numberCell>
+			<p:currentJobCell>
+				${currentJob}
+			</p:currentJobCell>
+			<p:birthDateFamilyCell>
+				${birthday}
+			</p:birthDateFamilyCell>
+			<p:editCell>
+				<t:security.hasPermission permission="edit_employee_relative">
+					<t:actionlink t:id="editFamily" t:context="valueRelative" t:zone="familyZone">
+						Засах
+					</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>
+			<p:deleteCell>
+				<t:security.HasPermission permission="delete_employee_relative">
+					<t:actionlink t:id="deleteFamily" t:context="valueRelative" t:zone="listZone"
+						t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+						Устгах
+					</t:actionlink>
+				</t:security.HasPermission>
+			</p:deleteCell>
+			<p:empty>
+					${message:noData}
+			</p:empty>
+		</t:grid>
+		<p align="right">
+			<t:actionlink t:id="exportFamily">
+				<img src="${imgExcel}" />
+			</t:actionlink>
+		</p>
+	</fieldset>	
+	</t:zone>
+
+	<t:zone t:id="listRelativeListZone" id="listRelativeListZone">
+	<fieldset>
+		<legend>${message:RelativeDescription}</legend>
+		<t:grid t:source="listRelative"
+			t:row="valueRelative" 
+			include="relation, lastname,firstname"
+			add="birthDateFamily,appointmentName,currentJob,edit,delete,number" 
+			reOrder="number" rowsPerPage="10" inPlace="true">
+			<p:relationCell>
+				${relationName}
+			</p:relationCell>
+			<p:numberCell>
+				${number}
+			</p:numberCell>
+			<p:currentJobCell>
+				${currentJob}
+			</p:currentJobCell>
+			<p:birthDateFamilyCell>
+				${birthday}
+			</p:birthDateFamilyCell>
+			<p:editCell>
+				<t:security.hasPermission permission="edit_employee_relative">
+					<t:actionlink t:id="edit" t:context="valueRelative" t:zone="familyZone">
+						Засах
+					</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>
+			<p:deleteCell>
+				<t:security.HasPermission permission="delete_employee_relative">
+					<t:eventlink t:event="delete" t:id="delete" t:context="valueRelative" t:zone="listRelativeListZone"
+						t:mixins="confirmDelete"   message="${message:AreYouSureDelete}">
+						Устгах
+					</t:eventlink>
+				</t:security.HasPermission>
+			</p:deleteCell>
+			<p:empty>
+					${message:noData}
+			</p:empty>
+		</t:grid>
+		<p align="right">
+			<t:actionlink t:id="export">
+				<img src="${imgExcel}" />
+			</t:actionlink>
+		</p>
+	</fieldset>
+	</t:zone>
+</t:container>

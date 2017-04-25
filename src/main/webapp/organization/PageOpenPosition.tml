@@ -1,0 +1,246 @@
+
+<html t:type="layout" title="${message:MERGESHILHOROO}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+    <body>
+		<t:form><br/>
+	    	<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+			<t:actionlink t:id="openPosition" class="newButtonCssSelected">${message:openPosition}</t:actionlink>
+			<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+			<t:actionlink t:id="promote" class="newButtonCss">${message:promote}</t:actionlink>
+			<t:actionlink t:id="conclusion" class="newButtonCss">${message:conclusion}</t:actionlink>
+				
+			<div class="block">
+				<t:delegate to = "activeBlock"/>
+			</div>
+			
+			<t:block t:id="register">
+	     		<fieldset>
+		    		<legend class="legendTitle">${message:openPositionRegTitle}</legend>
+		    		<table id="newspaper-layEmp">
+						<tr>
+							<td><span class="red">*</span>${message:opNumber} :</td>
+						</tr>
+						<tr>
+							<td><t:textfield t:id="opNumber" t:value="oPosition.opNumber" validate="required" /></td>
+						</tr>
+						<tr>
+							<td><span class="red">*</span>${message:opDate} :</td>
+							<td><span class="red">*</span>${message:positionTerm} :</td>
+							<td><span class="red">*</span>${message:opQuantity} :</td>
+						</tr>
+						<tr>
+							<td><t:datefield t:id="opDate" t:value="oPosition.opDate" validate="required" t:format="yyyy-MM-dd"/></td>
+							<td><t:datefield t:id="positionTerm" t:value="oPosition.positionTerm" validate="required" t:format="yyyy-MM-dd"/></td>
+							<td><t:textfield t:id="opQuantity" t:value="oPosition.opQuantity" validate="required" /></td>
+						</tr>
+						<tr>
+							<td><span class="red">*</span>${message:registeredDate} :</td>
+							<td><span class="red">*</span>${message:examDate} :</td>
+							<td><span class="red">*</span>${message:institutor} :</td>
+						</tr>
+						<tr>
+							<td><t:datefield t:id="registeredDate" t:value="oPosition.registeredDate" validate="required" t:format="yyyy-MM-dd"/></td>
+							<td><t:datefield t:id="examDate" t:value="oPosition.examDate" validate="required" t:format="yyyy-MM-dd"/></td>
+							<td><t:textfield t:id="institutor" t:value="oPosition.institutor" validate="required" /></td>
+						</tr>
+						<tr>
+							<td colspan="3">${message:conclusionMembers} :</td>
+							
+						</tr>
+						<tr>
+							<td colspan="2">
+								<t:jquery.palette selectedLabel="${message:selected}" availableLabel="${message:active}" t:id="handling" 
+								encoder="encoder" model="model" selected="selectedValues" size="10" selectDisabledImage="${editIcon}" 
+								deselectImage="${editIcon}" deselectDisabledImage="${editIcon}" selectImage="${editIcon}"/>
+							</td>
+							<td>
+								${message:startTime} :<br/>
+								<t:textfield t:id="startTime" t:value="oPosition.startTime" /><br/><br/>
+								${message:endTime} :<br/>
+								<t:textfield t:id="endTime" t:value="oPosition.endTime" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="text-align:right;">
+								<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+							    <t:actionlink t:id="cancel">
+									<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+								</t:actionlink>
+								<t:actionlink t:id="back">
+									<input type="button" class="btnFind cancel" value="${message:back}"/>
+								</t:actionlink>
+							</td>
+						</tr>
+					</table>
+		    	</fieldset>
+	    	</t:block>
+	    	
+	    	<t:block t:id="grid">
+	    		<fieldset>
+		    	<legend class="legendTitle">${message:employeeList}</legend>
+		     		<table id="newspaper-layEmp">
+						<tr>
+							<td>
+								${message:registeredDate} :<br/>
+								<t:datefield t:value="positionRegisteredDate"/>
+							</td>
+							<td>
+								${message:examDate} :<br/>
+								<t:datefield t:value="positionTermDate" t:format="yyyy-MM-dd"/>
+							</td>
+							<td>
+								<t:submit t:id="search" style="margin-top:12px;" class="btnFind search" value="${message:search}" />
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+	    	
+	     		<fieldset>
+		    		<legend class="legendTitle">${message:openPosition}</legend>
+		    		<t:security.HasPermission permission= "add_open_position">
+						<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+					</t:security.HasPermission>
+					<p align="right">${message:sum} ${listSize}</p>
+		    		<t:grid t:source="listOPosition" t:row="valueOPosition" 
+					t:include="opNumber, opQuantity, registeredDate, positionTerm, examDate" add="number, edit, delete" 
+					rowClass="gridRowCSS" rowsPerPage="25" reOrder="number" style="width:100%">
+					
+					<p:numberCell>${number}</p:numberCell>
+					
+					<p:opNumberCell>
+				 		${opNumber}
+				 	</p:opNumberCell>
+				 	
+				 	<p:opQuantityCell>
+				 		<t:actionlink t:id="openPositions" t:context="valueOPosition">
+				 			${opQuantity}
+				 		</t:actionlink>
+				 	</p:opQuantityCell>
+				 	
+				 	<p:registeredDateCell>
+				 		${registeredDate}
+				 	</p:registeredDateCell>
+				 	
+					<p:positionTermCell>
+				 		${positionTerm}
+				 	</p:positionTermCell>
+				 	
+				 	<p:examDateCell>
+				 		${examDate}
+				 	</p:examDateCell>
+				 	
+					<p:editCell>
+					<t:security.HasPermission permission= "edit_open_position">
+						<t:actionlink t:id="edit" t:context="valueOPosition">
+							<img src="${editIcon}" />
+						</t:actionlink>
+					</t:security.HasPermission>	
+					</p:editCell>
+					
+											
+					<p:deleteCell>
+					<t:security.HasPermission permission= "delete_open_position">
+						<t:actionlink t:id="delete" t:context="valueOPosition" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}" />
+						</t:actionlink>
+					</t:security.HasPermission>		
+					</p:deleteCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+		    	</fieldset>
+	    	</t:block>
+	    	
+	    	<t:block t:id="openPositions">
+	    		<fieldset>
+		    		<legend class="legendTitle">${message:registration}</legend>
+		    		<table id="newspaper-layEmp">
+						<tr>
+							<td><span class="red">*</span>${message:organization} :</td>
+							<td><span class="red">*</span>${message:appointment} :</td>
+							<td><span class="red">*</span>${message:establishment} :</td>
+						</tr>
+						<tr>
+							<td><t:select t:model="organizationSelectionModel" t:value="oPositionList.organization" validate="required" /></td>
+							<td><t:select t:model="appointmentSelectionModel" t:value="oPositionList.appointment" validate="required" /></td>
+							<td><t:textfield t:id="establishment" t:value="oPositionList.establishment" validate="required" /></td>
+						</tr>
+						<tr>
+							<td colspan="3" style="text-align:right;">
+								<t:submit t:id="saveOp" class="btnFind save" value="${message:save}" />
+							    <t:actionlink t:id="cancelOp">
+									<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+								</t:actionlink>
+								<t:actionlink t:id="backOp">
+									<input type="button" class="btnFind" value="${message:back}"/>
+								</t:actionlink>
+							</td>
+						</tr>
+					</table>
+		    	</fieldset>	
+	    	
+	     		<fieldset>
+		    		<legend class="legendTitle">${message:openPositionList}</legend>
+
+					<p align="right">${message:sum} ${listSize}</p>
+		    		<t:grid t:source="listOPositionList" t:row="valueOPositionList" 
+					t:include="organization, appointment,establishment" add="number, edit, delete" 
+					rowClass="gridRowCSS" rowsPerPage="10" reOrder="number" style="width:100%">
+					
+					<p:numberCell>${numberOp}</p:numberCell>
+				 	
+				 	<p:organizationCell>${organization}</p:organizationCell>
+				 	
+				 	
+				 	<p:appointmentCell>
+				 		<t:actionlink t:id="candidates" t:context="valueOPositionList">
+				 			${appointment}
+				 		</t:actionlink>
+				 	</p:appointmentCell>
+				 	
+				 	
+				 	<p:establishmentCell>${establishment}</p:establishmentCell>
+				 	
+					<p:editCell>
+					<t:security.HasPermission permission= "edit_open_position">
+						<t:actionlink t:id="editOp" t:context="valueOPositionList">
+							<img src="${editIcon}" />
+						</t:actionlink>
+					</t:security.HasPermission>	
+					</p:editCell>
+					
+											
+					<p:deleteCell>
+					<t:security.HasPermission permission= "delete_open_position">
+						<t:actionlink t:id="deleteOp" t:context="valueOPositionList" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}" />
+						</t:actionlink>
+					</t:security.HasPermission>		
+					</p:deleteCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportOp">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+		    	</fieldset>
+		    	
+	    	</t:block>
+		</t:form>	
+	</body> 
+</html>

@@ -1,0 +1,12 @@
+<html t:type="layoutAdmin" title="${message:configuration}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+		
+		
+	</t:form> </body> 
+</html>

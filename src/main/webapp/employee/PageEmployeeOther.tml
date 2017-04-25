@@ -1,0 +1,273 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> 
+<t:form>
+		<table id="newspaper-c" bgcolor="#E5E5E5">
+			<thead>
+				<td style="width:300px">
+					Ажилтаны чөлөөний мэдээлэл
+				</td>
+			</thead>
+			<t:if test="show">
+			<tr>
+				<td><span class="red">*</span>Чөлөө олгосон ажилтан :</td>
+				<td><span class="red">*</span>Чөлөө хүсэх төрөл :</td>
+				<td><span class="red">*</span>Шалтгаан :</td>
+			</tr>
+			<tr>
+				<td><t:select t:model="commandSubjectSelectionModel" t:value="vacation.commandSubject" t:validate="required" t:style="width: 180px"/></td>
+				<td><t:select t:model="vacationTypeSelectionModel" t:value="vacation.vacationType" t:validate="required" t:style="width: 180px"/></td>
+				<td><t:textarea t:value="vacation.vacationCause"/></td>
+			</tr>
+			<tr>
+				<td><span class="red">*</span>${message:chuluuOlgosonOgnoo} :</td>
+				<td><span class="red">*</span>${message:chuluuEhlehOgnoo} :</td>
+				<td><span class="red">*</span>${message:chuluuDuusahOgnoo} :</td>
+			</tr>
+			<tr>
+				<td><t:datefield t:value="vacation.chuluuOlgosonOgnoo" t:validate="required" t:format="yyyy-MM-dd"/></td>
+				<td><t:datefield t:value="vacation.chuluuEhlehOgnoo" t:validate="required" t:format="yyyy-MM-dd"/></td>
+				<td><t:datefield t:value="vacation.chuluuDuusahOgnoo" t:validate="required" t:format="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;" colspan="3">
+					<t:submit t:id="SaveVacation" class="btnFind save" t:value="${message:save}"/>
+					<t:actionlink t:id="CancelVacation">
+						<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+			<tr>
+				<td colspan="3">
+				<t:grid t:source="listVacation" t:row="valueVacation" 
+					t:include="vacationType,vacationCause" t:add="chuluuOlgosonAjiltan,vacationDate,vacationFromDate,vacationToDate,edit,delete,number" 
+					reOrder="number,chuluuOlgosonAjiltan" rowsPerPage="25" rowClass="gridRowCSS" style="width:100%">
+							<p:numberCell>
+								${numberVacation}
+							</p:numberCell>	
+							<p:chuluuOlgosonAjiltanCell>
+								${valueVacation.commandSubject.subjectName}
+							</p:chuluuOlgosonAjiltanCell>
+							<p:vacationTypeCell>
+								${valueVacation.vacationType.vacationTypeName}
+							</p:vacationTypeCell>
+							<p:vacationDateCell>
+								${vacationDate}
+							</p:vacationDateCell>
+							<p:vacationFromDateCell>
+								${vacationFromDate}
+							</p:vacationFromDateCell>
+							<p:vacationToDateCell>
+								${vacationToDate}
+							</p:vacationToDateCell>
+							<p:editCell>
+									<t:actionlink t:id="editVacation" t:context="valueVacation">
+										<img src="${editIcon}"/>
+									</t:actionlink>						
+							</p:editCell>
+							<p:deleteCell>
+									<t:actionlink t:id="deleteVacation" t:context="valueVacation" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+							</p:deleteCell>	
+							<p:empty>
+								${message:noData}
+							</p:empty>
+						</t:grid>
+						<!--<p align="right">
+							<t:actionlink t:id="exportTravel">
+								<img src="${imgExcel}" />
+							</t:actionlink>
+						</p>-->
+				</td>	
+			</tr>
+		</table>
+</t:form>
+<br/>
+<t:form>
+		<table id="newspaper-c" bgcolor="#E5E5E5">
+			<thead>
+				<td style="width:300px">
+					${message:travelAbroadInformation}
+				</td>
+			</thead>
+			<t:if test="show">
+			<tr>
+				<td><span class="red">*</span>${message:country} :</td>
+				<td><span class="red">*</span>${message:travelType} :</td>
+				<td><span class="red">*</span>${message:travelPurpose} :</td>
+			</tr>
+			<tr>
+				<td><t:select t:id="Country" t:model="CountrySelectionModel" t:value="travelAbroad.country" t:validate="required" /></td>
+				<td><t:select t:model="TravelTypeSelectionModel" t:value="travelAbroad.travelType" t:validate="required"/></td>
+				<td><t:textarea t:value="travelAbroad.jobTask"/></td>
+			</tr>
+			<tr>
+				<td><span class="red">*</span>${message:wentDate} :</td>
+				<td><span class="red">*</span>${message:cameDate} :</td>
+			</tr>
+			<tr>
+				<td><t:datefield t:value="travelAbroad.wentDate" t:validate="required" t:format="yyyy-MM-dd"/></td>
+				<td><t:datefield t:value="travelAbroad.cameDate" t:validate="required" t:format="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<td style="text-align:right;" colspan="3">
+					<t:submit t:id="SaveTravel" class="btnFind save" t:value="${message:save}"/>
+						<t:actionlink t:id="CancelTravel">
+							<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+						</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+			<tr>
+				<td colspan="3">
+					<t:grid t:source="listTravelAbroad" t:row="valueTravelAbroad" 
+					t:include="country,travelType,jobTask,wentDate,cameDate" 
+					t:add="edit,delete,number" reOrder="number" rowsPerPage="25" rowClass="gridRowCSS" style="width:100%">
+							<p:numberCell>
+								${numberTravel}
+							</p:numberCell>	
+							<p:wentDateCell>
+								${wentDateName}
+							</p:wentDateCell>
+							<p:cameDateCell>
+								${cameDateName}
+							</p:cameDateCell>
+							<p:countryCell>
+								${countryName}
+							</p:countryCell>
+							<p:travelTypeCell>
+								${valueTravelAbroad.travelType.name}
+							</p:travelTypeCell>
+							<p:editCell>
+									<t:actionlink t:id="editTravel" t:context="valueTravelAbroad">
+										<img src="${editIcon}"/>
+									</t:actionlink>						
+							</p:editCell>
+							<p:deleteCell>
+									<t:actionlink t:id="deleteTravel" t:context="valueTravelAbroad" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+							</p:deleteCell>	
+							<p:empty>
+								${message:noData}
+							</p:empty>
+						</t:grid>
+						<p align="right">
+							<t:actionlink t:id="exportTravel">
+								<img src="${imgExcel}" />
+							</t:actionlink>
+						</p>
+					</td>
+			</tr>
+		</table>
+</t:form>
+<br />
+<t:form>
+	<div style="width:100%">
+		<table  id="newspaper-c" bgcolor="#E5E5E5">
+			<thead>
+				<td>
+					${message:officialPassportInformation}
+				</td>
+			</thead>
+			<t:if test="show">
+			<tr>
+				<td><span class="red">*</span>${message:passportNo} :</td>
+				<td>${message:isGiven} :</td>
+				<td><span class="red">*</span>${message:givenDate} :</td>
+					
+			</tr>
+			<tr>
+				<td><t:textfield t:id="passportNo" t:value="passport.passportNo" t:validate="required"/></td>
+				<td><t:checkbox t:value="passport.isGiven"/></td>
+				<td><t:datefield t:id="givenDate" t:value="passport.givenDate" t:validate="required" t:format="yyyy-MM-dd"/></td>
+				
+			</tr>	
+			<tr>	
+				<td>${message:isDiplomat} :</td>
+				<td><span class="red">*</span>${message:expireDate} :</td>
+				<td>${message:extentDate1}:</td>
+				
+			</tr>
+			<tr>
+				<td><t:checkbox t:value="passport.isDiplomat"/></td>
+				<td><t:datefield t:id="expireDate" t:value="passport.expireDate" t:validate="required" t:format="yyyy-MM-dd"/></td>
+				<td><t:datefield t:id="extentDate1" t:value="passport.extentDate1" t:format="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<td>${message:extentDate2}:</td>
+				<td>${message:isRetrieve}:</td>
+				<td>${message:retrieveDate}:</td>
+			</tr>
+			<tr>
+				<td><t:datefield t:id="extentDate2" t:value="passport.extentDate2" t:format="yyyy-MM-dd"/></td>
+				<td><t:checkbox t:value="passport.isRetrieve"/></td>
+				<td><t:datefield t:id="retrieveDate" t:value="passport.retrieveDate" t:format="yyyy-MM-dd"/></td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align:right;">
+					<t:submit t:id="SaveState" class="btnFind save" t:value="${message:save}"/>
+					
+					<t:actionlink t:id="CancelState">
+						<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+			<tr>
+				<td colspan="5">
+					<t:grid t:source="listPassport" t:row	="valuePassport"  
+					include="passportNo, givenDate, expireDate,isDiplomat" add="edit,delete, number"  
+					style="width:100%" rowClass="gridRowCSS" rowsPerPage="15" reOrder="number">
+					
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:isDiplomatCell>
+							${isDiplomatPassport}
+						</p:isDiplomatCell>
+						<p:givenDateCell>
+							${givenDateName}
+						</p:givenDateCell>
+						<p:expireDateCell>
+							${expireDateName}
+						</p:expireDateCell>
+						<p:editCell>
+						<t:security.hasPermission permission="edit_passport">
+							<t:actionlink t:id="editState" t:context="valuePassport">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</t:security.hasPermission>							
+						</p:editCell>
+						
+						<p:deleteCell>
+						<t:security.hasPermission permission="delete_passport">
+							<t:actionlink t:id="deleteState" t:context="valuePassport" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</t:security.hasPermission>
+						</p:deleteCell>		
+						
+						<p:empty>
+							${message:noData}
+						</p:empty>
+						
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+</t:form> 
+</body> 
+</html>

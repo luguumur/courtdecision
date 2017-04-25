@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html t:type="layout" title="${message:name}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<title>${title}</title>
+<t:if test="heading">
+	<meta name="heading" content="${heading}" />
+</t:if>
+<t:if test="menu">
+	<meta name="menu" content="${menu}" />
+</t:if>
+</head>
+
+<link rel="stylesheet" href="${styles}" type="text/css" />
+<body id="${bodyId}">
+
+	<div>
+		<div id="full">
+			<t:form>
+				<table id="newspaper-layEmp">
+					<tr>
+						<td><img src="${imageUrl}" width="120px" height="165px" /><br />
+							<input t:type="upload" class="profileImage" size="5" t:id="file" />
+						</td>
+						<td>
+							<table>
+								<tr>
+									<td><span class="red">*</span>${message:registerNo}: <br />
+									<t:textfield t:value="valueEmployee.registerNo" size="25"
+											t:validate="required"></t:textfield></td>
+									<td><span class="red">*</span>${message:lastname}:<br />
+									<t:textfield t:value="valueEmployee.lastname"
+											t:validate="required" size="25"></t:textfield></td>
+									<td><span class="red">*</span>${message:firstname}:<br />
+									<t:textfield t:id="firstname" t:value="valueEmployee.firstname"
+											t:validate="required" size="25"></t:textfield></td>
+									<td>${message:age}:<br />
+									<t:textfield t:value="age" disabled="true" size="25"></t:textfield></td>
+								</tr>
+								<tr>
+									<!--<td>${message:idCardNumber}:<br /><t:textfield t:id="idCardNumber" t:value="valueEmployee.idCardNumber" size="25"></t:textfield></td>-->
+									<td>${message:healthInsuranceNumber}:<br />
+									<t:textfield t:value="valueEmployee.healthInsuranceNumber"
+											size="25"></t:textfield></td>
+									<td>${message:socialInsuranceNumber}:<br />
+									<t:textfield t:id="socialInsuranceNumber"
+											t:value="valueEmployee.socialInsuranceNumber" size="25"></t:textfield></td>
+									<td>${message:militaryNumber}:<br />
+									<t:textfield t:id="militaryNumber"
+											t:value="valueEmployee.militaryNumber" size="25"></t:textfield></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="3" style="vertical-align: bottom;"
+										class="legendTitle">${message:worketYearTitle}</td>
+								</tr>
+								<!--<tr>
+				                <td>Нийт ажилласан жил :<br /><t:textfield t:value="totalWorkedYear" disabled="true" size="25"/></td>
+				                <td>Төрд ажилласан жил :<br /><t:textfield t:value="stateOrganizationWorkedYear" disabled="true" size="25"/></td>
+				                <td>Шүүхд ажилласан жил :<br /><t:textfield t:value="currentOrganizationWorkedYear" disabled="true" size="25"/></td>
+				                <td>Шүүгчээр ажилласан жил:<br /><t:textfield t:value="judgeWorkedYear" disabled="true" size="25"/></td>
+				              </tr>-->
+								<tr>
+									<td><br />Улсад нийт ажилласан жил:<br />
+									<t:textfield t:value="totalWorkedYear" disabled="true"
+											size="25" /></td>
+									<td>Улсад ажилласан жил /Энгийн/:<br />
+									<t:textfield t:value="simpleStateWorkedYear" disabled="true"
+											size="25" /></td>
+									<td>Улсад ажилласан жил /Цэргийн/:<br />
+									<t:textfield t:value="militaryStateWorkedYear" disabled="true"
+											size="25" /></td>
+									<td></td>
+								</tr>
+								<tr>
+									<!--<td>Мэргэжлээрээ ажилласан жил:<br /><t:textfield t:value="isMajorWorkedYear" disabled="true" size="25"/></td>-->
+									<td>ШШГБ-д нийт ажилласан жил:<br />
+									<t:textfield t:value="courtTotalWorkedYear" disabled="true"
+											size="25" /></td>
+									<td>ШШГБ-д ажилласан жил /Энгийн/:<br />
+									<t:textfield t:value="simpleCourtWorkedYear" disabled="true"
+											size="25" /></td>
+									<td>ШШГБ-д ажилласан жил /Цэргийн/:<br />
+									<t:textfield t:value="militaryCourtWorkedYear" disabled="true"
+											size="25" /></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td colspan="4" align="right"><br /> <t:submit
+											class="btnFind save" t:id="save" t:value="${message:save}" />
+										<t:actionlink t:id="goAnket" class="btnFind download">
+					              		${message:downloadAnket}
+					              	</t:actionlink> <!--<t:actionlink t:id="goEmployeeCard" class="btnFind download">
+					              		${message:downloadCard}
+					              	</t:actionlink>--> <t:submit t:id="export"
+											class="btnFind download" t:value="Танилцуулга" /> <t:actionlink
+											t:id="cancel">
+											<input type="button" class="btnFind" value="${message:back}" />
+										</t:actionlink></td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</t:form>
+			<t:if test="newEmployee">
+				<t:if test="viewEmployee">
+					<div class="empMenu">
+						<ul>
+							  <!-- <li class="${activeDetail}"><t:actionlink
+									t:id="goPageEmployeeDetail">${message:anket}</t:actionlink></li> -->
+							
+							<li class="${activeDetail}">
+									<t:pagelink
+										t:page="employee/PageEmployeeDetail"
+										t:context="valueEmployee.id">${message:anket}</t:pagelink>
+							</li>
+								<li class="${activeDisplacement}">
+								<t:pagelink
+										t:page="employee/pageEmployeeOccupation"
+										t:context="valueEmployee.id">${message:displacement}</t:pagelink>
+								<!-- <t:actionlink
+										t:id="goPageEmployeeDisplacement">${message:displacement}</t:actionlink> --></li>
+								<t:security.hasPermission permission="go_employee_salary">
+								<!-- <li class="${activeSalary}"><t:actionlink
+										t:id="GoPageEmployeeSalary">${message:salary}</t:actionlink></li> -->
+										
+								<li class="${activeSalary}"><t:pagelink
+										t:page="employee/salary/pageEmployeeSalary"
+										t:context="valueEmployee.id">${message:salary}</t:pagelink>	</li>
+											
+								</t:security.hasPermission>
+								<!-- <li class="${activeResult}"><t:actionlink
+										t:id="goPageEmployeeResult">${message:result}</t:actionlink></li> -->
+										
+								<li class="${activeResult}"><t:pagelink
+										t:page="employee/pageEmployeeResult"
+										t:context="valueEmployee.id">${message:result}</t:pagelink></li>
+								<!--<li class="${activeIncome}"><t:actionlink t:id="goPageEmployeeDeclarationIncome">${message:incomePage}</t:actionlink></li>-->
+							
+						</ul>
+					</div>
+					<t:delegate to="case" />
+					<t:block t:id="case1">
+						<div class="empMenu1">
+							<ul>
+<!-- 								<li class="${activePersonal}"><t:actionlink t:id="goPageEmployeePersonal">${message:personalInfo}</t:actionlink></li> -->
+								<li class="${activePersonal}"><t:pagelink
+										t:page="employee/PageEmployeeDetail"
+										t:context="valueEmployee.id">${message:personalInfo}</t:pagelink></li>
+
+								<!-- 					<li class="${activeFamily}"><t:actionlink t:id="goPageEmployeeFamily">${message:family}</t:actionlink></li> -->
+								<li class="${activeFamily}"><t:pagelink
+										t:page="employee/PageEmployeeFamily"
+										t:context="valueEmployee.id">${message:family}</t:pagelink></li>
+								<!-- 						
+						<li class="${activeEducation}"><t:actionlink t:id="goPageEmployeeEducation">${message:education}</t:actionlink></li>	 -->
+								<li class="${activeEducation}"><t:pagelink
+										t:page="employee/PageEmployeeEducation"
+										t:context="valueEmployee.id">${message:education}</t:pagelink></li>
+
+								<!-- 					<li class="${activeTraining}"><t:actionlink t:id="goPageEmployeeTraining">${message:training}</t:actionlink></li> -->
+								<li class="${activeTraining}"><t:pagelink
+										t:page="employee/PageEmployeeTraining"
+										t:context="valueEmployee.id">${message:training}</t:pagelink></li>
+
+								<!-- 					<li class="${activeDegreeGrade}"><t:actionlink t:id="goPageEmployeeDegreeGrade">${message:degreeGrade}</t:actionlink></li> -->
+								<li class="${activeDegreeGrade}"><t:pagelink
+										t:page="employee/PageEmployeeGrade"
+										t:context="valueEmployee.id">${message:degreeGrade}</t:pagelink></li>
+
+								<!-- 					<li class="${activeDegreeSkill}"><t:actionlink t:id="goPageEmployeeSkill">${message:skill}</t:actionlink></li> -->
+								<li class="${activeDegreeSkill}"><t:pagelink
+										t:page="employee/PageEmployeeSkill"
+										t:context="valueEmployee.id">${message:skill}</t:pagelink></li>
+
+								<!-- 					<li class="${activeLanguage}"><t:actionlink t:id="goPageEmployeeLanguage">${message:language}</t:actionlink></li> -->
+								<li class="${activeLanguage}"><t:pagelink
+										t:page="employee/PageEmployeeLanguage"
+										t:context="valueEmployee.id">${message:language}</t:pagelink></li>
+
+								<!-- 					<li class="${activeExperience}"><t:actionlink t:id="goPageEmployeeExperience">${message:experience}</t:actionlink></li> -->
+								<li class="${activeExperience}"><t:pagelink
+										t:page="employee/PageEmployeeExperience"
+										t:context="valueEmployee.id">${message:experience}</t:pagelink></li>
+
+								<!--<li class="${activeAddition}"><t:actionlink t:id="goPageEmployeeAddition">${message:additionalPage}</t:actionlink></li> -->
+								<li class="${activeAddition}"><t:pagelink
+										t:page="employee/PageEmployeeAddition"
+										t:context="valueEmployee.id">${message:additionalPage}</t:pagelink></li>
+
+								<!--<li class="${activeHonour}"><t:actionlink t:id="goPageEmployeeHonour">${message:otherPage}</t:actionlink></li> -->
+								<li class="${activeHonour}"><t:pagelink
+										t:page="employee/PageEmployeeOther"
+										t:context="valueEmployee.id">${message:otherPage}</t:pagelink></li>
+							</ul>
+						</div>
+					</t:block>
+
+					<t:block t:id="case2">
+						<div class="empMenu1">
+							<ul>
+<!-- 								<li class="${activeOccupation}"><t:actionlink -->
+<!-- 										t:id="goPageEmployeeOccupation">${message:currentOccupation}</t:actionlink></li> -->
+
+								<li class="${activeOccupation}"><t:pagelink
+										t:page="employee/PageEmployeeOccupation"
+										t:context="valueEmployee.id">${message:currentOccupation}</t:pagelink></li>
+
+								<!-- <li class="${activeMovement}"><t:actionlink
+										t:id="goPageEmployeeMovement">${message:movement}</t:actionlink></li> -->
+										
+								<li class="${activeMovement}"><t:pagelink
+										t:page="employee/PageEmployeeMovement"
+										t:context="valueEmployee.id">${message:movement}</t:pagelink></li>		
+										
+								<!-- <li class="${activeJobHistory}"><t:actionlink
+										t:id="goPageEmployeeJobHistory">${message:jobHistory}</t:actionlink></li> -->
+										
+								<li class="${activeJobHistory}"><t:pagelink
+										t:page="employee/PageEmployeeJobHistory"
+										t:context="valueEmployee.id">${message:jobHistory}</t:pagelink></li>
+							</ul>
+						</div>
+					</t:block>
+
+					<t:block t:id="case3">
+						<div class="empMenu1">
+							<!-- <ul>
+						<li><t:actionlink t:id="goPageEmployeeSalaryNetwork">${message:salaryNetwork}</t:actionlink></li>
+						<li><t:actionlink t:id="goPageEmployeeOtherSalary">${message:otherSalary}</t:actionlink></li>
+					</ul> -->
+						</div>
+					</t:block>
+
+					<t:block t:id="case4">
+						<div class="empMenu1">
+							<ul>
+								<li class="${activeNowResult}"><t:pagelink
+										t:page="employee/PageEmployeeNowResult"
+										t:context="valueEmployee.id">${message:resultContract}</t:pagelink></li>
+								<!-- <li class="${activeNowResult}"><t:actionlink t:id="goPageEmployeeNowResult">${message:resultContract}</t:actionlink></li> -->
+								<li class="${activePreResult}"><t:pagelink
+										t:page="employee/PageEmployeePreResult"
+										t:context="valueEmployee.id">${message:resultPreContract}</t:pagelink></li>
+								<!-- <li class="${activePreResult}"><t:actionlink t:id="goPageEmployeePreResult">${message:resultPreContract}</t:actionlink></li> -->
+							</ul>
+						</div>
+					</t:block>
+				</t:if>
+				<t:body />
+			</t:if>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<html t:type="layout" title="${message:SAHILGAHOROO}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<head>
+<link rel="stylesheet" href="${styles}" type="text/css" />
+</head>
+<body>
+<t:form>
+	<br />
+	<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+	<t:actionlink t:id="claimant" class="newButtonCssSelected">${message:claimant}</t:actionlink>
+	<t:actionlink t:id="dccReport" class="newButtonCss">${message:dccReport}</t:actionlink>
+
+	<div class="block"><t:delegate to="activeBlock" /></div>
+
+	<t:block t:id="registerCampust">
+		<fieldset><legend class="legendTitle"><b>${message:DisciplineSolveTitle}</b></legend>
+		<table id="newspaper-layPallete" style="width: 100%">
+			<tr>
+				<td>${message:auditor}:</td>
+				<td>${message:distributedDate}:</td>
+			</tr>
+			<tr>
+				<td><t:textfield t:value="measuredMember.auditor" /></td>
+				<td><t:datefield t:id="date" t:format="yyyy-MM-dd"
+					t:value="measuredMember.distributedDate" /></td>
+			</tr>
+			<tr>
+				<td>${message:solvingType}:</td>
+				<td>${message:MemberFNameDot}:</td>
+				<td>${message:solvedDate}:</td>
+			</tr>
+			<tr>
+				<td><t:select t:model="solvingTypeSelectionModel"
+					t:value="measuredMember.solvingType" t:validate="required" /></td>
+				<td><t:select t:model="DCCMemberSelectionModel"
+					t:value="measuredMember.dccmember" t:validate="required" /></td>
+				<td><t:datefield t:id="solvedDate1" t:format="yyyy-MM-dd"
+					t:value="measuredMember.memberSolvedDate" /></td>
+			</tr>
+			<tr>
+				<td>${message:trialCourtSolvingType}:</td>
+				<td colspan="2">${message:dssMember}:</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><t:select t:model="trialCourtSolvingTypeSelectionModel"
+					t:value="measuredMember.trialCourtSolvingType" /> <br />
+				${message:solvedDate22}: <br />
+				<t:datefield t:id="solvedDate2" t:format="yyyy-MM-dd"
+					t:value="measuredMember.membersSolvedDate" /> <br />
+				${message:startTime}: <br />
+				<t:textfield t:id="trialStartTime"
+					t:value="measuredMember.trialStartTime" style="width:80px;" /> <br />
+				${message:endTime}: <br />
+				<t:textfield t:id="trialEndTime"
+					t:value="measuredMember.trialEndTime" style="width:80px;" /></td>
+				<td colspan="3"><t:jquery.palette
+					selectedLabel="${message:selected}"
+					availableLabel="${message:active}" t:id="handling"
+					encoder="encoder" model="model" selected="selectedValues" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>${message:membersSolvingType}:</td>
+				<td colspan="2">${message:dssMember}:</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><t:select t:model="membersSolvingTypeSelectionModel"
+					t:value="measuredMember.membersSolvingType" /> <br />
+				${message:solvedDate22}: <br />
+				<t:datefield t:id="solvedDate3" t:format="yyyy-MM-dd"
+					t:value="measuredMember.allMembersSolvedDate" /> <br />
+				${message:startTime}: <br />
+				<t:textfield t:id="membersStartTime"
+					t:value="measuredMember.membersStartTime" style="width:80px;" /> <br />
+				${message:endTime}: <br />
+				<t:textfield t:id="membersEndTime"
+					t:value="measuredMember.membersEndTime" style="width:80px;" /></td>
+				<td colspan="3"><t:jquery.palette
+					selectedLabel="${message:selected}"
+					availableLabel="${message:active}" t:id="handling2"
+					encoder="encoder2" model="model2" selected="selectedValues2" /></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>${message:imposedDisciplineJudgement}:</td>
+				<td>${message:disciplineJudgementExecution}:</td>
+			</tr>
+			<tr>
+				<td><t:select t:id="imposedDisciplineJudgement"
+					t:model="imposedDisciplineJudgementSelectionModel"
+					t:value="measuredMember.imposedDisciplineJudgement" /></td>
+				<td><t:textfield
+					t:value="measuredMember.disciplineJudgementExecution" /></td>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: right;"><t:submit
+					t:id="save" class="btnFind save" value="${message:save}" /> <t:actionlink
+					t:id="cancel">
+					<input type="button" class="btnFind refresh"
+						value="${message:cancel}" />
+				</t:actionlink> <t:actionlink t:id="back">
+					<input type="button" class="btnFind cancel" value="${message:back}" />
+				</t:actionlink></td>
+			</tr>
+		</table>
+		</fieldset>
+	</t:block>
+
+	<t:block id="listCampust">
+
+		<fieldset><legend class="legendTitle"><b>${message:search}</b></legend>
+		<table id="newspaper-layEmp" style="width: 100%">
+			<tr>
+				<td>${message:claimantFirstNameField}:</td>
+				<td>${message:organization}:</td>
+				<td>${message:employee}:</td>
+			</tr>
+			<tr>
+				<td><t:textfield t:value="bean.claimantFirstName" /></td>
+				<td><t:select t:type="select" t:id="orgClick1"
+					t:model="organizationSelectionModel" t:value="bean.organization"
+					t:zone="empOrgZone1" /></td>
+				<td><t:zone t:id="empOrgZone1" style="display: inline;">
+					<t:select t:model="employeeSelectionModel" t:value="bean.employee" />
+				</t:zone></td>
+				<td><t:submit t:id="search" class="btnFind search"
+					value="${message:search} " /></td>
+			</tr>
+		</table>
+		</fieldset>
+
+		<fieldset><legend class="legendTitle"><b>${message:complaintList}</b></legend>
+		<t:submit t:id="addCom" class="newButtonCss" t:value="${message:add}" />
+		<p align="right">${message:sum}&nbsp;${listSizeCom}</p>
+
+		<t:grid t:source="listMeasuredMember" t:row="valueDccMember"
+			t:include="claimantLastName, claimantFirstName,organization,employee,dateOfComplaints"
+			add="number,edit,delete" rowClass="gridRowCSS" rowsPerPage="25"
+			reOrder="number" style="width:100%">
+
+			<p:numberCell>${numberCom}</p:numberCell>
+			<p:claimantFirstNameCell>${claimantFirstName}</p:claimantFirstNameCell>
+			<p:claimantLastNameCell>${claimantLastName}</p:claimantLastNameCell>
+			<p:dateOfComplaintsCell>${dateOfComplaints}</p:dateOfComplaintsCell>
+			<p:organizationCell>${organizationName}</p:organizationCell>
+
+			<p:employeeCell>
+				<t:actionlink t:id="goCampust" t:context="valueDccMember">${employeeFirstName}</t:actionlink>
+			</p:employeeCell>
+
+			<p:editCell>
+				<t:actionlink t:id="editCom" t:context="valueDccMember">
+					<img src="${editIcon}" />
+				</t:actionlink>
+			</p:editCell>
+
+			<p:deleteCell>
+				<t:actionlink t:id="deleteCom" t:context="valueDccMember"
+					t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+					<img src="${deleteIcon}" />
+				</t:actionlink>
+			</p:deleteCell>
+
+			<p:empty>${message:noData}</p:empty>
+
+		</t:grid>
+		<p align="right"><t:actionlink t:id="exportCom">
+			<img src="${imgExcel}" />
+		</t:actionlink></p>
+
+		</fieldset>
+
+	</t:block>
+
+	<t:block id="registerComplaint">
+
+		<fieldset><legend class="legendTitle">${message:DisciplineRegTitle}</legend>
+		<table id="newspaper-layPallete" style="width: 100%">
+			<tr>
+				<td><span class="red">*</span>${message:organization}:</td>
+				<td><span class="red">*</span>${message:Whoclaimed}:</td>
+				<td><span class="red">*</span>${message:dateOfComplaints}:</td>
+			</tr>
+			<tr>
+				<td><t:select t:type="select" t:id="orgClick"
+					t:model="organizationSelectionModel"
+					t:value="measuredMember.organization" t:zone="empOrgZone"
+					validate="required" /></td>
+				<td><t:zone t:id="empOrgZone" style="display: inline;">
+					<t:select t:model="employeeSelectionModel"
+						t:value="measuredMember.employee" validate="required" />
+				</t:zone></td>
+				<td><t:datefield t:id="dateOfComplaints" t:format="yyyy-MM-dd"
+					t:value="measuredMember.dateOfComplaints" t:validate="required" />
+				</td>
+			</tr>
+			<tr>
+				<td><span class="red">*</span>${message:claimantLastName}:</td>
+				<td><span class="red">*</span>${message:claimantFirstName}:</td>
+				<td>${message:disciplineContent}</td>
+			</tr>
+			<tr>
+				<td><t:textfield t:id="claimantLastName"
+					t:value="measuredMember.claimantLastName" t:validate="required" />
+				</td>
+				<td><t:textfield t:id="claimantFirstName"
+					t:value="measuredMember.claimantFirstName" t:validate="required" />
+				</td>
+				<td><t:textarea t:value="measuredMember.disciplineContent" /></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td colspan="2" align="align:right"><t:submit t:id="saveCom"
+					class="btnFind save" value="${message:save}" /> <t:actionlink
+					t:id="cancelCom">
+					<input type="button" class="btnFind refresh"
+						value="${message:cancel}" />
+				</t:actionlink> <t:actionlink t:id="BackToComplaint">
+					<input type="button" class="btnFind cancel" value="${message:back}" />
+				</t:actionlink></td>
+			</tr>
+		</table>
+		</fieldset>
+	</t:block>
+</t:form>
+</body>
+</html>

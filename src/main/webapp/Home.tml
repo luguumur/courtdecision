@@ -1,0 +1,107 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<body class="loader">
+	<t:zone t:id="formZone" id="formZone">
+		<t:form t:zone="formZone">
+			<fieldset>
+				<legend>${message:searchField}</legend>
+				<table class="form">
+					<tr>
+						<td><label>${message:firstname}</label> <t:textfield
+								t:value="bean.firstname" t:label="message:firstname" /></td>
+						<td><label>${message:lastname}</label> <t:textfield
+								t:value="bean.lastname" t:label="message:lastname" /></td>
+						<td><label>Регистрийн дугаар</label> <t:textfield
+								t:value="bean.registerNo" t:label="message:registerNo" /></td>
+						<td><label>Байгууллага</label> <t:select
+								t:model="organizationSelectionModel" t:value="bean.organization"
+								t:blankLabel="${message:all}" /></td>
+					</tr>
+					<tr>
+						<td><label>Албан тушаалын төрөл</label> <t:select
+								t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+								t:id="occupationType" t:model="occupationTypeSelectionModel"
+								t:value="bean.occupationType" t:zone="appointmentTypeZone" /></td>
+						<td><label>Албан тушаал</label> <t:zone
+								t:id="appointmentTypeZone" id="appointmentTypeZone">
+								<t:select t:model="appointmentSelectionModel"
+									t:value="bean.appointment" t:blankLabel="${message:all}" />
+							</t:zone></td>
+						<td><label>Нас</label> <t:textfield t:id="ageFrom"
+								t:value="bean.ageFrom" style="width:60px" /> - <t:textfield
+								t:id="ageTo" t:value="bean.ageTo" style="width:60px" /></td>
+					</tr>
+					<tr>
+						<td style="text-align: right;" colspan="4"><t:submit
+								t:id="search" t:value="message:search"
+								onclick="loaderShow('loader');" /> <t:actionlink t:id="cancel"
+								class="button" t:zone="formZone" onclick="loaderShow('loader');">
+								${message:cancel}
+							</t:actionlink> <t:pagelink t:page="pageEmployeeGeneral" t:context="-2"
+								class="button">
+								${message:add}
+							</t:pagelink></td>
+					</tr>
+				</table>
+			</fieldset>
+		</t:form>
+	</t:zone>
+	<fieldset>
+		<t:zone t:id="listZone" id="listZone">
+			<style type="text/css">
+.t-data-grid .t-data-grid-pager {
+	display: none;
+}
+</style>
+			<legend>Одоо ажиллаж байгаа ажилчид - ${listSize}</legend>
+			<t:grid t:source="listEmployee" t:row="valueEmployee"
+				t:rowsPerPage="20" t:pagerPosition="bottom"
+				t:add="delete,edit,number,appointmentName,organizationName"
+				include="registerNo,lastname,firstname,gender"
+				t:reOrder="number,organizationName,registerNo,lastname,firstname,gender,appointmentName"
+				inPlace="true">
+				<p:numberCell>
+					${number}
+				</p:numberCell>
+				<p:appointmentNameCell>
+					${valueEmployee?.appointment?.appointmentName}
+				</p:appointmentNameCell>
+				<p:organizationNameCell>
+					${valueEmployee?.organization?.name}
+				</p:organizationNameCell>
+				<p:excelNumberCell>
+					${excelNumber}
+				</p:excelNumberCell>
+				<p:editCell>
+					<t:pagelink t:page="pageEmployeeGeneral"
+						t:context="valueEmployee.id">
+						Засах
+					</t:pagelink>
+				</p:editCell>
+				<p:deleteCell>
+					<t:security.HasPermission permission="delete_employee">
+						<t:actionlink t:id="delete" t:context="valueEmployee"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.HasPermission>
+				</p:deleteCell>
+
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+
+			<div class="pager">
+				<t:actionlink t:id="first" t:zone="listZone" class="button">Эхнийх</t:actionlink>
+				<t:actionlink t:id="prev" t:zone="listZone" class="button">Өмнөх</t:actionlink>
+				<t:actionlink t:id="next" t:zone="listZone" class="button">Дараах</t:actionlink>
+				<t:actionlink t:id="last" t:zone="listZone" class="button">Сүүлийх</t:actionlink>
+			</div>
+
+		</t:zone>
+	</fieldset>
+</body>
+</html>

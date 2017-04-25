@@ -1,0 +1,52 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td colspan="3">
+							${message:additionalSalaryType}<br/>
+						</td>
+					</tr>
+					<tr>
+						<td>							
+							<t:textfield t:value="salary.name" t:validate="required" t:style="width: 250px"/>
+						</td>
+						<td>
+							<t:select t:model="categorySelectionModel" t:value="salary.category"
+							t:validate="required"/>
+						</td>
+						<td>
+							<t:submit t:id="save" t:value="${message:save}" class="btnFind save" />
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3"><br/>
+							<t:grid t:source="listAdditionalSalaryType" t:row="valueAdditionalSalaryType"
+							t:include="name,category" t:add="number,edit,delete" reOrder="number" rowsPerPage="25" >
+								<p:numberCell>
+									${number}
+								</p:numberCell>
+								<p:editCell>
+									<t:actionlink t:id="edit" t:context="valueAdditionalSalaryType">
+										<img src="${editIcon}"/>
+									</t:actionlink>
+								 </p:editCell>
+								 <p:deleteCell>
+									<t:actionlink t:id="delete" t:context="valueAdditionalSalaryType">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+								 </p:deleteCell>
+							</t:grid>
+						</td>
+					</tr>
+				</table>
+			</div>
+		
+	</t:form> </body> 
+</html>

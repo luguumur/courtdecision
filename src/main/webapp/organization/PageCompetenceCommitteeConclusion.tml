@@ -1,0 +1,19 @@
+<html t:type="layout" title="${message:MERGESHILHOROO}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+	
+    <body>
+    <t:form>
+    	<br />
+    	<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+		<t:actionlink t:id="openPosition" class="newButtonCss">${message:openPosition}</t:actionlink>
+		<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+		<t:actionlink t:id="promote" class="newButtonCss">${message:promote}</t:actionlink>
+		<t:actionlink t:id="conclusion" class="newButtonCssSelected">${message:conclusion}</t:actionlink>
+    </t:form>
+    			
+    </body>    
+</html>

@@ -1,0 +1,108 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns="tapestryarameter" xmlns:p="tapestry:parameter">
+
+
+	<t:zone t:id="salZone" id="salZone">
+		<t:form t:id="salForm" t:zone="salZone">
+			<fieldset>
+				<legend>Цалингийн мэдээлэл</legend>
+				<table class="form">
+					<tr>
+						<td><label>Төрийн захиргааны зэрэглэл</label> <t:select
+								t:id="salaryLevel" t:model="levelSelectionModel"
+								t:value="salary.level" t:validate="required"
+								t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+								t:zone="mainSalary,totalSalary" /></td>
+						<td><label>Цалингийн сүлжээний шатлал</label> <t:select
+								t:model="salaryPhaseSelectionModel" t:id="salaryPhase"
+								t:value="salary.scale" t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" t:zone="mainSalary,totalSalary" /></td>
+						<td><label><span class="red">*</span>Он</label> <t:textfield
+								t:value="salary.year" t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" t:validate="required" /></td>
+						<td><label>Сар</label> <t:select t:model="monthSM"
+								t:value="salary.month" t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" /></td>
+					</tr>
+				</table>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<t:zone t:id="mainSalary" id="mainSalary">Үндсэн цалин - ${main}</t:zone>
+				</legend>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<t:zone t:id="addSalary" id="addSalary">Нэмэгдэл цалин - ${add}</t:zone>
+				</legend>
+				<table class="form">
+					<tr t:type="loop" t:source="listAdditionalSalaryType"
+						t:value="valueAdditionSalaryType">
+						<td align="right">${valueAdditionSalaryType.name}:</td>
+						<td><t:textfield class="percent" t:value="percent" /></td>
+						<td><t:textfield class="tugrug" t:value="amount" /></td>
+						<td></td>
+					</tr>
+					<tr t:type="loop" t:source="listAdditionalOtherSalaryType"
+						t:value="valueAdditionSalaryType">
+						<td align="right">${valueAdditionSalaryType.name}:</td>
+						<td><t:textfield class="tugrug" t:value="otherIncome" /></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+			</fieldset>
+
+			<fieldset>
+				<legend>
+					<t:zone t:id="totalSalary" id="totalSalary">Нийт цалин - ${total}</t:zone>
+				</legend>
+			</fieldset>
+
+			<table class="form">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><t:actionlink t:id="cancel" t:zone="salZone"
+							class="button">Цуцлах</t:actionlink> <t:submit t:id="save"
+							t:value="${message:save}" /></td>
+				</tr>
+			</table>
+
+
+		</t:form>
+
+		<t:grid t:source="listSalary" t:row="rowSalary" t:include="month"
+			t:add="mainSal,totalSal,yearType,levelType,scaleType,edit,delete"
+			t:reOrder="yearType,month,levelType,scaleType,mainSal,totalSal">
+			<p:mainSalCell>
+				${mainSal}
+			</p:mainSalCell>
+			<p:totalSalCell>
+				${totalSal}
+			</p:totalSalCell>
+			<p:yearTypeCell>
+				${yearType}
+			</p:yearTypeCell>
+			<p:levelTypeCell>
+				${levelType}
+			</p:levelTypeCell>
+			<p:scaleTypeCell>
+				${scaleType}
+			</p:scaleTypeCell>
+			<p:editCell>
+				<t:actionlink t:id="edit" t:context="rowSalary" t:zone="salZone">Засах</t:actionlink>
+			</p:editCell>
+			<p:deleteCell>
+				<t:actionlink t:id="delete" t:context="rowSalary"
+					t:mixins="confirmDelete" t:zone="salZone"
+					message="${message:AreYouSureDelete}">Устгах</t:actionlink>
+			</p:deleteCell>
+		</t:grid>
+		<br />
+	</t:zone>
+</t:container>

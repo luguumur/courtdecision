@@ -1,0 +1,35 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> 
+		<t:form>
+			<table>
+				<tr>
+					<td>
+						Ажилтан
+					</td>
+					<td>
+						<t:select t:model="userSelectionModel" t:value="rowEmp" onChange="this.form.submit()" t:validate="required"/>	
+					</td>
+				</tr>
+				<tr>
+					<td>
+						Байгууллага
+					</td>
+					<td>	
+						 <t:jquery.palette t:id="selectedValues" encoder="valueEncoder" model="organizationSelectionModel"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<t:submit t:id="save" t:value="Хадгалах"/>
+					</td>
+				</tr>
+			</table>
+		</t:form>
+		
+	</body>
+</html>

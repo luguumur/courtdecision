@@ -1,0 +1,42 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+			<div>
+			<table width="50%">
+				<tr>
+				     <td>
+				     	Сахилгын арга хэмжээ авагдах төрөл :				         
+				     </td>
+				</tr>
+				<tr>
+				     <td>
+				         <t:textfield value="sahilgaTurul.sahilgaTurulName" t:validate="required" t:style="width:70%"/>
+				         &nbsp;<t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>
+				     </td>
+				</tr>
+			</table>
+			</div><br/>
+			<div>
+				<t:grid t:source="listSahilgaTurul"  t:include="sahilgaTurulName" t:row="valueSahilgaTurul" t:add="edit,delete,number"
+				 rowClass="gridRowCSS" rowsPerPage="15" reOrder="number" >
+				 	<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueSahilgaTurul">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueSahilgaTurul">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid>
+			</div>
+	</t:form> </body> 
+</html>

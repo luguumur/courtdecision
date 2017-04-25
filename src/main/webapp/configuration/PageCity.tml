@@ -1,0 +1,43 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>Хотын нэр /Гадаад улсын/</td>
+						<td>${message:country}</td>
+					</tr>
+					<tr>
+						<td><t:textfield value="city.cityProvinceName" t:validate="required" style="width: 200px;"/></td>
+						<td><t:select t:model="countrySelectionModel" value="city.country" t:validate="required"/></td>
+						<td style="text-align:right;"><t:submit t:id="save" t:value="${message:save}"  class="btnFind save"/></td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<t:grid t:source="listCity" t:row="valueCity" t:include="id,cityProvinceName" t:add="countryName,edit,delete"
+							 rowsPerPage="25" >
+								<p:countryNameCell>
+									${valueCity.country.countryName}
+								</p:countryNameCell>
+								<p:editCell>
+									<t:actionlink t:id="edit" t:context="valueCity">
+										<img src="${editIcon}"/>
+									</t:actionlink>
+								</p:editCell>
+								<p:deleteCell>
+									<t:actionlink t:id="delete" t:context="valueCity">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+								</p:deleteCell>
+							</t:grid>
+						</td>
+					</tr>
+				 </table>
+			</div>
+	</t:form> </body> 
+</html>

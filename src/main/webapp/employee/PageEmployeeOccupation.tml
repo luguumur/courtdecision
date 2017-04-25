@@ -1,0 +1,139 @@
+
+<html t:type="layoutEmployee" title="literal:Employee Home"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+	<t:form>
+
+		<div style="width: 100%">
+			<table id="newspaper-c" bgcolor="#E5E5E5">
+				<tr>
+					<td>
+						<!--<t:radiogroup t:value="currentOccupation.mainOccupation">
+										${message:mainOccupation}
+						                <t:radio t:id="mainOccupation"/>
+						                ${message:Tenderer}
+						                <t:radio t:id="tenderer"/>
+					</t:radiogroup>--> ${message:mainOccupation} <t:checkbox
+							t:value="mainOccupation" /> ${message:Tenderer} <t:checkbox
+							t:value="tenderer" />
+					</td>
+					<td><span class="red">*</span> ${message:AccessedDate} <t:datefield
+							t:id="issuedDate" t:value="currentOccupation.IssuedDate"
+							t:validate="required" t:format="yyyy-MM-dd" /></td>
+					<!--<td>
+					${message:isRequestDisplacement}
+					<t:checkbox t:value="currentOccupation.isRequestDisplacement"/>
+				</td>-->
+					<td><span class="red">*</span> ${message:ownedUnit} <t:select
+							t:model="DepartmentSelectionModel"
+							t:value="currentOccupation.department" t:validate="required"
+							t:style="width: 150px" /></td>
+				</tr>
+			</table>
+			<table id="newspaper-c" bgcolor="#E5E5E5">
+				<tr>
+					<td style="width: 55%">
+						<fieldset>
+							<legend class="legendTitle">1. Албан тушаал</legend>
+							<table>
+								<tr>
+									<td><span class="red">*</span> ${message:OccupationRole}:
+									</td>
+									<td><t:select t:model="OccupationRoleSelectionModel"
+											t:value="currentOccupation.occupationRole"
+											t:validate="required" t:style="width: 150px" /></td>
+								</tr>
+								<tr>
+									<td><span class="red">*</span> ${message:OccupationName}:
+									</td>
+									<td><t:select t:model="AppointmentSelectionModel"
+											t:value="currentOccupation.appointment" t:validate="required"
+											t:style="width: 150px" /></td>
+								</tr>
+								<tr>
+									<td>
+										<!--<span class="red">*</span>
+	                      	${message:OccupationType}:--> <br />
+									</td>
+									<td>
+										<!--<t:select t:model="OccupationTypeSelectionModel" t:value="occupationType" t:validate="required" t:style="width: 150px"/>-->
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
+					<td>
+						<fieldset>
+							<legend class="legendTitle">2. УТ, ТЗ, ТТ, ТҮ-н албаны
+								ангилал зэрэглэл</legend>
+							<table>
+
+								<tr>
+									<td><span class="red">*</span>Ангилал:</td>
+									<td><t:select t:id="UtTzClick"
+											t:model="UtTzTtTuSortSelectionModel" t:value="utTzTtTuSort"
+											t:validate="required" t:zone="uTtzZeregZone"
+											t:style="width: 150px" /></td>
+								</tr>
+								<tr>
+									<td><span class="red">*</span>Зэрэглэл:</td>
+									<td><t:zone t:id="uTtzZeregZone" style="display: inline;">
+											<t:select t:model="OccupationLevelSelectionModel"
+												t:value="utTzTtTuLevel" t:validate="required" />
+										</t:zone></td>
+								</tr>
+
+								<tr>
+									<td>Удирдах ажилтны сонгон <t:checkbox t:value="directory" /></td>
+									<td>Мэргэшлийн сонгон <t:checkbox t:value="qualification" /></td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<fieldset>
+							<legend class="legendTitle">3. Цалингийн сүлжээ</legend>
+							<table>
+								<tr>
+									<td><span class="red">*</span>Цалингийн сүлжээ:</td>
+									<td><t:select t:id="tsalinClick"
+											t:model="SalaryNetworkSelectionModel" t:value="salaryNetwork"
+											t:validate="required" t:zone="tsalinZone"
+											t:style="width: 200px" /></td>
+								</tr>
+								<tr>
+									<td><span class="red">*</span>Цалингийн сүлжээний шатлал:</td>
+									<td><t:zone t:id="tsalinZone" style="display: inline;">
+											<t:select t:model="SalaryScaleSelectionModel"
+												t:value="currentOccupation.salaryScale"
+												t:validate="required" />
+										</t:zone></td>
+								</tr>
+								<tr>
+									<td><span class="red">*</span>Цалин тогтоосон огноо:</td>
+									<td><t:datefield t:value="currentOccupation.salaryDate"
+											t:validate="required" t:format="yyyy-MM-dd" /></td>
+								</tr>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+				<tr>
+					<t:if test="show">
+						<td colspan="4" style="text-align: right;"><t:submit
+								class="btnFind save" t:id="save" t:value="${message:save}" /> <!--<t:actionlink t:id="cancel">
+								<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+							</t:actionlink>--></td>
+					</t:if>
+				</tr>
+			</table>
+		</div>
+	</t:form>
+</body>
+</html>

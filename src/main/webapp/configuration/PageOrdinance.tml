@@ -1,0 +1,25 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<t:textfield value="ordinance.name" t:validate="required"/>
+				
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listOrdinance"  t:row="valueOrdinance" t:include="id,name" t:add="edit">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueOrdinance">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

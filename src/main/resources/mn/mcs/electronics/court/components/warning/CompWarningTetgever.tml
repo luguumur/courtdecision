@@ -1,0 +1,35 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<h3>${message:tetgevriinAjilchid} - ${tetgevriinAjilchidCount}</h3>
+	<div>
+		<t:grid t:source="listTetgevriinEmployee"
+			t:row="rowTetgevriinEmployee" rowsPerPage="25"
+			t:include="firstname,lastname,registerNo,gender,age,ajillasanHugatsaa"
+			t:add="number,edit,organization" width="100%"
+			reOrder="number,organization,lastname,firstname,registerNo,gender,age,ajillasanHugatsaa,edit">
+			<p:numberCell>
+		   					${number}
+		   				</p:numberCell>
+			<p:organizationCell>
+		   					${organizationRetire}
+		   				</p:organizationCell>
+			<p:editCell>
+				<t:actionlink t:id="editTetgever"
+					t:context="rowTetgevriinEmployee.id">
+					<img src="${editIcon}" />
+				</t:actionlink>
+			</p:editCell>
+			<p:empty>
+							${message:noData}
+						</p:empty>
+		</t:grid>
+		<div class="pager">
+			<t:actionlink t:id="first" class="button">Эхнийх</t:actionlink>
+			<t:actionlink t:id="prev" class="button">Өмнөх</t:actionlink>
+			<t:actionlink t:id="next" class="button">Дараах</t:actionlink>
+			<t:actionlink t:id="last" class="button">Сүүлийх</t:actionlink>
+		</div>
+	</div>
+</t:container>
+

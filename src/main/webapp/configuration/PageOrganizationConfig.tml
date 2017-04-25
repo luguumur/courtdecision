@@ -1,0 +1,284 @@
+<html t:type="layoutCD" title="${message:configuration}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+	<script>	
+		$(function() {
+			$("#accordion").accordion({
+				heightStyle : "content",
+				autoHeight : false,
+				collapsible : true,
+				active : false
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="accordBox">
+		<div id="accordion">	
+			<h3>Харьяалагдах захиргаа</h3>
+			<div>
+				<t:zone t:id="leadFormZone" id="leadFormZone">
+					<t:form t:zone="leadFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>Нэр</label>
+									<t:textfield 
+										t:value="appurtenanceLead.name" 
+										t:validate="required" />	
+								</td>
+								<td></td>
+								<td>
+									<t:submit t:id="save" 
+										t:value="${message:save}" />
+								</td>
+							</tr>				
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="leadListZone" id="leadListZone">
+					<t:grid 
+						t:source="listAppurtenanceLead" 
+						t:row="valueAppurtenanceLead" 
+						t:include="name" t:add="number,edit,delete"
+					 	reOrder="number" inPlace="true">
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="edit" t:context="valueAppurtenanceLead"
+								t:zone="leadFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="delete" t:context="valueAppurtenanceLead" 
+								t:mixins="confirmDelete" message="${message:AreYouSureDelete}"
+								t:zone="leadListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Харьяалагдах байршил</h3>
+			<div>
+				<t:zone t:id="locationFormZone" id="locationFormZone">
+					<t:form t:zone="locationFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>Нэр</label>
+									<t:textfield value="appurtenanceLocation.name" t:validate="required"/>
+								</td>
+								<td></td>
+								<td>
+									<t:submit t:id="saveLocation" t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="locationListZone" id="locationListZone">
+					<t:grid 
+						t:source="listAppurtenanceLocation" 
+						t:row="valueAppurtenanceLocation" 
+						t:include="id,name" 
+						t:add="edit,delete">
+						<p:editCell>
+							<t:actionlink t:id="editLocation" t:context="valueAppurtenanceLocation"
+								t:zone="locationFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteLocation" t:context="valueAppurtenanceLocation" 
+								t:mixins="confirmDelete" message="${message:AreYouSureDelete}"
+								t:zone="locationListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone> 
+			</div>
+			<h3>Байгууллагын төрөл</h3>
+			<div>
+				<t:zone t:id="orgTypeFormZone" id="orgTypeFormZone">
+					<t:form t:zone="orgTypeFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label><span class="red">*</span>Дэглэмийн төрлийн нэр</label>
+									<t:textfield 
+										t:value="organizationType.name" 
+										t:validate="required" />
+								</td>
+								<td>
+									<label><span class="red">*</span>Цалин нэмэгдэх хувь</label>
+									<t:textfield 
+										t:value="organizationType.addSalaryPercent" 
+										t:validate="required" />
+								</td>
+								<td></td>
+								<td>
+									<t:submit 
+										t:id="saveOrgType" 
+										t:value="${message:save}"/>
+								</td>	
+							</tr>				
+						</table>
+					</t:form>
+				</t:zone>				
+				<t:zone t:id="orgTypeListZone" id="orgTypeListZone">
+					<t:grid 
+						t:source="listOrganizationType" 
+						t:row="valueOrganizationType" 
+						t:include="name,addSalaryPercent" 
+						t:add="edit,delete,number" 
+						rowsPerPage="15" reOrder="number">
+					    <p:numberCell>
+							${numberOrgType}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="editOrgType" t:context="valueOrganizationType"
+								t:zone="orgTypeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteOrgType" t:context="valueOrganizationType"
+								t:zone="orgTypeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>	
+			</div>
+			<h3>ТТ,ТҮ,ТҮЭМ-ний албаны ангилал</h3>
+			<div>
+				<t:zone t:id="utTzTtTuSortFormZone" id="utTzTtTuSortFormZone">
+					<t:form t:zone="utTzTtTuSortFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>${message:name}</label>
+									<t:textfield 
+										t:id="name" 
+										value="utTzTtTuSort.name" 
+										t:validate="required"/>
+								</td>
+								<td>
+									<label>${message:nameDetail}</label>
+									<t:textfield 
+										t:id="nameDetail" 
+										t:value="utTzTtTuSort.nameDetail" 
+										t:validate="required"/>
+								</td>
+								<!-- <td>
+									<label>${message:type}</label>
+									<t:select 
+										t:model="UtTzTtTuSortNameSelectionModel" 
+										t:value="utTzTtTuSort.category" 
+										t:validate="required"/>
+								</td> -->
+								<td>
+									<t:submit 
+										t:id="saveUtTzTtTuSort" 
+										t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="utTzTtTuSortListZone" id="utTzTtTuSortListZone">
+					<t:grid 
+						t:source="listUtTzTtTuSort" 
+						t:row="valueUtTzTtTuSort" 
+						t:include="name,nameDetail" t:add="number,edit,delete"
+					 	reOrder="number" rowsPerPage="25">
+						<p:numberCell>
+							${numberUtTzTtTuSort}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="editUtTzTtTuSort" t:context="valueUtTzTtTuSort" 
+								t:zone="utTzTtTuSortFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteUtTzTtTuSort" t:context="valueUtTzTtTuSort" 
+								t:zone="utTzTtTuSortListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>ТТ,ТҮ,ТҮЭМ-ний албаны зэрэглэл</h3>
+			<div>
+				<t:zone t:id="utTzTtTuLevelFormZone" id="utTzTtTuLevelFormZone">
+					<t:form>
+						<table>
+							<tr>
+								<td>
+									<label>Зэрэглэл</label>
+									<t:select 
+										t:model="UtTzTtTuSortSelectionModel" 
+										t:value="utTzTtTuLevel.utTzTtTuSort" 
+										t:validate="required"/>
+								</td>
+								<td>
+									<label>Түвшин</label>
+									<t:select 
+										t:model="occupationRankSelectionModel" 
+										t:value="utTzTtTuLevel.utTzTtTuRank" 
+										t:validate="required"/>
+								</td>
+								<td></td>
+								<td>
+									<t:submit t:id="saveUtTzTtTuLevel" 
+										t:value="${message:save}" />
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="utTzTtTuLevelListZone" id="utTzTtTuLevelListZone">
+					<t:grid 
+						t:source="listUtTzTtTuLevel" 
+						t:row="valueUtTzTtTuLevel" 
+						t:include="utTzTtTuSort,utTzTtTuRank" 
+						t:add="number,edit,delete"
+						reOrder="number" rowsPerPage="10">
+						<p:numberCell>
+							${numberUtTzTtTuLevel}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="editUtTzTtTuLevel" t:context="valueUtTzTtTuLevel"
+								t:zone="utTzTtTuLevelFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteUtTzTtTuLevel" t:context="valueUtTzTtTuLevel"
+								t:zone="utTzTtTuLevelListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+						<p:utTzTtTuSortCell>
+							${SortName}
+						</p:utTzTtTuSortCell>
+						<p:utTzTtTuRankCell>
+							${RankName}
+						</p:utTzTtTuRankCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Санхүүжилтийн төрөл</h3>
+			<div></div>			
+		</div>
+	</div>
+</body>
+</html>

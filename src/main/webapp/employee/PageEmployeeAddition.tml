@@ -1,0 +1,297 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+	<link rel="stylesheet" href="${styles}" type="text/css"/>
+</head>
+<body> 	
+<div style="width:100%">
+	<t:form>
+		<table id="newspaper-c" bgcolor="#E5E5E5">
+					<thead>
+						<td style="width:300px">
+							${message:honourInformation}
+						</td>
+					</thead>
+					<t:if test="show">
+				<tr>
+						<td><span class="red">*</span>${message:awardType} :</td>
+						<td><span class="red">*</span>${message:PrizeName} :</td>
+						<td><span class="red">*</span>${message:DateOfAwarded} :</td>	
+					</tr>
+					<tr>
+						<td><t:select t:id="shagnalClick" t:model="AwardTypeSelectionModel" t:value="awardType" t:validate="required"  t:zone="shagnalZone"/></td>
+							<td>
+								<t:zone t:id="shagnalZone" style="display: inline;">
+									<t:if test="governmentPrize">
+										<t:select t:model="GovernmentPrizeSelectionModel" t:value="governmentPrizeName" t:validate="required" style="width:200px"/>
+									</t:if>
+									<t:if test="justiceMinistryPrize">
+										<t:select t:model="JusticeMinistryPrizeSelectionModel" t:value="justiceMinistryPrizeName" t:validate="required" style="width:200px"/>
+									</t:if>
+									<t:if test="statePrize">
+										<t:select t:model="StatePrizeSelectionModel" t:value="statePrizeName" t:validate="required" style="width:200px"/>
+									</t:if>
+									<t:if test="courtPrize">
+										<t:select t:model="courtPrizeSelectionModel" t:value="courtPrizeName" t:validate="required" style="width:200px"/>
+									</t:if>
+									<t:if test="otherOrganizationPrize">
+										<t:textfield t:id="ohterOrganizationPrize" t:value="honour.statePrize" t:validate="required"/>
+									</t:if>
+								</t:zone>
+							</td>
+						<td><t:datefield t:id="DateOfAward" t:value="honour.dateOfAwarded" t:format="yyyy-MM-dd" t:validate="required"/></td>
+					</tr>	
+					<tr>	
+						<td>${message:authenticationId} :</td>
+						<td>${message:dictateId} :</td>
+						<td>${message:description} :</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><t:textfield t:value="honour.authenticationId"/></td>
+						<td><t:textfield t:value="honour.dictateId"/></td>
+						<td><t:textarea t:value="honour.description"/></td>
+					</tr>	
+					<tr>
+						<td style="text-align:right;" colspan="3">
+							<t:submit t:id="SaveState" class="btnFind save" t:value="${message:save}"/>
+							
+							<t:actionlink t:id="CancelState">
+								<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+					</t:if>
+					<tr>
+						<td colspan="5">
+							<t:grid t:source="listHonour" t:row	="valueHonour"  
+							include="awardType,statePrize,authenticationId,dictateId,dateOfAwarded" add="edit,delete, number"  
+							style="width:100%" rowClass="gridRowCSS" rowsPerPage="15" reOrder="number">
+								
+								<p:numberCell>
+									${number}
+								</p:numberCell>
+								
+								<p:dateOfAwardedCell>
+									${dateOfAwarded}
+								</p:dateOfAwardedCell>
+								
+								<p:editCell>
+								<t:security.hasPermission permission="edit_honour">
+									<t:actionlink t:id="editState" t:context="valueHonour">
+										<img src="${editIcon}"/>
+									</t:actionlink>
+								</t:security.hasPermission>							
+								</p:editCell>
+								
+								<p:deleteCell>
+								<t:security.hasPermission permission="delete_honour">
+									<t:actionlink t:id="deleteState" t:context="valueHonour" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+								</t:security.hasPermission>
+								</p:deleteCell>		
+								
+								<p:empty>
+									${message:noData}
+								</p:empty>
+								
+							</t:grid>
+							<p align="right">
+								<t:actionlink t:id="export">
+									<img src="${imgExcel}" />
+								</t:actionlink>
+							</p>
+						</td>
+					</tr>
+			</table>
+		</t:form>
+			<br/>
+			<div>
+			<t:form>
+				<table id="newspaper-c" bgcolor="#E5E5E5">
+					<thead>
+						<td style="width:300px">
+							${message:demeritInformation}
+						</td>
+					</thead>
+					<tr>						
+						<td><span class="red">*</span>${message:commandSubject} :</td>
+						<td><span class="red">*</span>${message:sahilgaTurul} :</td>
+						<td><span class="red">*</span>${message:demeritType} :</td>
+						<td><span class="red">*</span>${message:fond} :</td>						
+					</tr>	
+					<tr>						
+						<td>
+							<t:select t:model="commandSubjectSelectionModel" t:value="sahilga.commandSubject" t:validate="required" />
+						</td>
+						<td><t:select t:model="sahilgaTurulSelectionModel" t:value="sahilga.sahilgaTurul" style="width:150px" t:validate="required"/></td>
+						<td>
+							<t:select t:model="sahilgaShiitgelSelectionModel" t:value="sahilga.sahilgaShiitgel" style="width:150px" t:validate="required"/>
+						</td>
+						<td><t:textarea t:id="undeslel" t:value="sahilga.cause" t:validate="required"/></td>						
+					</tr>
+					<tr>	
+						<td><span class="red">*</span> ${message:blamedDate}:</td>
+						<td>${message:tushaalDugaar} :</td>
+						<td>${message:arilgasanTushaalOgnoo} :</td>
+						<td>${message:arilgasanTushaalDugaar} :</td>
+					</tr>	
+					<tr>
+						<td><t:datefield t:id="blamedDate" t:value="sahilga.shiitgelAvagdsanOgnoo" t:validate="required" t:format="yyyy-MM-dd" /></td>
+						<td><t:textfield t:id="tushaalDugaar" t:value="sahilga.avagdsanShiitgelDugaar"/></td>
+						<td><t:datefield t:id="arilgasanTushaalOgnoo" t:value="sahilga.arilgasanTushaalOgnoo" t:format="yyyy-MM-dd" /></td>
+						<td><t:textfield t:id="arilgasanTushaalDugaar" t:value="sahilga.arilgasanTushaalDugaar"/></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;" colspan="4">
+							<t:submit t:id="SaveSahilga" class="btnFind save" t:value="${message:save}"/>
+							<t:actionlink t:id="CancelSahilga">
+								<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<t:grid t:source="listSahilga" t:row="valueSahilga" t:include="commandSubject,sahilgaTurul,sahilgaShiitgel,cause"
+								t:exclude="shiitgelAvagdsanOgnoo,arilgasanTushaalOgnoo" 
+								add="number,shiitgelAvagdsanDate,arilgasanTushaalDate,edit,delete" 
+								reorder="number,commandSubject,sahilgaTurul,sahilgaShiitgel,cause" 
+								rowClass="gridRowCSS" rowsPerPage="15" reOrder="number" style="width:100%" >
+							    	<p:numberCell>
+							    		${numberSahilga}
+							    	</p:numberCell>
+							    	<p:commandSubjectCell>
+							    		${valueSahilga.commandSubject.subjectName}
+							    	</p:commandSubjectCell>
+							    	<p:sahilgaTurulCell>
+							    		${valueSahilga.sahilgaTurul.sahilgaTurulName}
+							    	</p:sahilgaTurulCell>
+							    	<p:sahilgaShiitgelCell>
+							    		${valueSahilga.sahilgaShiitgel.shiitgelName}
+							    	</p:sahilgaShiitgelCell>
+							    	<p:shiitgelAvagdsanDateCell>
+							    		${shiitgelAvagdsanOgnoo}
+							    	</p:shiitgelAvagdsanDateCell>
+							    	<p:arilgasanTushaalDateCell>
+							    		${arilgasanTushaalOgnoo}
+							    	</p:arilgasanTushaalDateCell>
+							    	<p:editCell>
+									<t:actionlink t:id="editSahilga" t:context="valueSahilga">
+										<img src="${editIcon}"/>
+									</t:actionlink>						
+									</p:editCell>
+									<p:deleteCell>
+									<t:actionlink t:id="deleteSahilga" t:context="valueSahilga" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+									</p:deleteCell>
+							    	<p:empty>
+										${message:noData}
+									</p:empty>
+							</t:grid>
+							<p align="right">
+							<t:actionlink t:id="exportDemerit">
+								<img src="${imgExcel}" />
+							</t:actionlink>
+							</p>
+						</td>
+					</tr>
+				</table>				
+			</t:form>
+			</div>
+			<br/>
+			<div>
+				<t:form>
+					<table id="newspaper-c" bgcolor="#E5E5E5">
+						<thead>
+							<td style="width:300px">
+								${message:allowanceInformation}
+							</td>
+						</thead>
+					<tr>						
+						<td><span class="red">*</span>${message:commandSubject} :</td>
+						<td><span class="red">*</span>${message:allowanceType} :</td>
+						<td><span class="red">*</span>${message:fond} :</td>
+					</tr>	
+					<tr>						
+						<td>
+							<t:select t:model="commandSubjectSelectionModel" t:value="allowance.commandSubject" t:validate="required" />
+						</td>							
+						<td>
+							<t:select t:model="allowanceTypeSelectionModel" t:value="allowance.allowanceType" t:validate="required"/>
+						</td>
+						<td>
+							<t:textarea t:id="cause" t:value="allowance.cause" t:validate="required"/>
+						</td>
+					</tr>	
+					<tr>						
+						<td><span class="red">*</span>${message:dictateId} :</td>
+						<td><span class="red">*</span>${message:allowanceMoney} :</td>
+						<td><span class="red">*</span>${message:olgosonOgnoo} :</td>
+					</tr>	
+					<tr>						
+						<td>
+							<t:textfield t:id="allowanceNumber" t:value="allowance.tushaalDugaar" t:validate="required" />
+						</td>							
+						<td>
+							<t:textfield t:id="allowanceMoney" t:value="allowance.allowanceMoney" t:validate="required" />
+						</td>
+						<td>
+							<t:datefield t:id="allowanceDate" t:value="allowance.olgosonOgnoo" t:validate="required" t:format="yyyy-MM-dd" />
+						</td>
+					</tr>	
+					<tr>
+						<td style="text-align:right;" colspan="4">
+							<t:submit t:id="SaveAllowance" class="btnFind save" t:value="${message:save}"/>
+							<t:actionlink t:id="CancelAllowance">
+								<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="7">
+							<t:grid t:source="listAllowance" t:row	="valueAllowance"  
+							include="tushaalDugaar,commandSubject,allowanceType,cause,allowanceMoney" add="dateOfAllowance,number,edit,delete" reOrder="number" style="width:100%" rowClass="gridRowCSS" rowsPerPage="15">
+									
+								<p:numberCell>
+							    		${numberAllowance}
+							    </p:numberCell>
+							    <p:commandSubjectCell>
+							    		${valueAllowance.commandSubject.subjectName}
+							    </p:commandSubjectCell>
+							     <p:allowanceTypeCell>
+							    		${valueAllowance.allowanceType.allowanceTypeName}
+							    </p:allowanceTypeCell>
+							    <p:allowanceTypeCell>
+							    		${valueAllowance.allowanceType.allowanceTypeName}
+							    </p:allowanceTypeCell>
+							    <p:allowanceMoneyCell>
+							    		${valueAllowance.allowanceMoney}
+							    </p:allowanceMoneyCell>
+							    <p:dateOfAllowanceCell>
+							    		${dateOfAllowance}
+							    </p:dateOfAllowanceCell>
+							    <p:editCell>
+									<t:actionlink t:id="editAllowance" t:context="valueAllowance">
+										<img src="${editIcon}"/>
+									</t:actionlink>						
+								</p:editCell>
+								<p:deleteCell>
+									<t:actionlink t:id="deleteAllowance" t:context="valueAllowance" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+								</p:deleteCell>
+								<p:empty>
+									${message:noData}
+								</p:empty>								
+							</t:grid>
+						</td>
+					</tr>
+					</table>					
+				</t:form>
+			</div>	
+		</div>
+ </body> 
+</html>

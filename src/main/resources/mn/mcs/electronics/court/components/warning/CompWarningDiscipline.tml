@@ -1,0 +1,34 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<h3>${message:warningType} - ${warningTypeCount}</h3>
+		<t:grid t:source="listEmployee" t:row="rowEmployee" rowsPerPage="25"
+			t:include="firstname,lastname,gender,shiitgelName,hetersenHonog"
+			t:add="number,organization,disciplineddate,duedate,edit"
+			reOrder="number,organization,lastname,firstname">
+			<p:numberCell>
+		   					${number}
+		   				</p:numberCell>
+			<p:organizationCell>
+		   					${organization}
+		   				</p:organizationCell>
+			<p:disciplineddateCell>
+		   					${startDate}
+		   				</p:disciplineddateCell>
+			<p:hetersenHonogCell>
+				<span class="red"> ${rowEmployee.hetersenHonog} </span>
+			</p:hetersenHonogCell>
+			<p:duedateCell>
+		   					${endDate}
+		   				</p:duedateCell>
+			<p:editCell>
+				<t:actionlink t:id="edit" t:context="rowEmployee.id">
+					<img src="${editIcon}" />
+				</t:actionlink>
+			</p:editCell>
+			<p:empty>
+							${message:noData}
+						</p:empty>
+		</t:grid>
+</t:container>
+

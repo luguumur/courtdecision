@@ -1,0 +1,81 @@
+<html t:type="layoutOrganization" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+</head>
+<body> <t:form>
+    
+		<table id="newspaper-c">
+			<tr>
+				<td>
+				<fieldset style="padding-top:0px; padding-bottom:0px;">
+					<legend class="legendTitle">${message:search}</legend>
+					<table id="newspaper-layEmp">
+						<tr>
+							<td>${message:lastname} :</td>
+							<td>${message:firstname} :</td>
+							<td>${message:registerNo} :</td>
+						</tr>
+						<tr>
+							<td><t:textfield t:value="bean.lastname"/></td>
+							<td><t:textfield t:value="bean.firstname"/></td>
+							<td><t:textfield t:value="bean.registerNo"/></td>
+							<td>
+								<t:submit t:id="search" class="btnFind search" t:value="${message:search}"/>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+				<fieldset>
+					<legend class="legendTitle">${message:listEmployee}</legend>
+						<t:security.HasPermission permission="add_employee">
+							<t:actionlink class="newButtonCss" t:id="addEmployee">${message:addEmployee}</t:actionlink>
+						</t:security.HasPermission>
+							<!--<t:actionlink class="newButtonCss" t:id="goImportExcel">${message:goImportExcel}</t:actionlink>-->
+						<br/>
+						<p align="right">
+							${message:sum} ${listSize}
+						</p>
+					<t:grid t:source="listEmployee" t:row="valueEmployee"
+					 t:include="lastname,firstname,registerNo,gender" add="number,edit,delete"
+					 reOrder="number" rowsPerPage="25" width="100%" rowClass="gridRowCSS">
+						<p:numberCell>
+							${number}
+						</p:numberCell>	
+						<p:firstnameCell>
+							<t:actionlink t:id="view" t:context="valueEmployee">
+								${firstname}
+							</t:actionlink>
+						</p:firstnameCell>
+						<p:editCell>
+						<t:security.HasPermission permission="edit_employee">
+							<t:actionlink t:id="edit" t:context="valueEmployee">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</t:security.HasPermission>	
+						</p:editCell>	
+						<p:deleteCell>
+						<t:security.HasPermission permission="delete_employee">
+							<t:actionlink t:id="delete" t:context="valueEmployee" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</t:security.HasPermission>	
+						</p:deleteCell>
+						
+						<p:empty>
+							${message:noData}
+						</p:empty>
+						
+					</t:grid>	
+					<p align="right">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</fieldset>
+				</td>
+			</tr>		
+		</table>
+	
+</t:form> </body> 
+</html>

@@ -1,0 +1,29 @@
+<html t:type="layoutOrganization" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+	 <t:form>
+	 	<table id="newspaper-c">
+			<tr>
+				<td>
+					<!--note-->Гадаад хэл импорт хийх хэсэг <br/>
+					<input t:type="upload" t:id="fileEx" size="10" />
+				</td>
+				 <td>
+					<t:submit t:id="importFile" t:value="${message:importFile}"/>
+				</td>
+			</tr>
+		</table>
+		<table id="newspaper-c">
+			<tr>
+				<td>
+					<!--note-->алдааны мессеж гаргах хэсэг 
+				</td>
+			</tr>
+		</table>
+	</t:form> 
+</body> 
+</html>

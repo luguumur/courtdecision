@@ -1,0 +1,30 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<t:textfield value="appointmentSort.appointmentSortName" t:validate="required"/>
+				<t:select t:model="AppointmentSortNameSelectionModel" t:value="appointmentSort.appointmentType" t:validate="required" />
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listAppointmentSort" t:row="valueAppointmentSort" t:include="id,appointmentSortName,appointmentType" t:add="edit,delete">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueAppointmentSort">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueAppointmentSort">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

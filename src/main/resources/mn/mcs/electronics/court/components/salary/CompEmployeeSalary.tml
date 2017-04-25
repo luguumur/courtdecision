@@ -1,0 +1,125 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns="tapestryarameter" xmlns:p="tapestry:parameter">
+
+	<t:zone t:id="salaryFormZone" id="salaryFormZone">
+		<t:delegate to="activeBlock" />
+	</t:zone>
+
+	<t:block t:id="blockDetail">
+		<t:form t:zone="salaryFormZone">
+			<table class="form">
+				<tr>
+					<th>${message:main} ${message:salary}: ${currentSalary}</th>
+					<td><label><span class="red">*</span>${message:year}</label> <t:textfield
+							t:id="year" t:value="salary.year" t:validate="regexp,required" />
+					</td>
+					<td><label><span class="red">*</span>${message:month}</label>
+						<t:select t:model="monthSelectionModel" t:value="salary.month"
+							t:validate="required" /></td>
+				</tr>
+				<tr>
+					<th><b>${message:add-ons}</b></th>
+					<td><b>%</b></td>
+					<td><b>${message:tugrug}</b></td>
+				</tr>
+				<t:loop t:source="listAdditionalSalaryType"
+					t:value="valueAdditionSalaryType">
+					<tr>
+						<td align="right">${valueAdditionSalaryType.name}:</td>
+						<td><t:textfield class="percent" t:value="percent" /></td>
+						<td><t:textfield class="tugrug" t:value="amount" /></td>
+					</tr>
+				</t:loop>
+			</table>
+
+			<fieldset>
+				<legend>Бусад орлого сараар</legend>
+				<table class="form">
+					<t:loop t:source="listAdditionalOtherSalaryType"
+						t:value="valueAdditionSalaryType">
+						<tr>
+							<td align="right">${valueAdditionSalaryType.name}:</td>
+							<td><t:textfield class="tugrug" t:value="otherIncome" /></td>
+							<td></td>
+						</tr>
+					</t:loop>
+					<tr>
+						<td></td>
+						<th>${message:total}: ${total} төг</th>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td><t:security.hasPermission
+								permission="edit_employee_salary">
+								<t:submit class="btnFind save" t:id="save"
+									t:value="${message:save}" />
+							</t:security.hasPermission> <t:actionlink t:id="back" t:zone="formZone">
+								<input class="btnFind refresh" type="button"
+									value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</fieldset>
+		</t:form>
+	</t:block>
+
+	<t:block t:id="blockList">
+		<t:form t:zone="salaryFormZone">
+			<p align="left">
+				<t:security.hasPermission permission="add_employee_salary">
+					<t:if test="show">
+						<t:actionlink t:id="add" class="button" t:zone="formZone">${message:add}</t:actionlink>
+					</t:if>
+				</t:security.hasPermission>
+			</p>
+			<t:grid t:source="listSalary" t:row="valueSalary"
+				t:include="year,month"
+				t:add="number,first,sum,additionalSalaryValue,edit,delete"
+				reOrder="number,year,month,first,additionalSalaryValue,sum" rowsPerPage="12">
+				<p:numberCell>
+					${number}
+				</p:numberCell>
+				<p:yearCell>
+					${valueSalary.year}
+				</p:yearCell>
+				<p:firstCell>
+					${valueSalary.firstAmount}
+				</p:firstCell>
+				<p:sumCell>
+					${valueSalary.totalAmount}
+				</p:sumCell>
+				<p:additionalSalaryValueCell>
+					${additionalSalaryValue}
+				</p:additionalSalaryValueCell>
+				<p:editCell>
+					<t:security.hasPermission permission="view_employee_salary">
+						<t:actionlink t:id="edit" t:context="valueSalary"
+							t:zone="formZone">
+							Засах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+				<p:deleteCell>
+					<t:security.hasPermission permission="view_employee_salary">
+						<t:actionlink t:id="delete" t:context="valueSalary"
+							t:mixins="confirmDelete" t:zone="formZone"
+							message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="export">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:form>
+	</t:block>
+</t:container>

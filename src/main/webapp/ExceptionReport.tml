@@ -1,0 +1,25 @@
+<html t:type="layoutCD" title="literal:Алдааны хуудас"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+
+	<div style="padding: 5px; min-height: 322px;">
+		<div style="color: green; font-size: 14px; font-weight: bold;">${message:error_message}</div>
+		<br />
+		<div>${message:request_message}</div>
+		<br />
+		<br /> <br />
+		<br />
+		<div>
+			Та доорх линкэн дээр дарна уу <br />
+			<t:pagelink page="Home">
+				<u>Нүүр хуудас</u>
+			</t:pagelink>
+		</div>
+	</div>
+</body>
+</html>
+

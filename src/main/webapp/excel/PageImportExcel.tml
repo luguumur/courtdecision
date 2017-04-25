@@ -1,0 +1,24 @@
+<html t:type="layoutOrganization" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+	 <t:form>
+		<table id="newspaper-c">
+			<tr>
+				<td>
+					<t:select t:id="typeClick" t:model="importFileTypeSelectionModel" t:value="valueFileType" 
+					t:validate="required" t:zone="importZone" />
+				</td>
+				<td>
+					<t:zone t:id="importZone" style="display:inline;">
+					<t:actionlink t:id="goImportPage">Эксел-ээс оруулах</t:actionlink>
+					</t:zone>
+				</td>
+			</tr>
+		</table>
+	</t:form> 
+</body> 
+</html>

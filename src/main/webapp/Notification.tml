@@ -1,0 +1,57 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<body>
+	<fieldset>
+   		<legend class="legendTitle">Зарлал</legend>
+   		<t:form>
+			<label>Агуулга</label>
+			<t:textarea t:value="notice.content" class="boxsizingBorder" />
+			<br /><br />
+			<table id="form">
+				<tr>
+					<td colspan="4" style="text-align: right;">
+						<t:submit t:id="save" value="${message:save}" />		 			
+		     			<t:actionlink t:id="cancel" class="button">
+							${message:cancel}
+						</t:actionlink>
+					</td>
+				</tr>
+			</table>
+			<br /><br />
+			<t:grid 
+				t:source="listNotice" 
+				t:row="valueNotice"
+				rowsPerPage="25"
+				t:add="number,date,emp,edit,delete"
+				t:include="content"
+				t:reOrder="number,date,emp,content,edit,delete">
+					<p:numberCell>
+				    	${number}
+				    </p:numberCell>
+				    <p:dateCell>
+				    	${createdDate}
+				    </p:dateCell>
+				    <p:empCell>
+				    	${emp}
+				    </p:empCell>
+				    <p:editCell>
+						<t:actionlink t:id="edit" t:context="valueNotice" > 
+							Засах
+						</t:actionlink>						
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueNotice"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</p:deleteCell>
+					<p:empty>
+						${message:noData}
+					</p:empty>								
+			</t:grid>				
+		</t:form>
+	</fieldset>
+</body>
+</html>

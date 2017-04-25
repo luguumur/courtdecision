@@ -1,0 +1,205 @@
+<html t:type="layout" title="${message:MERGESHILHOROO}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<link rel="stylesheet" href="${styles}" type="text/css" />
+
+</head>
+<body>
+<t:form>
+	<br />
+	<t:actionlink t:id="members" class="newButtonCssSelected">${message:members}</t:actionlink>
+	<t:actionlink t:id="openPosition" class="newButtonCss">${message:openPosition}</t:actionlink>
+	<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+	<t:actionlink t:id="promote" class="newButtonCss">${message:promote}</t:actionlink>
+	<t:actionlink t:id="conclusion" class="newButtonCss">${message:conclusion}</t:actionlink>
+
+	<div class="block"><t:delegate to="activeBlock" /></div>
+
+
+	<t:block t:id="register">
+		<table id="newspaper-layEmp">
+			<tr>
+				<td><span class="red">*</span> ${message:type}:</td>
+				<td><t:select t:model="addMemberTypeSelectionModel"
+					t:value="addMemberType" validate="required"
+					onChange="this.form.submit()" /></td>
+			</tr>
+		</table>
+		<div class="block"><t:delegate to="subBlock" /></div>
+	</t:block>
+
+	<t:block t:id="outcourt">
+		<fieldset><legend class="legendTitle">${message:anketInformationRegister}</legend>
+		<table id="newspaper-layEmp">
+			<tr>
+				<td><span class="red">${errorMsg}</span></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><t:actionlink t:id="goPageEmployeeDetail">
+					<input type="button" class="btnFind" value="${AnketInformation}" />
+				</t:actionlink></td>
+				<td>${message:employeeName} : <t:textfield
+					t:value="employeeInformation" disabled="true" size="30" /></td>
+			</tr>
+		</table>
+		</fieldset>
+
+		<fieldset><legend class="legendTitle">${message:CompetenceRegTitle}</legend>
+		<table id="newspaper-layEmp">
+			<tr>
+				<td><span class="red">*</span>${message:status} :</td>
+				<td><span class="red">*</span>${message:issuedDate} :</td>
+				<td>${message:quitDate} :</td>
+			</tr>
+
+			<tr>
+				<td><t:select t:model="memberStatus"
+					t:value="cccMember.memberStatus" validate="required" /></td>
+				<td><t:datefield t:disabled="true" t:id="issuedDate" t:format="yyyy-MM-dd"
+					t:value="cccMember.issuedDate" 
+					validate="required" /></td>
+				<td><t:datefield t:id="quitDate" t:value="cccMember.quitDate" t:format="yyyy-MM-dd"
+					 /></td>
+			</tr>
+
+			<tr>
+				<td colspan="3" style="text-align: right;"><t:submit
+					t:id="save" class="btnFind save" value="${message:save}" /> <t:actionlink
+					t:id="cancel">
+					<input type="button" class="btnFind cancel"
+						value="${message:cancel}" />
+				</t:actionlink></td>
+			</tr>
+		</table>
+		</fieldset>
+	</t:block>
+
+	<t:block t:id="incourt">
+		<fieldset><legend class="legendTitle">${message:CompetenceRegTitle}</legend>
+		<table id="newspaper-layEmp">
+			<tr>
+				<td><span class="red">*</span> ${message:issuedNo}:</td>
+				<td><span class="red">*</span> ${message:organization}:</td>
+				<td><span class="red">*</span>
+				${message:organizationType-label}:</td>
+
+			</tr>
+
+			<tr>
+				<td><t:textfield t:value="cccMember1.issuedNumber" /></td>
+				<td><t:select t:model="organizationSelectionModel"
+					t:value="organization" validate="required"
+					onChange="this.form.submit()" /></td>
+				<td><t:select t:model="organizationTypeSelectionModel"
+					t:value="organizationType" validate="required" /></td>
+			</tr>
+
+			<tr>
+				<td><span class="red">*</span> ${message:member}:</td>
+				<td><span class="red">*</span> ${message:status}:</td>
+				<td><span class="red">*</span> ${message:issuedDate}:</td>
+
+			</tr>
+
+			<tr>
+				<td><t:select t:model="employeeSelectionModel"
+					t:value="cccMember1.employee" validate="required" /></td>
+				<td><t:select t:model="memberStatus"
+					t:value="cccMember1.memberStatus" validate="required" /></td>
+				<td><t:datefield t:value="cccMember1.issuedDate" t:format="yyyy-MM-dd"
+					validate="required" /></td>
+			</tr>
+
+			<tr>
+				<td>${message:quitDate} :</td>
+				<td>${message:isLeader} :</td>
+			</tr>
+
+			<tr>
+				<td><t:datefield t:value="cccMember1.quitDate" t:format="yyyy-MM-dd"/></td>
+				<td><t:checkbox value="cccMember1.isLeader" /></td>
+				<td style="text-align: right;"><t:submit t:id="saveIn"
+					class="btnFind search" value="${message:save}" /> <t:actionlink
+					t:id="cancelIn">
+					<input type="button" class="btnFind" value="${message:back}" />
+				</t:actionlink></td>
+			</tr>
+		</table>
+		</fieldset>
+	</t:block>
+
+	<t:block t:id="grid">
+		<fieldset><legend class="legendTitle">${message:employeeList}</legend>
+		<table id="newspaper-layEmp">
+			<tr>
+				<td>${message:firstName} :<t:textfield t:value="bean.firstname" /></td>
+				<td>${message:memberStatus} :<t:select t:model="memberStatus"
+					t:value="bean.memberStatus" t:blankLabel="${message:all}" /></td>
+				<td>${message:type} :<t:select
+					t:model="addMemberTypeSelectionModel" t:value="bean.memberType"
+					t:blankLabel="${message:all}" /></td>
+				<td><t:submit t:id="search" class="btnFind search"
+					style="margin-top:13px;" value="${message:search}" /></td>
+			</tr>
+		</table>
+		</fieldset>
+
+		<fieldset><legend class="legendTitle">${message:members}</legend>
+		<t:security.HasPermission permission="add_cccMember">
+			<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+		</t:security.HasPermission>
+		<p align="right">${message:sum} ${listSize}</p>
+
+		<t:grid t:source="listCCCMember" t:row="valueCCCMember"
+			t:include="issuedDate"
+			add="number,member,appointment,mobilePhoneNo,workPhone,edit,delete"
+			rowClass="gridRowCSS" rowsPerPage="25"
+			reOrder="number,member,appointment,issuedDate,mobilePhoneNo,workPhone"
+			style="width:100%">
+
+			<p:numberCell>${number}</p:numberCell>
+
+			<p:memberCell>
+				<t:actionlink t:id="view" t:context="valueCCCMember">
+							${employeeName}
+						</t:actionlink>
+			</p:memberCell>
+
+			<p:appointmentCell>${appointmentName}</p:appointmentCell>
+			<p:issuedDateCell>${issuedDate}</p:issuedDateCell>
+			<p:mobilePhoneNoCell>${employeeMob}</p:mobilePhoneNoCell>
+			<p:workPhoneCell>${employeePhone}</p:workPhoneCell>
+
+			<p:editCell>
+				<t:security.HasPermission permission="edit_cccMember">
+					<t:actionlink t:id="edit" t:context="valueCCCMember">
+						<img src="${editIcon}" />
+					</t:actionlink>
+				</t:security.HasPermission>
+			</p:editCell>
+
+			<p:deleteCell>
+				<t:security.HasPermission permission="delete_cccMember">
+					<t:actionlink t:id="delete" t:context="valueCCCMember"
+						t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+						<img src="${deleteIcon}" />
+					</t:actionlink>
+				</t:security.HasPermission>
+			</p:deleteCell>
+			<p:empty>
+						${message:noData}
+					</p:empty>
+		</t:grid>
+
+		<p align="right"><t:actionlink t:id="export">
+			<img src="${imgExcel}" />
+		</t:actionlink></p>
+		</fieldset>
+
+	</t:block>
+
+</t:form>
+</body>
+</html>

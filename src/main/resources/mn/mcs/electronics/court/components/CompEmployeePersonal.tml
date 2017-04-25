@@ -1,0 +1,310 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	
+	<t:zone t:id="formZone" id="formZone"> 
+		<t:form t:zone="formZone">
+			<!-- <fieldset>
+				<legend>Байгууллагын тохиргоо</legend>	
+				<table class="form">			
+					<tr>
+						<td>
+							<label><span class="red">*</span>Харъяалагдах байгууллага:</label>
+							<t:select
+								t:model="organizationSelectionModel" 
+								t:value="employee.organization"
+								t:validate="required" style="width: 300px;"/>
+						</td>						
+					</tr>	
+				</table>	
+			</fieldset> -->
+			<fieldset>
+				<legend>${message:personalInfo}</legend>	
+				<table class="form">			
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:familyName}</label>
+							<t:textfield 
+								t:value="employee.familyName" 
+								t:validate="required" />
+						</td>
+						<td>	
+							<label><span class="red">*</span>${message:birthDate-label}</label>
+							<t:datefield 
+								t:id="birthDate" 
+								t:value="employee.birthDate" 
+								t:validate="required"
+								t:format="yyyy-MM-dd" />
+						</td>
+						<!-- <td>
+							<label>${message:education}</label>
+							${education}
+						</td> -->
+						<td>
+							<label>${message:position}</label>
+							${occupation}
+						</td>
+						<td>
+							<label>${message:gender-label}</label>
+							<t:select 
+								t:id="gender" 
+								t:model="GenderSelectionModel" 
+								t:value="employee.gender" 
+								t:validate="required"/>
+						</td>	
+					</tr>
+					<tr>		
+						<td>
+							<label>${message:familyStatus-label}</label>
+							<t:select 
+								t:id="familyStatus" 
+								t:model="FamilyStatusSelectionModel" 
+								t:value="employee.familyStatus" 
+								t:validate="required"/>
+						</td>	
+						<td></td>	
+						<td></td>
+						<td></td>							
+					</tr>		
+				</table>	
+			</fieldset>
+						
+			<fieldset>
+				<legend>${message:birtPlacePers}</legend>
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:birthCountry}</label>
+							<t:select 
+								t:id="birthCountry" 
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}"
+								t:model="CountrySelectionModel" 
+								t:value="employee.birthCountry" 
+								t:validate="required" 
+								t:zone="countryZone"/>
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:birthCity}</label>
+							<t:zone t:id="countryZone" id="countryZone">
+								<t:if test="mongolianProvince">
+									<t:select 
+										t:id="aimagClick" 
+										t:blankOption="ALWAYS"
+										t:blankLabel="${message:Choose}"
+										t:model="CityProvinceSelectionModel" 
+										t:value="employee.birthCityProvince" 
+										t:validate="required" 
+										t:zone="aimagZone"/>
+								<p:else>
+									<t:select  
+										t:blankOption="ALWAYS"
+										t:blankLabel="${message:Choose}"
+										t:model="CitySelectionModel" 
+										t:value="employee.birthCity" 
+										t:validate="required" 
+										t:zone="aimagZone"/>
+								</p:else>	
+								</t:if>
+							</t:zone>	
+						</td>
+						<td>
+							<label>${message:birthDistrict}</label>
+							<t:zone t:id="aimagZone" id="aimagZone">
+								<t:select
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" 
+									t:model="DistrictSumSelectionModel" 
+									t:value="employee.birthDistrictSum" />
+							</t:zone>
+						</td>
+						<td>
+							<label>${message:birthCityProvince-label}</label>
+							<t:textfield 
+								t:value="employee.birthPlace"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:persuasion-label}</label>
+							<t:select
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" 
+								t:model="OriginSelectionModel"
+								t:value="employee.origin" 
+								t:validate="required" />
+						</td>	
+						<td>
+							<label>${message:ascription}</label>
+							<t:select
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" 
+								t:model="AscriptionSelectionModel" 
+								t:value="employee.ascription"/>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+				
+			<fieldset>
+				<legend>${message:addressTit}</legend>
+				<table class="form">
+					<tr>
+						<td>
+							<label>${message:CityProvinceName}</label>
+							<t:select 
+								t:id="aimagHotClick"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}"
+								t:model="CityProvinceSelectionModel" 
+								t:value="employee.addCity" 
+								t:zone="aimagHotZone"/>
+						</td>
+						<td>
+							<label>${message:DistrictSumName}</label>
+							<t:zone t:id="aimagHotZone" id="aimagHotZone">
+								<t:select
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" 
+									t:model="DistrictSumSelectionModel2" 
+									t:value="employee.addDistrictSum" />
+							</t:zone>
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:address}</label>
+							<t:textfield 
+								t:id="address" 
+								t:value="employee.address" 
+								t:validate="required"/>
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:mobilePhoneNo-label}</label>
+							<t:textfield 
+								t:value="employee.mobileNo" 
+								t:validate="required"/>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							<label>${message:phoneNo}</label>
+							<t:textfield 
+								t:value="employee.phoneNo"/>
+						</td>	
+						<td>
+							<label>${message:workPhone}</label>
+							<t:textfield 
+								t:value="employee.workPhoneNo"/>
+						</td>
+						<td>
+							<label>${message:workFax}</label>
+							<t:textfield 
+								t:value="employee.workFax"/>
+						</td>
+						<td>
+							<label>${message:email-label}</label>
+							<t:textfield 
+								t:value="employee.eMail"/>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							<label>${message:postAddress}</label>
+							<t:textfield 
+								t:value="employee.postAddress"/>
+						</td>	
+						<td>
+							<label>${message:postIndex}</label>
+							<t:textfield 
+								t:value="employee.postIndex"/>
+						</td>
+					</tr>
+				</table>
+			</fieldset>	
+				
+			<fieldset>
+				<legend>${message:contactRelative}</legend>
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:firstname}</label>
+							<t:textfield 
+								t:id="firstname" 
+								t:value="employee.eCallPersonName" 
+								t:validate="required" />
+						</td>	
+						<td>
+							<label><span class="red">*</span>${message:relativeKind}</label>
+							<t:select 
+								t:id="eCallPersonRelativeType"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" 
+								t:model="RelativeTypeSelectionModel" 
+								t:value="employee.eCallPersonRelativeType" 
+								t:validate="required"/>
+						</td>	
+						<td>
+							<label>${message:address}</label>
+							<t:textfield 
+								t:id="eCallPersonAddress" 
+								t:value="employee.eCallPersonAddress" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:mobilePhoneNo-label}</label>
+							<t:textfield 
+								t:id="mobilePhoneNo" 
+								t:value="employee.eCallPersonMobileNo" 
+								t:validate="required"/>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							<label>${message:phoneNo-label}</label>
+							<t:textfield 
+								t:value="employee.eCallPersonPhoneNo"/>
+						</td>	
+						<td>
+							<label>${message:email-label}</label>
+							<t:textfield 
+								t:value="employee.eCallPersonEmail"/>
+						</td>
+					</tr>
+				</table>
+				
+				<t:security.HasPermission permission= "show_admin">
+					<fieldset>
+						<legend class="legendTitle2">${message:systemUserRole}</legend>
+						<table class="form">
+							<tr>
+								<td>
+									<label>${message:systemUserRole}</label>
+									<t:checkbox 
+										t:value="employee.systemUser"/>
+								</td>
+								<td>
+									<label>Роль</label>
+									<t:select
+										t:blankOption="ALWAYS"
+										t:blankLabel="${message:Choose}" 
+										t:model="roleSelectionModel" 
+										t:value="empRole" />
+								</td>
+								<td></td><td></td>
+							</tr>
+						</table>
+					</fieldset>	
+				</t:security.HasPermission>
+				
+				<table class="form">	
+					<tr>
+						<td></td>
+						<td align="right">
+							<t:security.HasPermission permission="edit_employee_detail">
+								<t:submit t:id="save" t:value="${message:save}"/>
+							</t:security.HasPermission>
+						</td>
+					</tr>
+				</table>
+			</fieldset>	
+		</t:form>
+	</t:zone>		
+</t:container>

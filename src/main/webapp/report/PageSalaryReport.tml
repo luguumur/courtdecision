@@ -1,0 +1,97 @@
+<html t:type="layout" title="${message:report}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<head>
+	</head>
+	<body> <t:form>
+		<div class="block">
+			<div class="newspaper-a">
+			
+				<fieldset>
+					<legend class="legendTitle">${message:salaryReport}</legend>
+					<table class="searchField" style="width:50%">
+						<tr>
+							<td>
+							<t:security.hasPermission permission="show_all_organization">
+								${message:name}<br/>
+								<t:select t:model="organizationSelectionModel" t:value="org" t:blankLabel="${message:all}" t:style="width: 450px"/>
+							</t:security.hasPermission>
+							</td>
+							<td>
+								${message:year}<br/>
+								<t:select t:model="YearSelectionModel" t:value="year" t:blankLabel="${message:all}"/>
+							</td>
+							<td><br/>
+								<t:submit t:id="search" t:value="${message:search}"/>
+							</td>
+						</tr>
+					</table>
+				
+					<table>
+						<tr>
+							<td></td>
+							<td>
+								${message:governmentSalary-label} 
+							</td>
+							<td>${salaryNetworkCount}</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								${message:judgeSalary-label} 
+							</td>
+							<td>
+								${SalaryJudgeCount}
+							</td>
+						</tr>
+					</table>
+					<br/>
+				
+				<div>
+					<t:grid t:source="listSalaryHistory" t:row="valueSalaryHistory" 
+					t:add="org,totalSalary,countEmp" rowClass="gridRowCSS" width="50%">
+						<p:orgCell>
+							${organizationName}
+						</p:orgCell>
+						<p:totalSalaryCell>
+							${totalSalary}
+						</p:totalSalaryCell>
+						<p:countEmpCell>
+							${countEmp}
+						</p:countEmpCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+				</div>
+				<br/>
+					<t:grid t:source="listAdditionalSalaryHistory" t:row="valueAdditionalSalaryHistory"  
+					t:add="number,addType,addAmount,avgPercent"  rowClass="gridRowCSS" width="50%">
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:addTypeCell>
+							${addType}
+						</p:addTypeCell>
+						<p:addAmountCell>
+							${addAmount}
+						</p:addAmountCell>
+						<p:avgPercentCell>
+							${avgPercent}
+						</p:avgPercentCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="center">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}"/>
+						</t:actionlink>
+					</p>
+				</fieldset>	
+			
+			</div>
+		</div>
+	</t:form> </body> 
+</html>

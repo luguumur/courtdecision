@@ -1,0 +1,42 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+    <body> <t:form>
+    <p></p>
+    	
+    		<t:delegate to="activeBlock"/>	
+    		
+    		
+    	
+    	<t:block t:id="blockList">
+    		<p align="left">
+    			<t:actionlink t:id="add"><u>${message:add}</u></t:actionlink>
+    		</p>
+    		<t:grid t:source="listPermission" t:row="valuePermission" t:include="id,permissionName,displayName" t:add="edit,delete">
+				<p:editCell>
+						<t:actionlink t:id="edit" t:context="valuePermission">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+				</p:editCell>	
+				<!--<p:deleteCell>
+					<t:actionlink t:id="delete" t:context="valuePermission">
+						<img src="${deleteIcon}"/>
+					</t:actionlink>
+				</p:deleteCell>-->
+			</t:grid> 
+    	</t:block>	
+    	<t:block t:id="blockView">
+    		<div>
+    			${message:permissionName}
+    			<t:textfield t:value="valuePermission.permissionName"/>
+    			<br/>
+    			${message:displayName}	
+    		<t:textfield t:value="valuePermission.displayName" t:validate="required"/>	
+    		<t:submit t:id="save" t:value="${message:save}"/>
+    		</div>
+    	</t:block>
+	</t:form> </body> 
+</html>

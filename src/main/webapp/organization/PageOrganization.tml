@@ -1,0 +1,126 @@
+<html t:type="layoutCD" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		
+	</head>
+    <body>
+    	<t:form>
+        	<table id="form">
+	    		<tr>
+	    			<td width="50%">
+						<table id="newspaper-b" width="100%">
+							<thead>
+							<tr><td colspan="2">${message:leadership}</td></tr>
+							</thead>
+							<tr>
+								<td>${message:lastname} :</td>
+								<td>${ceoLName}</td>
+							</tr>
+							<tr>
+								<td>${message:firstname} :</td>
+								<td>${ceoName}</td>
+							</tr>
+							<tr>
+								<td>${message:birthDate} :</td>
+								<td>${ceoBDate}</td>
+							</tr>
+							<tr>
+								<td>${message:ascription} :</td>
+								<td>${ceoAscription}</td>
+							</tr>
+							<tr>
+								<td>${message:phoneNo} :</td>
+								<td>${ceoPNumber}</td>
+							</tr>
+							<tr>
+								<td>${message:email} :</td>
+								<td>${ceoEmail}</td>
+							</tr>
+						</table>
+	    			</td>
+	    			<td width="50%">
+						<table id="newspaper-b">
+							<tbody>
+								<thead>
+									<tr><td colspan="7">${message:officer}</td></tr>
+								</thead>
+								<thead>
+								<tr>
+									<td></td>
+									<t:loop source="listDisplacement" value="valueDisplacement">
+										<td>${DisplacementType}</td>
+									</t:loop>
+									<t:loop source="listDisplacement2" value="valueDisplacement2">
+										<td>${Displacement2Type}</td>
+									</t:loop>
+								</tr>
+								</thead>
+								<tr>
+									<td>${message:all}</td>
+									<t:loop source="listDisplacement" value="valueDisplacement">
+										<td>${CountDis}</td>
+									</t:loop>
+									<t:loop source="listDisplacement2" value="valueDisplacement2">
+										<td>${CountDis2}</td>
+									</t:loop>
+								</tr>
+								<tr>
+									<td>${message:male}</td>
+									<t:loop source="listDisplacementMale" value="valueDisplacementMale">
+										<td>${CountDisMale}</td>
+									</t:loop>
+									<t:loop source="listDisplacement2Male" value="valueDisplacement2Male">
+										<td>${CountDis2Male}</td>
+									</t:loop>
+								</tr>
+								<tr>
+									<td>${message:female}</td>
+									<t:loop source="listDisplacementFemale" value="valueDisplacementFemale">
+										<td>${CountDisFemale}</td>
+									</t:loop>
+									<t:loop source="listDisplacement2Female" value="valueDisplacement2Female">
+										<td>${CountDis2Female}</td>
+									</t:loop>
+								</tr>
+							</tbody>
+					 	</table>
+					</td>
+				</tr>	
+				<tr>
+					<td colspan="2">
+						<table id="newspaper-b" width="100%">
+							<thead>
+							<tr>
+								<td colspan="2">Батлагдсан орон тоо</td>
+								<td colspan="2">Нийт орон тоо</td>
+							</tr>
+							</thead>
+							<tr>
+								<td width="45%">
+									<span t:type="loop" source="listApprovedPositions" value="valueApprovedPositions">
+										${approvedPositions}<br/>
+									</span>
+								</td>
+								<td width="5%">
+									<span t:type="loop" source="listApprovedPositions" value="valueApprovedPositions">
+										${countApprovedPositions}<br/>
+									</span>
+								</td>
+								<td width="45%">
+									<span t:type="loop" source="listAppointmentQuantity" value="valueAppointmentQuantity">
+										${appointmentQuantity}<br/>
+									</span> 
+								</td>
+								<td width="5%">
+									<span t:type="loop" source="listAppointmentQuantity" value="valueAppointmentQuantity">
+										${countAppointmentQuantity}<br/>
+									</span>
+								</td>
+							</tr>
+					 	</table>
+	    			</td>
+	    		</tr>
+    		</table>
+    </t:form> </body> 
+</html>

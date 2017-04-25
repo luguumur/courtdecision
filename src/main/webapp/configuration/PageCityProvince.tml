@@ -1,0 +1,29 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				Хот, аймгийн нэр: <t:textfield value="city.cityName"/> &nbsp;			
+				<t:submit t:id="save" t:value="${message:save}"  class="btnFind save"/>
+			</div><br/>
+			<div>
+				<t:grid t:source="listCity" t:row="valueCity" t:include="id,cityName" t:add="edit, delete" rowsPerPage="25" >
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueCity">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueCity">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

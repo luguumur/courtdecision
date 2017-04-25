@@ -1,0 +1,376 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> 
+<t:form>
+	<div>
+		<table id="newspaper-c">
+			<thead>
+				<tr>
+					<th style="width:300px">
+						${message:educationInformation}
+					</th>
+				</tr>
+			</thead>
+			<t:if test="show">
+				<tr>
+					<td><span class="red">*</span>${message:country} :</td>
+					<td><span class="red">*</span>${message:city} :</td>
+					<td>
+						<t:zone t:id="sumLabelZone" style="display: inline;">
+							<t:if t:test="visibleSumDuureg">
+								${message:DistrictSumName} :
+							</t:if>
+						</t:zone>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<t:select t:id="ulsClick" t:model="countrySelectionModel" t:value="education.country" t:validate="required" t:zone="aimagZone"/></td>
+					<td>
+						<t:zone t:id="aimagZone" style="display: inline;">
+							<t:if test="isMongolia">
+								<t:select t:id="aimagClick" t:model="provinceSelectionModel" t:value="province" t:validate="required" t:zone="sumZone" t:style="width: 100px"/>
+							</t:if>
+							<t:if test="notMongolia">
+								<t:select t:model="citySelectionModel" t:value="city" t:validate="required" t:style="width: 100px"/>
+							</t:if>
+						</t:zone>
+					</td>
+					<td>
+						<t:zone t:id="sumZone" style="display: inline;">
+							<t:if t:test="visibleSumDuureg">
+								<t:select t:model="DistrictSumSelectionModel" t:value="education.districtSum" t:style="width: 100px"/>
+							</t:if>
+						</t:zone>
+					</td>
+				</tr>
+				<tr>
+					<td><span class="red">*</span>${message:schoolType} :</td>
+					<td></td>	
+					<td><span class="red">*</span>${message:school} :</td>									
+				</tr>
+				<tr>
+					<td><t:select t:id="schoolTypeClick" t:model="SchoolTypeSelectionModel" t:value="schoolType" t:validate="required" t:zone="surguuliZone, schoolTypeZone"/></td>
+					<td><t:select t:model="universityTypeSelectionModel" value="universityType" validate="required"/></td>
+					<td>
+						<t:zone t:id="surguuliZone" style="display: inline;">						
+							<t:if test="primarySchool">
+								<t:textfield t:id="school" t:value="education.school" t:validate="required"/>
+							</t:if>
+							<t:if test="university">
+								<t:select t:id="university" t:model="SchoolSelectionModel" t:value="education.university" style="width:150px" t:validate="required" />						
+							</t:if>
+							<t:if test="MSUT">
+								<t:textfield t:id="school_msut" t:value="education.school" t:validate="required"/>
+							</t:if>
+							<t:if test="COLLEGE">
+								<t:textfield t:id="school_college" t:value="education.school" t:validate="required"/>
+							</t:if>	
+						</t:zone>					
+					</td>					
+				</tr>
+				<tr>
+					<td><span class="red">*</span>${message:inGoingDate} :</td>
+					<td><span class="red">*</span>${message:graduatedDate} :</td>
+					<td><span class="red">*</span>${message:degreeType} :</td>
+				</tr>				
+				<tr>
+					<td><t:textfield t:value="education.ingoingDate" t:id="inGoingDate" t:validate="required"/></td>
+					<td><t:textfield t:value="education.graduatedDate" t:id="graduatedDate" t:validate="required"/></td>
+					<td><t:select t:model="degreeTypeSelectionModel" t:value="education.degreeType" t:validate="required"/></td>
+				</tr>
+				<tr>
+					<td><span class="red">*</span>${message:position} :</td>
+					<td><span class="red">*</span>${message:diplomaNo} :</td>
+					<td>${message:diplomaSubject} :</td>
+				</tr>
+				<tr>
+					<td>
+						<t:zone t:id="schoolTypeZone" style="display: inline;">						
+							<t:select t:model="OccupationSelectionModel" t:value="education.occupation" t:validate="required" style="width:150px"/>
+						</t:zone>					
+					</td>
+					<td><t:textfield t:id="diplomaNo" t:value="education.diplomaNo" t:validate="required"/></td>
+					<td><t:textfield t:value="education.diplomaSubject"/></td>
+				<tr>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align:right;">
+						<t:security.hasPermission permission="add_education">
+							<t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>
+						</t:security.hasPermission>
+						<t:actionlink t:id="cancel">
+							<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+						</t:actionlink>
+					</td>
+				</tr>
+			</t:if>
+			<tr>
+				<td colspan="4">
+					<t:grid t:source="listEducation" t:row="valueEducation" 
+					t:include="school,degreeType,occupation,ingoingDate,graduatedDate,country" 
+					t:add="edit,delete,numberCo" reOrder="numberCo" rowsPerPage="25" rowClass="gridRowCSS" style="width:100%">
+						<p:numberCoCell>
+									${numberCo}
+						</p:numberCoCell>
+						<p:degreeTypeCell>
+							${valueEducation.degreeType.name}
+						</p:degreeTypeCell>
+						<p:occupationCell>
+							${valueEducation.occupation.name}
+						</p:occupationCell>
+						<p:countryCell>
+							${countryName}
+						</p:countryCell>
+						<p:ingoingDateCell>
+							${ingoingDate}
+						</p:ingoingDateCell>
+						<p:graduatedDateCell>
+							${graduatedDate}
+						</p:graduatedDateCell>
+						<p:schoolCell>
+									${schoolCell}
+						</p:schoolCell>
+						<p:editCell>
+							<t:security.hasPermission permission="edit_education">
+								<t:actionlink t:id="edit" t:context="valueEducation">
+											<img src="${editIcon}"/>
+								</t:actionlink>
+							</t:security.hasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.hasPermission permission="delete_education">
+								<t:actionlink t:id="delete" t:context="valueEducation" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+									<img src="${deleteIcon}"/>
+								</t:actionlink>
+							</t:security.hasPermission>
+						</p:deleteCell>
+						<p:empty>
+								${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportEducation">
+								<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+			</tr>
+		</table>
+		</div>
+		
+		<br />
+	</t:form>
+	<t:form>
+		<div>
+		<table id="newspaper-c">
+			<thead>
+				<tr>
+					<th>
+						${message:degreeInformation}
+					</th>
+				</tr>
+			</thead>
+			<t:if test="show">
+			<tr>
+				<td><span class="red">*</span>${message:doctorType} :</td>
+				<td><span class="red">*</span>${message:degree} :</td>
+				<td><span class="red">*</span>${message:issuedPlace} :</td>
+				<td>${message:issuedSubject} :</td>
+			</tr>
+			<tr>
+				<td><t:select t:id="doctorTypeClick" t:model="DoctorTypeSelectionModel" t:value="doctorType" t:validate="required" t:zone="doctorZone"/></td>
+					<td>
+						<t:zone t:id="doctorZone" style="display: inline;">
+							<t:if test="educationDoctor">
+								<t:select t:model="educationDoctorTypeSelectionModel" t:value="educationDoctorType" t:validate="required" style="width:150px"/>
+							</t:if>
+							<t:if test="scienceDoctor">
+								<t:select t:model="scienceDoctorTypeSelectionModel" t:value="scienceDoctorType" t:validate="required" style="width:150px"/>
+							</t:if>
+						</t:zone>
+					</td>
+				<td><t:select t:model="countrySelectionModel" t:value="degrees.issuedCountry" t:validate="required"/></td>
+				<td><t:textfield t:value="degrees.subject"/></td>
+			</tr>
+			<tr>
+				<td><span class="red">*</span>${message:degreeDate} :</td>
+				<td><span class="red">*</span>${message:certificatedNo} :</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><t:textfield t:id="date" t:value="degrees.issuedDate"/></td>
+				<td><t:textfield t:id="certificatedNo" t:value="degrees.certificatedNo" t:validate="required"/></td>
+				
+				<td colspan="4" style="text-align:right;">
+					
+					<t:security.hasPermission permission="add_degree">
+						<t:submit t:id="saveDegree" class="btnFind save" t:value="${message:save}"/>
+					</t:security.hasPermission>
+					
+					<t:actionlink t:id="cancelDegree"> 
+						<input type="button"  class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+			<tr>
+				<td colspan="4">
+					<t:grid t:source="listDegrees" t:row="valueDegrees" 
+					t:include="doctorType,issuedCountry,certificatedNo" t:add="degreeDate,edit,delete,number"
+					reOrder="number" rowsPerPage="25" rowClass="gridRowCSS" style="width:100%">
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:doctorTypeCell>
+							${doctorTypeName}
+						</p:doctorTypeCell>
+						<p:issuedCountryCell>
+							${issuedCountryName}
+						</p:issuedCountryCell>
+						<p:degreeDateCell>
+							${degreeDate}
+						</p:degreeDateCell>
+						<p:editCell>
+							<t:security.hasPermission permission="edit_degree">
+								<t:actionlink t:id="editDegree" t:context="valueDegrees">
+									<img src="${editIcon}"/>
+								</t:actionlink>
+							</t:security.hasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.hasPermission permission="delete_degree">
+								<t:actionlink t:id="deleteDegree" t:context="valueDegrees" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+									<img src="${deleteIcon}"/>
+								</t:actionlink>
+							</t:security.hasPermission>
+						</p:deleteCell>
+						<p:empty>
+								${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportDegrees">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+</t:form>
+	<br />
+<t:form>
+	<div>
+		<table id="newspaper-c">
+			<thead>
+				<tr>
+					<th>
+						${message:employeeAcademicRank}
+					</th>
+				</tr>
+			</thead>
+			<t:if test="show">
+			<tr>
+				<td>
+					${message:academicRank}:
+				</td>
+				<td>
+					<span class="red">*</span>${message:rankOrganization}:
+				</td>
+				<td>
+					<span class="red">*</span>${message:rankDate}:
+				</td>
+				<td>
+					<span class="red">*</span>${message:rankCertificate}:
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<t:select t:model="academicRankSelectionModel" t:value="degreeGradeRank.academicRank"/>
+				</td>
+				<td>
+					<t:textfield t:id="rankOrganization" t:value="degreeGradeRank.rankOrganization" t:validate="required"/>
+				</td>
+				<td>
+					<t:textfield t:id="rankDate" t:value="degreeGradeRank.rankDate" t:validate="required"/>
+				</td>
+				<td>
+					<t:textfield t:id="rankCertificate" t:value="degreeGradeRank.rankCertificate" t:validate="required"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align:right;">
+					<t:security.HasPermission permission= "edit_degree_grade">
+						<t:submit t:id="saveRank" class="btnFind save" t:value="${message:save}"/>
+					</t:security.HasPermission>
+					<t:actionlink t:id="cancelRank">
+						<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+			<tr>
+				<td colspan="5">
+					<t:grid t:source="listDegreeGradeRank" t:row="valueDegreeGradeRank" 
+					include="academicRank,rankOrganization,rankDate,rankCertificate" 
+					add="edit,delete,numberRank" reOrder="numberRank" rowsPerPage="25" 
+					rowClass="gridRowCSS"  style="width:100%">
+						
+						<p:numberRankCell>
+							${numberRank}
+						</p:numberRankCell>
+						
+						<p:academicRankCell>
+							${academicRank}
+						</p:academicRankCell>
+						
+						<p:rankOrganizationCell>
+							${rankOrganization}
+						</p:rankOrganizationCell>
+						
+						<p:rankDateCell>
+							${rankDate}
+						</p:rankDateCell>
+						
+						<p:rankCertificateCell>
+							${rankCertificate}
+						</p:rankCertificateCell>
+						
+						<p:editCell>
+						<t:security.HasPermission permission= "edit_degreeGrade">
+							<t:actionlink t:id="editRank" t:context="valueDegreeGradeRank">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</t:security.HasPermission>
+						</p:editCell>
+						
+						<p:deleteCell>
+						<t:security.HasPermission permission= "delete_degreeGrade">
+							<t:actionlink t:id="deleteRank" t:context="valueDegreeGradeRank" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</t:security.HasPermission>
+						</p:deleteCell>
+						
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportRank">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+			</tr>
+		</table>
+		</div>
+</t:form> 
+</body> 
+</html>

@@ -1,0 +1,2152 @@
+package mn.mcs.electronics.court.pages.report;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+
+import mn.mcs.electronics.court.dao.CoreDAO;
+import mn.mcs.electronics.court.entities.configuration.SkillGroup;
+import mn.mcs.electronics.court.entities.employee.Addition;
+import mn.mcs.electronics.court.entities.employee.Computer;
+import mn.mcs.electronics.court.entities.employee.DegreeGrade;
+import mn.mcs.electronics.court.entities.employee.DegreeGradeRank;
+import mn.mcs.electronics.court.entities.employee.Degrees;
+import mn.mcs.electronics.court.entities.employee.Demerit;
+import mn.mcs.electronics.court.entities.employee.Educations;
+import mn.mcs.electronics.court.entities.employee.Employee;
+import mn.mcs.electronics.court.entities.employee.Experience;
+import mn.mcs.electronics.court.entities.employee.Honour;
+import mn.mcs.electronics.court.entities.employee.Language;
+import mn.mcs.electronics.court.entities.employee.Relatives;
+import mn.mcs.electronics.court.entities.employee.ResultContract;
+import mn.mcs.electronics.court.entities.employee.Skills;
+import mn.mcs.electronics.court.entities.employee.Training;
+import mn.mcs.electronics.court.entities.employee.TravelAbroad;
+import mn.mcs.electronics.court.entities.other.MeasuredDisciplineMembers;
+import mn.mcs.electronics.court.enums.AppointmentType;
+import mn.mcs.electronics.court.enums.RelativeFamily;
+import mn.mcs.electronics.court.pages.employee.PageEmployeeDetail;
+import mn.mcs.electronics.court.util.Constants;
+import mn.mcs.electronics.court.util.PDFStreamResponse;
+
+import org.apache.tapestry5.StreamResponse;
+import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.ioc.Messages;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Context;
+
+import com.lowagie.text.Document;
+import com.lowagie.text.DocumentException;
+import com.lowagie.text.Element;
+import com.lowagie.text.Font;
+import com.lowagie.text.Image;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.BaseFont;
+import com.lowagie.text.pdf.PdfContentByte;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+
+public class Anket {
+
+	@Inject
+	private CoreDAO dao;
+
+	@Inject
+	private Messages messages;
+
+	@InjectPage
+	private PageEmployeeDetail pageEmployee;
+
+	@Persist
+	private List<Relatives> listRelative;
+
+	@Persist
+	private List<Educations> listEducations;
+
+	@Persist
+	private List<Degrees> listDegrees;
+
+	@Persist
+	private List<Training> listTraining;
+
+	@Persist
+	private List<Experience> listExperience;
+
+	@Persist
+	private List<Employee> listEmployee;
+
+	@Persist
+	private List<Skills> listSkills;
+
+	@Persist
+	private List<Language> listLanguage;
+
+	@Persist
+	private List<DegreeGradeRank> listDegreeGradeRank;
+
+	@Persist
+	private List<DegreeGrade> listDegreeGrade;
+
+	@Persist
+	private List<Computer> listComputer;
+
+	@Persist
+	private List<Addition> listAddition;
+
+	@Persist
+	private List<Honour> listHonour;
+
+	@Persist
+	private List<TravelAbroad> listTravelAbroad;
+
+	@Persist
+	private List<ResultContract> listResultContract;
+
+	@Persist
+	private List<Demerit> listDemerit;
+
+	@Persist
+	private List<MeasuredDisciplineMembers> listDccMember;
+
+	@Persist
+	private Document document;
+
+	@Persist
+	private Employee emp;
+
+	@Persist
+	private Educations educations;
+
+	@Persist
+	private Degrees degrees;
+
+	@Inject
+	private Context _context;
+
+	private SimpleDateFormat format = new SimpleDateFormat(
+			Constants.DATE_FORMAT);
+
+	private static String fontType = "/fonts/ArnoPro-Subhead.otf";
+	private static String fontTypeBold = "/fonts/ArnoPro-BoldCaption.otf";
+
+	private static String doctor = "Доктор";
+	private static String science = "Шинжлэх";
+	public static final String IMAGE_PATH_EMP = "/images/profile/";
+
+	void beginRender() {
+		emp = pageEmployee.getEmployee();
+
+		if (listRelative == null)
+			listRelative = new ArrayList<Relatives>();
+
+		if (listEducations == null)
+			listEducations = new ArrayList<Educations>();
+
+		if (listDegreeGradeRank == null)
+			listDegreeGradeRank = new ArrayList<DegreeGradeRank>();
+
+		if (listDegrees == null)
+			listDegrees = new ArrayList<Degrees>();
+
+		if (listTraining == null)
+			listTraining = new ArrayList<Training>();
+
+		if (listExperience == null)
+			listExperience = new ArrayList<Experience>();
+
+		if (listEmployee == null)
+			listEmployee = new ArrayList<Employee>();
+
+		if (listDegreeGrade == null)
+			listDegreeGrade = new ArrayList<DegreeGrade>();
+
+		if (listComputer == null)
+			listComputer = new ArrayList<Computer>();
+
+		if (listLanguage == null)
+			listLanguage = new ArrayList<Language>();
+
+		if (listComputer == null)
+			listComputer = new ArrayList<Computer>();
+
+		if (listSkills == null)
+			listSkills = new ArrayList<Skills>();
+
+		if (listHonour == null)
+			listHonour = new ArrayList<Honour>();
+
+		if (listAddition == null)
+			listAddition = new ArrayList<Addition>();
+
+		if (listTravelAbroad == null)
+			listTravelAbroad = new ArrayList<TravelAbroad>();
+
+		if (listResultContract == null)
+			listResultContract = new ArrayList<ResultContract>();
+
+		if (listDemerit == null)
+			listDemerit = new ArrayList<Demerit>();
+
+		if (listDccMember == null)
+			listDccMember = new ArrayList<MeasuredDisciplineMembers>();
+
+		if (emp == null) {
+			emp = new Employee();
+		}
+
+		listRelative = dao.getRelatives(pageEmployee.getEmployee(),
+				RelativeFamily.ISFAMILY);
+		listDegrees = dao.getListDegrees(pageEmployee.getEmployee());
+		listTraining = dao.getTraining(pageEmployee.getEmployee());
+		listExperience = dao.getExperience(pageEmployee.getEmployee());
+		listEmployee = dao.getListEmployee(pageEmployee.getOrganization());
+		listDegreeGrade = dao.getListDegreeGrade(pageEmployee.getEmployee());
+		listDegreeGradeRank = dao.getListDegreeGradeRank(pageEmployee
+				.getEmployee());
+		listLanguage = dao.getLanguage(pageEmployee.getEmployee());
+		listComputer = dao.getComputer(pageEmployee.getEmployee());
+		listSkills = dao.getListSkills(pageEmployee.getEmployee());
+		listEducations = dao.getListEducation(pageEmployee.getEmployee());
+		listAddition = dao.getAddition(pageEmployee.getEmployee());
+		listHonour = dao.getListHonour(pageEmployee.getEmployee());
+		listTravelAbroad = dao.getListTravelAbroad(pageEmployee.getEmployee());
+		listResultContract = dao.getResultContract(pageEmployee.getEmployee());
+		listDemerit = dao.getListDemerit(pageEmployee.getEmployee());
+		listDccMember = dao.getAddDcc(pageEmployee.getEmployee());
+	}
+
+	public StreamResponse onSubmit() throws IOException, DocumentException {
+		beginRender();
+		InputStream is = createPdf("aa");
+		return new PDFStreamResponse(is, "anket");
+	}
+
+	public InputStream createPdf(String filename) throws IOException,
+			DocumentException {
+
+		document = new Document();
+
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+		PdfWriter writer = PdfWriter.getInstance(document, baos);
+
+		if (!document.isOpen())
+			document.open();
+
+		BaseFont arno;
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		BaseFont Header;
+		Header = BaseFont.createFont(fontTypeBold, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Paragraph p = new Paragraph(
+				"\"Төрийн албан хаагчийн хувийн хэрэг хөтлөх журам\"-ын 1 дүгээр хавсралт",
+				new Font(arno, 10, Font.ITALIC));
+		p.setAlignment(Element.ALIGN_RIGHT);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph("ТӨРИЙН АЛБАН ХААГЧИЙН АНКЕТ", new Font(Header, 14));
+		p.setAlignment(Element.ALIGN_CENTER);
+		document.add(p);
+
+		p = new Paragraph("Маягт No 1", new Font(arno, 12, Font.ITALIC));
+		p.setAlignment(Element.ALIGN_CENTER);
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		PdfContentByte canvas = writer.getDirectContentUnder();
+		writer.setCompressionLevel(0);
+		canvas.saveState(); // q
+		canvas.beginText(); // BT
+		canvas.moveText(36, 779); // 36 788 Td
+		canvas.setFontAndSize(BaseFont.createFont(), 9); // /F1 12 Tf
+		canvas.showText("____________________"); // (Hello World)Tj
+		canvas.endText(); // ET
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(42, 768);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 9);
+		canvas.showText("Маягтыг өөрийн гараар,");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(40, 758);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 9);
+		canvas.showText("хар буюу хар хөх өнгийн");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(54, 748);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 9);
+		canvas.showText("бэхээр бөглөнө");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(36, 746);
+		canvas.setFontAndSize(BaseFont.createFont(), 9);
+		canvas.showText("____________________");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState(); // q
+		canvas.beginText(); // BT
+		canvas.moveText(450, 779); // 36 788 Td
+		canvas.setFontAndSize(BaseFont.createFont(), 9); // /F1 12 Tf
+		canvas.showText("____________________"); // (Hello World)Tj
+		canvas.endText(); // ET
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(470, 768);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 9);
+		canvas.showText("Биеийн байцаалт");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(474, 758);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 9);
+		canvas.showText("бичих санамж");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(476, 748);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 9);
+		canvas.showText("ашиглаарай");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(450, 746);
+		canvas.setFontAndSize(BaseFont.createFont(), 9);
+		canvas.showText("____________________");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(350, 709);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
+		canvas.showText("Иргэний үнэмлэхний дугаар:");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(350, 691);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
+		canvas.showText("Эрүүл мэндийн даатгалын");
+		canvas.endText();
+		canvas.restoreState();
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(350, 673);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
+		canvas.showText("гэрчилгээний дугаар:");
+		canvas.endText();
+		canvas.restoreState();
+
+		p = new Paragraph("Регистрийн дугаар:" + "  "
+				+ ((emp.getRegisterNo() != null) ? emp.getRegisterNo() : ""),
+				new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		document.add(p);
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(486, 709);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
+		canvas.showText(((emp.getIdCardNumber() != null) ? emp
+				.getIdCardNumber() : ""));
+		canvas.endText();
+		canvas.restoreState();
+
+		p = new Paragraph("Нийгмийн даатгалын" + "            ", new Font(arno,
+				12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		document.add(p);
+
+		if (emp != null) {
+			p = new Paragraph(
+					"дэвтрийн дугаар:"
+							+ "  "
+							+ ((emp.getSocialInsuranceNumber() != null) ? emp.getSocialInsuranceNumber()
+									: ""), new Font(arno, 12));
+			p.setAlignment(Element.ALIGN_LEFT);
+			document.add(p);
+		}
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(450, 673);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 12);
+		canvas.showText(((emp.getHealthInsuranceNumber() != null) ? emp
+				.getHealthInsuranceNumber() : ""));
+		canvas.endText();
+		canvas.restoreState();
+
+		p = new Paragraph(
+				"______________________________________________________________________________",
+				new Font(arno, 12, Font.BOLD));
+		p.setAlignment(Element.ALIGN_CENTER);
+		p.setSpacingBefore(-10);
+		document.add(p);
+
+		p = new Paragraph("1. ХУВЬ ХҮНИЙ ТАЛААРХ МЭДЭЭЛЭЛ", new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_CENTER);
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		if (emp != null) {
+			p = new Paragraph("1.1 Эцэг/эх/-ийн нэр:" + "  "
+					+ ((emp.getLastname() != null) ? emp.getLastname() : ""),
+					new Font(arno, 10));
+			p.setAlignment(Element.ALIGN_LEFT);
+			document.add(p);
+		}
+
+		canvas.saveState();
+		canvas.beginText();
+		canvas.moveText(240, 612);
+		canvas.setFontAndSize(BaseFont.createFont(fontType,
+				BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+		canvas.showText("Нэр:");
+		canvas.endText();
+		canvas.restoreState();
+
+		if (emp != null) {
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(485, 670);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+
+			if (emp.getPicturePath() != null) {
+
+				File copied = new File(_context.getRealFile(
+						IMAGE_PATH_EMP + emp.getPicturePath()).getPath());
+				Image img = Image.getInstance(copied.getPath());
+
+				img.setAbsolutePosition(460, 530);
+				img.scaleAbsolute(85, 113);
+				canvas.addImage(img);
+			}
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		if (emp != null) {
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(265, 612);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+			canvas.showText((emp.getFirstName() != null) ? emp.getFirstName()
+					.toString() : "");
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		if (emp != null) {
+			p = new Paragraph(
+					"1.2 Хүйс:"
+							+ "  "
+							+ ((emp.getGender() != null && emp.getGender()
+									.name() != null) ? messages.get(emp
+									.getGender().name()) : ""), new Font(arno,
+							10));
+			p.setAlignment(Element.ALIGN_LEFT);
+			document.add(p);
+		}
+
+		if (emp != null) {
+			Calendar cal = Calendar.getInstance();
+			if (emp.getBirthDate() != null) {
+				cal.setTime(emp.getBirthDate());
+			}
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(240, 597);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+			canvas.showText("1.3 Төрсөн	" + "  " + (cal.get(Calendar.YEAR))
+					+ "  " + "	он" + "  " + (cal.get(Calendar.MONTH) + 1)
+					+ "  " + "	сар" + "  " + (cal.get(Calendar.DATE)) + "  "
+					+ "	өдөр");
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		if (emp != null) {
+			p = new Paragraph(
+					"1.4 Төрсөн аймаг, хот:"
+							+ "  "
+							+ ((emp.getBirthPlace() != null) ? emp.getBirthPlace()
+									: "")
+							+ "  "
+							+ ((emp.getBirthCityProvince() != null) ? emp
+									.getBirthCityProvince().getCityName()
+									.toString() : ""), new Font(arno, 10));
+			p.setAlignment(Element.ALIGN_LEFT);
+			document.add(p);
+		}
+
+		if (emp != null) {
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(240, 582);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+			canvas.showText("Сум, дүүрэг:	"
+					+ "  "
+					+ ((emp.getBirthDistrictSum() != null) ? emp
+							.getBirthDistrictSum().getDistrictSumName()
+							.toString() : ""));
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		if (emp != null) {
+			p = new Paragraph("        "
+					+ "Төрсөн газар: "
+					+ (((emp.getBirthPlace() != null) ? emp.getBirthPlace()
+							.toString() : "")), new Font(arno, 10));
+			p.setAlignment(Element.ALIGN_LEFT);
+			document.add(p);
+		}
+
+		if (emp != null) {
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(240, 566);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+			canvas.showText("Овог: "
+					+ "  "
+					+ (((emp.getFamilyName() != null) ? emp.getFamilyName()
+							: "")));
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		if (emp != null) {
+			p = new Paragraph("1.5 Үндэс, угсаа: "
+					+ "  "
+					+ ((emp.getOrigin() != null) ? emp.getOrigin().getName()
+							: ""), new Font(arno, 10));
+			p.setAlignment(Element.ALIGN_LEFT);
+			document.add(p);
+		}
+
+		if (emp != null) {
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(240, 551);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+			canvas.showText("1.6 Нийгмийн гарал:"
+					+ "  "
+					+ ((emp.getAscription() != null) ? emp.getAscription()
+							.getName() : ""));
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		p = new Paragraph(
+				"1.7 Гэр бүлийн байдал (Зөвхөн гэр бүлийн бүртгэлд байгаа хүмүүсийг бичнэ.): ",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		p.setSpacingBefore(5);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_CENTER);
+		p.add(getRelativeList());
+		document.add(p);
+
+		p = new Paragraph(
+				"1.8 Садан төрлийн байдал (Таны эцэг, эх, төрсөн ах, эгч, дүү, өрх тусгаарласан хүүхэд болон таны эхнэр /нөхөр/-ийн  эцэг, эхийг оруулна.): ",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		p.setSpacingBefore(5);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getRelativeType());
+		document.add(p);
+
+		if (emp != null) {
+			p = new Paragraph("1.9 Оршин суугаа хаяг:"
+					+ "   "
+					+ ((emp.getAddCity() != null) ? emp.getAddCity()
+							.getCityName() : "")
+					+ "   "
+					+ "аймаг, хот"
+					+ "   "
+					+ ((emp.getAddDistrictSum() != null) ? emp
+							.getAddDistrictSum().getDistrictSumName() : "")
+					+ "   " + "сум, дүүрэг", new Font(arno, 10));
+			document.add(p);
+		}
+
+		if (emp != null) {
+			p = new Paragraph("        " + "гэрийн хаяг:" + "   "
+					+ ((emp.getAddress() != null) ? emp.getAddress() : ""),
+					new Font(arno, 10));
+			document.add(p);
+		}
+
+		if (emp != null) {
+			p = new Paragraph("        "
+					+ "Утас, үүрэн утас:"
+					+ "   "
+					+ ((emp.getMobileNo() != null) ? emp.getMobileNo()
+							.toString() : "")
+					+ "    "
+					+ ((emp.getPhoneNo() != null) ? emp.getPhoneNo().toString()
+							: "")
+					+ "   "
+					+ "Факс:"
+					+ "    "
+					+ ((emp.getWorkFax() != null) ? emp.getWorkFax().toString()
+							: "")
+					+ "   "
+					+ "И-мэйл хаяг:"
+					+ "    "
+					+ ((emp.geteMail() != null) ? emp.geteMail().toString()
+							: ""), new Font(arno, 10));
+			document.add(p);
+		}
+
+		if (emp != null) {
+			p = new Paragraph(
+					"1.10 Шуудангийн хаяг:"
+							+ "   "
+							+ ((emp.getPostAddress() != null) ? emp
+									.getPostAddress().toString() : "")
+							+ "   Индекс:   "
+							+ (((emp.getPostIndex()) != null) ? emp.getPostIndex()
+									: ""), new Font(arno, 10));
+			document.add(p);
+		}
+
+		if (emp != null) {
+			p = new Paragraph(
+					"1.11 Онцгой шаардлага гарвал харилцах хүний нэр:"
+							+ "   "
+							+ ((emp.geteCallPersonName() != null) ? emp.geteCallPersonName()
+									: "")
+							+ "     "
+							+ " түүний утас:"
+							+ "   "
+							+ ((emp.geteCallPersonMobileNo() != null) ? emp.geteCallPersonMobileNo()
+									: "")
+							+ "    "
+							+ ((emp.geteCallPersonPhoneNo() != null) ? emp.geteCallPersonPhoneNo()
+									: ""), new Font(arno, 10));
+			document.add(p);
+		}
+		p = new Paragraph("2. БОЛОВСРОЛЫН ТАЛААРХ МЭДЭЭЛЭЛ", new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_CENTER);
+		document.add(p);
+
+		p = new Paragraph(
+				"2.1 Боловсрол /ерөнхий, тусгай дунд, дээд боловсрол, дипломын, бакалаврын болон магистрийн зэргийг оролцуулан/ ",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListEducation());
+		document.add(p);
+
+		p = new Paragraph(
+				"2.2 Боловсролын докторын болон шинжлэх ухааны докторын зэрэг",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListDegrees());
+		document.add(p);
+
+		if (degrees != null) {
+			if (degrees.getDegree().toString().contains(doctor)) {
+				p = new Paragraph(
+						"Боловсролын докторын зэрэг хамгаалсан сэдэв: "
+								+ ((educations.getDiplomaSubject() != null) ? educations.getDiplomaSubject()
+										: ""), new Font(arno, 10));
+				p.setAlignment(Element.ALIGN_LEFT);
+				p.setSpacingAfter(10);
+				document.add(p);
+
+				p = new Paragraph(
+						"Шинжлэх ухааны докторын зэрэг хамгаалсан сэдэв: ",
+						new Font(arno, 10));
+				p.setAlignment(Element.ALIGN_LEFT);
+				p.setSpacingAfter(15);
+				document.add(p);
+
+			}
+			if (degrees.getDegree().toString().contains(science)) {
+				p = new Paragraph(
+						"Боловсролын докторын зэрэг хамгаалсан сэдэв: ",
+						new Font(arno, 10));
+				p.setAlignment(Element.ALIGN_LEFT);
+				p.setSpacingAfter(10);
+				document.add(p);
+
+				p = new Paragraph(
+						"Шинжлэх ухааны докторын зэрэг хамгаалсан сэдэв: "
+								+ ((educations.getDiplomaSubject() != null) ? educations.getDiplomaSubject()
+										: ""), new Font(arno, 10));
+				p.setAlignment(Element.ALIGN_LEFT);
+				p.setSpacingAfter(15);
+				document.add(p);
+
+			}
+			if (degrees.getDegree() == null) {
+				p = new Paragraph(
+						"Боловсролын докторын зэрэг хамгаалсан сэдэв: ",
+						new Font(arno, 10));
+				p.setAlignment(Element.ALIGN_LEFT);
+				p.setSpacingAfter(10);
+				document.add(p);
+				p = new Paragraph(
+						"Шинжлэх ухааны докторын зэрэг хамгаалсан сэдэв: ",
+						new Font(arno, 10));
+				p.setAlignment(Element.ALIGN_LEFT);
+				p.setSpacingAfter(15);
+				document.add(p);
+			}
+		}
+
+		p = new Paragraph("3. МЭРГЭШЛИЙН БЭЛТГЭЛИЙН ТАЛААРХ МЭДЭЭЛЭЛ",
+				new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_CENTER);
+		document.add(p);
+
+		p = new Paragraph(
+				"3.1 Мэргэшлийн бэлтгэл /Мэргэжлийн болон бусад чиглэлээр нарийн мэргэшүүлэх сургалтад хамрагдсан байдлыг бичнэ./",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getTraining());
+		document.add(p);
+
+		p = new Paragraph("3.2 Албан тушаалын зэрэг дэв, цол", new Font(arno,
+				10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListDegreeGrade());
+		document.add(p);
+
+		p = new Paragraph(
+				"3.3 Эрдмийн цол./дэд профессор, профессор, академийн гишүүнийг оролцуулан/",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListDegreeGradeRank());
+		document.add(p);
+
+		p = new Paragraph("4. УР ЧАДВАРЫН ТАЛААРХ МЭДЭЭЛЭЛ", new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_CENTER);
+		document.add(p);
+
+		p = new Paragraph(
+				"4.1 Ур чадвар (та өөрийн ур чадварын түвшинг 1-3 баллаар үнэлнэ үү /1-тааруу, 2-дунд, 3-сайн/)",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListSkills());
+		document.add(p);
+
+		p = new Paragraph("4.2 Гадаад хэлний мэдлэг", new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getLanguage());
+		document.add(p);
+
+		p = new Paragraph(
+				"4.3 Компьютерийн болон оффисийн тоног төхөөрөмж, технологи эзэмшсэн байдал",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getComputer());
+		document.add(p);
+
+		p = new Paragraph("5. ТУРШЛАГЫН ТАЛААРХ МЭДЭЭЛЭЛ", new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_CENTER);
+		document.add(p);
+
+		p = new Paragraph("5.1 Хөдөлмөр эрхлэлтийн байдал", new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getExperience());
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		p = new Paragraph(
+				"Дээрх мэдээлэл үнэн зөв болохыг баталж /гарын үсэг/			_____________________	/                                                 /",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setKeepTogether(true);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph("201__он__сар__өдөр", new Font(arno, 10));
+
+		p.setAlignment(Element.ALIGN_CENTER);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		document.newPage();
+
+		p = new Paragraph(
+				"\"Төрийн албан хаагчийн хувийн хэрэг хөтлөх журам\"-ын 2 дугаар хавсралт",
+				new Font(arno, 8, Font.ITALIC));
+		p.setAlignment(Element.ALIGN_RIGHT);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph("Маягт 2", new Font(arno, 9, Font.ITALIC));
+		p.setAlignment(Element.ALIGN_RIGHT);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph(
+				"Төрийн албан хаагчийн анкетанд ороогүй зарим мэдээллийг энэхүү",
+				new Font(arno, 9, Font.ITALIC));
+		p.setIndentationLeft(100);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph("нэмэгдэл хуудсанд бичнэ.", new Font(arno, 9,
+				Font.ITALIC));
+		p.setIndentationLeft(100);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph("НЭМЭГДЭЛ ХУУДАС", new Font(arno, 9, Font.BOLD));
+		p.setAlignment(Element.ALIGN_CENTER);
+		document.add(p);
+
+		p = new Paragraph("Регистрийн дугаар: "
+				+ ((emp.getRegisterNo() != null) ? emp.getRegisterNo() : ""),
+				new Font(arno, 9, Font.ITALIC));
+		p.setIndentationLeft(100);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph("Эцэг(эх)-ийн нэр: "
+				+ ((emp.getLastname() != null) ? emp.getLastname() : ""),
+				new Font(arno, 9, Font.ITALIC));
+		p.setIndentationLeft(100);
+		p.setSpacingAfter(5);
+		document.add(p);
+
+		p = new Paragraph("Өөрийн нэр: "
+				+ ((emp.getFirstName() != null) ? emp.getFirstName() : ""),
+				new Font(arno, 9, Font.ITALIC));
+		p.setIndentationLeft(100);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		if (emp != null) {
+			canvas.saveState();
+			canvas.beginText();
+			canvas.moveText(485, 670);
+			canvas.setFontAndSize(BaseFont.createFont(fontType,
+					BaseFont.IDENTITY_H, BaseFont.EMBEDDED), 10);
+
+			if (emp.getPicturePath() != null) {
+
+				File copied = new File(_context.getRealFile(
+						IMAGE_PATH_EMP + emp.getPicturePath()).getPath());
+				Image img = Image.getInstance(copied.getPath());
+
+				img.setAbsolutePosition(460, 658);
+				img.scaleAbsolute(85, 103);
+				canvas.addImage(img);
+			}
+			canvas.endText();
+			canvas.restoreState();
+		}
+
+		p = new Paragraph(
+				"1. Төрийн албан хаагчийн шагнал урамшлын талаарх мэдээлэл "
+						+ "(Энд Төрийн дээд шагнал болон Засгийн газрын шагналыг бичнэ)",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListAddition());
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		p = new Paragraph(
+				"2. Шийтгэл(ямар байгууллага, албан тушаалтнаас хэзээ, юуны учир, ямар шийтгэл авсан):",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListDemerit());
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		p = new Paragraph("3. Сүүлийн 5 жил гадаадад явсан байдал", new Font(
+				arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListTravelAbroad());
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		p = new Paragraph(
+				"4. Төрийн жинхэнэ албан хаагчийн үйл ажилаггаа, мэргэшлийн төвшний үнэлгээ, "
+						+ "төрийн үйлчилгээний албан хаагчийн үр дүнгийн гэрээний биелэлт "
+						+ "буюу ажлын үр дүнгийн үнэлгээ (Энд "
+						+ "зөвхөн жилийн эцсийн үнэлгээг тэмдэглэнэ)",
+				new Font(arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph();
+		p.setFont(new Font(arno, 12));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.add(getListResultContract());
+		p.setSpacingAfter(20);
+		document.add(p);
+
+		p = new Paragraph("Шалгаж баяжуулсан хүний:", new Font(arno, 10,
+				Font.BOLD));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(15);
+		document.add(p);
+
+		p = new Paragraph("Нэр: ____________________________", new Font(arno,
+				10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(10);
+		document.add(p);
+
+		p = new Paragraph("Гарын үсэг: ____________________________", new Font(
+				arno, 10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(10);
+		document.add(p);
+
+		p = new Paragraph("Огноо: ____________________________", new Font(arno,
+				10));
+		p.setAlignment(Element.ALIGN_LEFT);
+		p.setSpacingAfter(10);
+		document.add(p);
+
+		document.close();
+
+		ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+
+		return bais;
+	}
+
+	/*
+	 * Jul 23, 2012 tuguldur.j Start
+	 * 
+	 * Гэр бүлийн мэдээлэл
+	 * 
+	 * Jul 23, 2012 tuguldur.j End
+	 */
+	public PdfPTable getRelativeList() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(5);
+		table.setWidthPercentage(100);
+
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph("Таны юу болох", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(
+				"Гэр бүлийн гишүүдийн эцэг/эх/-ийн нь болон өөрийн нэр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Төрсөн он", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Төрсөн аймаг, хот, сум, дүүрэг", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Одоо эрхэлж буй ажил", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listRelative != null) {
+
+			for (Relatives r : listRelative) {
+
+				if (r.getRelativeType().equals(RelativeFamily.ISFAMILY)) {
+					p = new Paragraph((r.getRelation() != null) ? r
+							.getRelation().getName() : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							((r.getLastName() != null) ? r.getLastName() : "")
+									+ "\n"
+									+ ((r.getFirstName() != null) ? r.getFirstName()
+											: ""), f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getBirthDate() != null) ? format.format(r
+									.getBirthDate()) : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getBirthCityProvince() != null) ? r.getBirthCityProvince()
+									: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getOccupation() != null) ? r.getOccupation()
+									: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+				}
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 23, 2012 tuguldur.j Start
+	 * 
+	 * Садан төрлийн мэдээлэл
+	 * 
+	 * Jul 23, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getRelativeType() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(5);
+		table.setWidthPercentage(100);
+
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph("Таны юу болох", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(
+				"Садан төрлийн хүмүүсийн эцэг/эх/-ийн нь болон өөрийн нэр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Төрсөн он", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Төрсөн аймаг, хот, сум, дүүрэг", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Одоо эрхэлж буй ажил", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listRelative != null) {
+			for (Relatives r : listRelative) {
+				if (r.getRelativeType().equals(RelativeFamily.ISRELATIVE)) {
+					r = (Relatives) dao.getObject(Relatives.class, r.getId());
+
+					p = new Paragraph((r.getRelation() != null) ? r
+							.getRelation().getName() : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							((r.getLastName() != null) ? r.getLastName() : "")
+									+ "\n"
+									+ ((r.getFirstName() != null) ? r.getFirstName()
+											: ""), f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getBirthDate() != null) ? format.format(r
+									.getBirthDate()) : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getBirthCityProvince() != null) ? r.getBirthCityProvince()
+									: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getOccupation() != null) ? r.getOccupation()
+									: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+				}
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 23, 2012 tuguldur.j Start
+	 * 
+	 * Боловсролын талаарх мэдээлэл
+	 * 
+	 * Jul 23, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getListEducation() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph("Сургуулийн нэр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+
+		table.addCell(p);
+
+		p = new Paragraph("Орсон, он сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Төгссөн он, сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(
+				"Эзэмшсэн боловсрол, мэргэжил, гэрчилгээ, дипломын дугаар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listEducations != null) {
+			for (Educations r : listEducations) {
+
+				p = new Paragraph((r.getSchool() != null) ? r.getSchool() : "",
+						f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getIngoingDate() != null) ? format.format(r
+								.getIngoingDate()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+				p = new Paragraph(
+						(r.getGraduatedDate() != null) ? format.format(r
+								.getGraduatedDate()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getOccupation().getName() != null) ? r
+						.getOccupation().getName() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 23, 2012 tuguldur.j Start
+	 * 
+	 * Боловсролын зэрэглэл
+	 * 
+	 * Jul 23, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getListDegrees() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+
+		BaseFont arno;
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph("Зэрэг", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+
+		table.addCell(p);
+
+		p = new Paragraph("Хамгаалсан газар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Он, сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Гэрчилгээ, дипломын дугаар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+		if (listDegrees != null) {
+			for (Degrees r : listDegrees) {
+
+				p = new Paragraph((r.getDegree() != null) ? r.getDegree()
+						.toString() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getIssuedCountry().getCountryName() != null) ? r
+								.getIssuedCountry().getCountryName() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getIssuedDate() != null) ? format.format(r
+						.getIssuedDate()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getCertificatedNo().toString() != null) ? r.getCertificatedNo()
+								: "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 23, 2012 tuguldur.j Start
+	 * 
+	 * Мэргэшлийн бэлтгэлийн талаарх мэдээлэл
+	 * 
+	 * Jul 23, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getTraining() throws DocumentException, IOException {
+		Calendar cal = Calendar.getInstance();
+
+		PdfPTable table = new PdfPTable(5);
+		table.setWidthPercentage(100);
+
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph("Хаана, ямар байгууллагад ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+
+		table.addCell(p);
+
+		p = new Paragraph("Эхэлсэн дууссан он, сар, өдөр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Хугацаа /хоногоор/", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Ямар чиглэлээр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Үнэмлэх гэрчилгээний дугаар, олгосон он, сар, өдөр",
+				f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listTraining != null) {
+			for (Training r : listTraining) {
+				cal = Calendar.getInstance();
+				cal.setTime(r.getStartDate());
+				int startDay = cal.get(Calendar.DATE);
+				cal.setTime(r.getEndDate());
+				int endDay = cal.get(Calendar.DATE);
+				if (r.getStartDate() != null && r.getEndDate() != null) {
+					p = new Paragraph((r.getTrainingOrganization() != null) ? r
+							.getTrainingOrganization().toString() : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							((r.getStartDate() != null) ? format.format(r
+									.getStartDate()) : "")
+									+ "\n"
+									+ ((r.getEndDate() != null) ? format.format(r
+											.getEndDate())
+											: ""), f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(endDay - startDay);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph((r.getCourse() != null) ? r.getCourse()
+							: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getGradeDate() != null) ? format.format(r
+									.getGradeDate()) : "", f);
+
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+				}
+			}
+		}
+		return table;
+	}
+
+	public PdfPTable getExperience() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(
+				"Ажилласан байгууллага, газар, түүний хэлтэс, алба", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Албан тушаал", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Ажилд орсон он, сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Ажлаас гарсан он, сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listExperience != null) {
+			for (Experience r : listExperience) {
+
+				p = new Paragraph(
+						(r.getOrganizationname() != null) ? r.getOrganizationname()
+								: "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getAppointment() != null) ? r.getAppointment() : "",
+						f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getStartDate() != null) ? format.format(r
+						.getStartDate()) : "", f);
+
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getEndDate() != null) ? format.format(r
+						.getEndDate()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 24, 2012 tuguldur.j Start
+	 * 
+	 * 4. Ур чадварын талаарх мэдээлэл
+	 * 
+	 * Jul 24, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getSkillType() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(
+				"Ажилласан байгууллага, газар, түүний хэлтэс, алба", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Албан тушаал", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Ажилд орсон он, сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph("Ажлаас гарсан он, сар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		for (Experience r : listExperience) {
+
+			p = new Paragraph(
+					(r.getOrganizationname() != null) ? r.getOrganizationname()
+							: "", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph((r.getAppointment() != null) ? r.getAppointment()
+					: "", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph((r.getStartDate() != null) ? format.format(r
+					.getStartDate()) : "", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph((r.getEndDate() != null) ? format.format(r
+					.getEndDate()) : "", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 25, 2012 tuguldur.j Start
+	 * 
+	 * 3.2 Албан тушаалын зэрэг дэв, цол
+	 * 
+	 * Jul 25, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getListDegreeGrade() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER,
+				"Албан тушаалын ангилал, зэрэглэл ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Зэрэг дэв, цолны нэр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER,
+				"Зарлиг, захирамж, тушаалын нэр, он, сар, өдөр, дугаар ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Үнэмлэхний дугаар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listDegreeGrade != null) {
+			for (DegreeGrade r : listDegreeGrade) {
+				p = new Paragraph((r.getAppointmentSort() != null) ? r
+						.getAppointmentSort().getAppointmentSortName()
+						.toString() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getAppointmentLevel() != null) ? r
+						.getAppointmentLevel().getName().toString() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						((r.getOrdinance() != null) ? r.getOrdinance() : "")
+								+ "\n"
+								+ ((r.getIssuedDate() != null) ? format.format(r
+										.getIssuedDate())
+										: ""), f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getCertificatedNo() != null) ? r.getCertificatedNo()
+								: "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 25, 2012 tuguldur.j Start
+	 * 
+	 * Хэлний мэдлэгийн түвшин
+	 * 
+	 * Jul 25, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getLanguage() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(5);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER,
+				"Гадаад хэлний мэдлэг", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "сонсож ойлгох", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "ярих ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "унших", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "бичих", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listLanguage != null) {
+			for (Language r : listLanguage) {
+
+				p = new Paragraph((r.getForeignLanguage() != null) ? r
+						.getForeignLanguage().toString() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getListening() != null && r.getListening()
+						.name() != null) ? messages.get(r.getListening().name()
+						.toString()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getSpeaking() != null && r.getSpeaking()
+						.name() != null) ? messages.get(r.getSpeaking().name()
+						.toString()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getReading() != null && r.getReading()
+						.name() != null) ? messages.get(r.getReading().name()
+						.toString()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getWriting() != null && r.getWriting()
+						.name() != null) ? messages.get(r.getWriting().name()
+						.toString()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+		return table;
+	}
+
+	/*
+	 * Jul 25, 2012 tuguldur.j Start
+	 * 
+	 * Компьютерийн мэдлэгийн түвшиг
+	 * 
+	 * Jul 25, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getComputer() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(2);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER,
+				"Эзэмшсэн программын нэр", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Түвшин", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listComputer != null) {
+			for (Computer r : listComputer) {
+
+				p = new Paragraph((r.getProgram().getProgramName() != null) ? r
+						.getProgram().getProgramName().toString() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getProgramlevel().toString() != null) ? messages.get(r
+								.getProgramlevel().toString())
+								: "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+
+		return table;
+	}
+
+	/*
+	 * Jul 25, 2012 tuguldur.j Start
+	 * 
+	 * Ур чадварын мэдээлэл
+	 * 
+	 * Jul 25, 2012 tuguldur.j End
+	 */
+
+	public PdfPTable getListSkills() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(2);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		HashMap<SkillGroup, List<Skills>> maps = new HashMap<SkillGroup, List<Skills>>();
+		List<Skills> listSkills = new ArrayList<Skills>();
+
+		for (Skills s : listSkills) {
+			SkillGroup sg = s.getSkillType().getSkillGroup();
+			if (maps.containsKey(sg)) {
+				List<Skills> skills = new ArrayList<Skills>();
+				skills.add(s);
+				maps.put(sg, skills);
+			} else {
+				List<Skills> skills = maps.get(sg);
+				skills.add(s);
+			}
+		}
+
+		for (SkillGroup sg : maps.keySet()) {
+
+			Paragraph p = new Paragraph((sg.getName() != null) ? sg.getName().toString()
+					: "", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph(Element.ALIGN_CENTER, "Түвшин", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+			
+			for (Skills s : (List<Skills>) maps.get(sg)) {
+
+				p = new Paragraph((s.getSkillType() != null) ? s.getSkillType()
+						.getName() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((s.getSkillPoint() != null) ? s
+						.getSkillPoint().toString() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+			return table;
+		}
+		return table;
+
+	}
+	
+	// Цол зэрэг
+	public PdfPTable getListDegreeGradeRank() throws DocumentException,
+			IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER, "Цол ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Цол олгосон байгууллага", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Он, сар ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Гэрчилгээ, дипломын дугаар", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+		if (listDegreeGradeRank != null) {
+
+			for (DegreeGradeRank r : listDegreeGradeRank) {
+				p = new Paragraph((r.getAcademicRank() != null) ? r
+						.getAcademicRank().getName() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getRankOrganization() != null) ? r.getRankOrganization()
+								: "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(((r.getRankDate() != null) ? format.format(r
+						.getRankDate()) : ""), f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getRankCertificate() != null) ? r.getRankCertificate()
+								: "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+			}
+		}
+		return table;
+	}
+
+	// Нэмэгдэл хуудас
+
+	public PdfPTable getListAddition() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER, "Шагнагдсан огноо", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Алдар цол,одон,медалийн нэр",
+				f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Шийдвэрийн нэр,огноо,дугаар",
+				f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Шагнал авсан үндэслэл", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listHonour != null) {
+
+			for (Honour r : listHonour) {
+				if (r.getAwardType().getVal() == 0) {
+					p = new Paragraph(
+							((r.getDateOfAwarded() != null) ? format.format(r
+									.getDateOfAwarded()) : ""), f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getStatePrize() != null) ? r.getStatePrize()
+									: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							((r.getDictateId() != null) ? r.getDescription()
+									: "")
+									+ "\n"
+									+ ((r.getDictateId() != null) ? r.getDictateId()
+											: ""), f);
+
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getDescription() != null) ? r.getDescription()
+									: "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+				}
+			}
+		}
+		return table;
+	}
+
+	// Сүүлийн 5 жил гадаадад зорчсон байдал
+	public PdfPTable getListTravelAbroad() throws DocumentException,
+			IOException {
+
+		PdfPTable table = new PdfPTable(3);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER, "Огноо ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Ямар улсад", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER, "Явсан зорилго ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listTravelAbroad != null) {
+
+			for (TravelAbroad r : listTravelAbroad) {
+				p = new Paragraph((r.getWentDate() != null) ? format.format(r
+						.getWentDate()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph((r.getCountry() != null) ? r.getCountry()
+						.getCountryName() : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(((r.getJobTask() != null) ? r.getJobTask()
+						: ""), f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+			}
+		}
+		return table;
+	}
+
+	// Үр дүнгийн гэрээний биелэлт
+	public PdfPTable getListResultContract() throws DocumentException,
+			IOException {
+
+		PdfPTable table = new PdfPTable(3);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+
+		Paragraph p = new Paragraph(Element.ALIGN_CENTER, "Он ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER,
+				"Шууд харъяалагдах даргын үнэлгээ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		p = new Paragraph(Element.ALIGN_CENTER,
+				"Дараагийн шатны даргын үнэлгээ", f);
+		p.setAlignment(Element.ALIGN_CENTER);
+		table.addCell(p);
+
+		if (listResultContract != null) {
+
+			for (ResultContract r : listResultContract) {
+
+				p = new Paragraph(
+						(r.getContractDate() != null) ? format.format(r
+								.getContractDate()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getDirectSuperiorScore() != null) ? messages.get(r
+								.getDirectSuperiorScore().toString()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+				p = new Paragraph(
+						(r.getSuperiorScore() != null) ? messages.get(r
+								.getDirectSuperiorScore().toString()) : "", f);
+				p.setAlignment(Element.ALIGN_CENTER);
+				table.addCell(p);
+
+			}
+		}
+		return table;
+	}
+
+	// Сахилгын мэдээлэл
+	public PdfPTable getListDemerit() throws DocumentException, IOException {
+
+		PdfPTable table = new PdfPTable(5);
+		table.setWidthPercentage(100);
+		BaseFont arno;
+
+		arno = BaseFont.createFont(fontType, BaseFont.IDENTITY_H,
+				BaseFont.EMBEDDED);
+
+		Font f = new Font(arno, 10);
+		if(emp.getAppointment().getAppointmentType() == AppointmentType.OTHEREMPLOYEE) {
+			
+							Paragraph p = new Paragraph(Element.ALIGN_CENTER, "Ямар байгууллага", f);
+							p.setAlignment(Element.ALIGN_CENTER);
+							table.addCell(p);
+					
+							p = new Paragraph(Element.ALIGN_CENTER, "Ямар албан тушаалтан", f);
+							p.setAlignment(Element.ALIGN_CENTER);
+							table.addCell(p);
+					
+							p = new Paragraph(Element.ALIGN_CENTER, "Хэзээ", f);
+							p.setAlignment(Element.ALIGN_CENTER);
+							table.addCell(p);
+					
+							p = new Paragraph(Element.ALIGN_CENTER, "Юуны учир", f);
+							p.setAlignment(Element.ALIGN_CENTER);
+							table.addCell(p);
+					
+							p = new Paragraph(Element.ALIGN_CENTER, "Ямар шийтгэл", f);
+							p.setAlignment(Element.ALIGN_CENTER);
+							table.addCell(p);
+					
+							if (listDemerit != null) {
+					
+								for (Demerit r : listDemerit) {
+					
+									p = new Paragraph(
+											(r.getOrgDemerit() != null) ? r.getOrgDemerit() : "", f);
+									p.setAlignment(Element.ALIGN_CENTER);
+									table.addCell(p);
+					
+									p = new Paragraph(
+											(r.getEmpDemerit() != null) ? r.getEmpDemerit() : "", f);
+									p.setAlignment(Element.ALIGN_CENTER);
+									table.addCell(p);
+					
+									p = new Paragraph((r.getDate() != null) ? format.format(r
+											.getDate()) : "", f);
+									p.setAlignment(Element.ALIGN_CENTER);
+									table.addCell(p);
+					
+									p = new Paragraph((r.getCause() != null) ? r.getCause() : "", f);
+									p.setAlignment(Element.ALIGN_CENTER);
+									table.addCell(p);
+					
+									p = new Paragraph((r.getDemerit() != null) ? r.getDemerit()
+											: "", f);
+									p.setAlignment(Element.ALIGN_CENTER);
+									table.addCell(p);
+					
+								}
+							}
+						}
+			else {
+				Paragraph p = new Paragraph(Element.ALIGN_CENTER, "Ямар байгууллага", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph(Element.ALIGN_CENTER, "Ямар албан тушаалтан", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph(Element.ALIGN_CENTER, "Хэзээ", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph(Element.ALIGN_CENTER, "Юуны учир", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			p = new Paragraph(Element.ALIGN_CENTER, "Ямар шийтгэл", f);
+			p.setAlignment(Element.ALIGN_CENTER);
+			table.addCell(p);
+
+			if (listDccMember != null) {
+
+				for (MeasuredDisciplineMembers r : listDccMember) {
+
+					p = new Paragraph(
+							(r.getId()!= null) ? messages.get("SAHILGAHOROO"): "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+					p = new Paragraph(
+							(r.getDccmember() != null) ? r.getDccmember().getEmployee().getFirstName() : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+					
+					p = new Paragraph(
+							(r.getSolvedDate() != null) ? format.format(r.getSolvedDate()) : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+					
+					p = new Paragraph(
+							(r.getDisciplineContent()!= null) ? r.getDisciplineContent() : "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+					
+					p = new Paragraph(
+							(r.getImposedDisciplineJudgement()!= null) ?messages.get(r.getImposedDisciplineJudgement().name()): "", f);
+					p.setAlignment(Element.ALIGN_CENTER);
+					table.addCell(p);
+
+				}
+			}
+		}
+
+		return table;
+	}
+}

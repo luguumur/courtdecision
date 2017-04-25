@@ -1,0 +1,12 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> <t:form>
+	<div style="width:100%">
+		
+	</div>
+</t:form> </body> 
+</html>

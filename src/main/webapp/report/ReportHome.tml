@@ -1,0 +1,154 @@
+<html t:type="layout" title="${message:report}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<head>
+	
+	</head>
+	<body> <t:form>
+		<div class="container">
+			
+				<table id="newspaper-c" style="margin-left:-16px; margin-top:10px;">
+					<thead>
+					<tr>
+						<td>
+							1. Анкет болон хувь хүний мэдээлэл
+						</td>
+					</tr>
+					</thead>
+					<tr>
+						<td>
+							<t:security.hasPermission permission="report_education">
+								1.1. <t:actionlink t:id="goEducationReport">${message:educationReport}</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+								1.2. <t:actionlink t:id="goWorkedYearReport">${message:workedYearReport}</t:actionlink><br/>
+						</td>
+					</tr>
+					<tr>
+						<td>	
+							<t:security.hasPermission permission="report_gender">
+								1.3. <t:actionlink t:id="goGenderReport">Хүйс</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_age">
+								1.4. <t:actionlink t:id="goAgeReport">Нас</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_degree">
+								1.5. <t:actionlink t:id="goDegreeGradeReport">Зэрэг дэв</t:actionlink>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>		
+							<t:security.hasPermission permission="report_honour">
+								1.6. <t:actionlink t:id="goHonourReport">Шагналын тайлан</t:actionlink>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>					
+							<t:security.hasPermission permission="report_training">
+								1.7. <t:actionlink t:id="goTrainingReport">Сургалт</t:actionlink>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_measured">	
+								1.8. <t:actionlink t:id="GoDisciplineReport">Сахилгын арга хэмжээ</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<thead>
+					<tr>
+						<td>
+							2. Цалингийн мэдээлэл
+						</td>
+					</tr>
+					</thead>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_salary">
+								2.1 <t:actionlink t:id="goSalaryReport">Цалин</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<thead>
+					<tr>
+						<td>
+							3. Шилжих хөдөлгөөний мэдээлэл
+						</td>
+					</tr>
+					</thead>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_quitWork">
+									3.1. <t:actionlink t:id="goQuitReport">Ажилчдын ажлаас гарсан байдлын судалгаа</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_retiredSoonEmployee">	
+								3.2. <t:actionlink t:id="goRetireSoonReport">Тэтгэвэрт гарах эрх үүссэн ажилчдын судалгаа</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							<t:security.hasPermission permission="report_retiredEmployee">		
+								3.3. <t:actionlink t:id="goRetiredEmployeeReport">Тэтгэвэрт гарсан ажилчдын судалгаа</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_promotion">
+								3.4. <t:actionlink t:id="goPromotionReport">Томилгоо</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_movement">	
+								3.5. <t:actionlink t:id="goMovementReport">Шилжилт</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<!--<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_candidate">
+								3.6. <t:actionlink t:id="goCandidateReport">Нэр дэвшигчийн бүртгэл</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>-->
+					<tr>	
+						<td>	
+							<t:security.hasPermission permission="report_promote">
+								3.6. <t:actionlink t:id="goPromoteReport">Шилжих хүсэлтүүдийн бүртгэл</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>
+					<!--<tr>	
+						<td>
+							<t:security.hasPermission permission="report_generalJudgeAuthority">		
+								3.8. <t:actionlink t:id="goGeneralJudgeReport">Ерөнхий шүүгчийн бүрэн эрх дуусах</t:actionlink><br/>
+							</t:security.hasPermission>
+						</td>
+					</tr>-->
+				</table>
+			
+		</div>	
+	</t:form> </body> 
+</html>

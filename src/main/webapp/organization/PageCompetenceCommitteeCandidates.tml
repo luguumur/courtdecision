@@ -1,0 +1,285 @@
+<html t:type="layout" title="${message:MERGESHILHOROO}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+	
+    <body>
+    	<t:form>
+    	<br />
+			<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+			<t:actionlink t:id="openPosition" class="newButtonCssSelected">${message:openPosition}</t:actionlink>
+			<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+			<t:actionlink t:id="pagePromote" class="newButtonCss">${message:promote}</t:actionlink>
+			<t:actionlink t:id="pageConclusion" class="newButtonCss">${message:conclusion}</t:actionlink>
+		
+			<div class="block">
+				<t:delegate to = "activeBlock"/>
+			</div>   
+		
+		
+		<t:block t:id="inOutCandidate">
+			<fieldset>
+				<legend class="legendTitle">${message:CandidateRegTitle}</legend>
+				<table id="newspaper-layEmp">
+					<tr>
+						<td>
+							<t:select t:model="InOutType" t:value="inOutFromPromote" onChange="this.form.submit()"/>
+						</td>	
+					</tr>
+				</table>
+					<div class="block">
+						<t:delegate to = "activeSubBlock"/>
+					</div>	
+			</fieldset>
+		</t:block>
+		
+		<t:block t:id="registerIn">
+			<fieldset>
+				<legend class="legendTitle">Нэр дэвшигч</legend>
+					<table id="newspaper-layEmp">
+						<tr>
+							<td>${message:organization} :</td>
+							<td>${message:appointment} :</td>
+						</tr>
+						<tr>
+							<td><t:select t:model="organizationSelectionModel" t:id="orgClick" t:value="organizationCandidate" 
+								validate="required" t:zone="empOrgZone" t:blankLabel="message:all"/></td>
+							<td><t:zone t:id="empOrgZone" style="display: inline;">
+								<select t:type="select" t:model="appointmentSelectionModel" t:value="appointmentCandidate" 
+								validate="required" t:blankLabel="message:all"/>
+							</t:zone></td>
+						</tr>
+						<tr>
+							<td>${message:employee} :</td>
+							<td>${message:candidateStore} :</td>
+							<td>${message:candidateStoreDate} :</td>
+						</tr>
+						<tr>
+							<td><t:zone t:id="empZone" style="display: inline;">
+								<select t:type="select" t:model="employeeSelectionModel2" 
+									t:value="employeeCandidate" validate="required"/>
+							</t:zone></td>
+							<td><t:checkbox t:value="candidateIn.store"/></td>
+							<td><t:datefield t:value="candidateIn.storeDate"/></td>
+						</tr>
+						<tr>
+							<td>${message:examResult} :</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><t:checkbox t:value="candidateIn.examResult"/></td>
+							<td colspan="2" style="text-align:right;">
+								<t:submit t:id="saveIn" class="btnFind save" value="${message:save}" />
+								<t:actionlink t:id="backIn">
+									<input type="button" class="btnFind" value="${message:back}"/>
+								</t:actionlink>
+							</td>
+						</tr>
+					</table>
+			</fieldset>
+		</t:block>
+			
+		<t:block t:id="register">
+			<fieldset>
+				<legend class="legendTitle">${message:CandidateRegTitle}</legend>
+				<table id="newspaper-layEmp">
+					<tr>
+						<td><span class="red">*</span>${message:candidateFName} :</td>
+						<td>${message:candidateLName} :</td>
+						<td>${message:candidateBDate} :</td>
+						<td><span class="red">*</span>${message:gender} :</td>
+					</tr>
+					<tr>
+						<td><t:textfield t:id="firstName" t:value="candidate.firstName" validate="required"/></td>
+						<td><t:textfield t:value="candidate.lastName"/></td>
+						<td><t:datefield t:value="candidate.birthDate"/></td>
+						<td>
+							<t:radiogroup t:value="candidate.gender" t:id="gender">
+								${message:male}
+				                <t:radio t:id="maleGender"/>
+				                ${message:female}
+				                <t:radio t:id="femaleGender"/>
+							</t:radiogroup>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="red">*</span>${message:register} :</td>
+						<td>${message:candidateNWork} :</td>
+						<td>${message:candidateCWYear} :</td>
+						<td>${message:candidateOWYear} :</td>
+					</tr>
+					<tr>
+						<td><t:textfield t:value="candidate.register" validate="required" t:id="registerNo"/></td>
+						<td><t:textfield t:value="candidate.job"/></td>
+						<td><t:textfield t:value="candidate.wbycourtYear"/></td>
+						<td><t:textfield t:value="candidate.wbyoccupationYear"/></td>
+					</tr>
+					<tr>
+						<td>${message:candidateGSchool} :</td>
+						<td>${message:candidateStore} :</td>
+						<td>${message:candidateStoreDate} :</td>
+						<td>${message:examResult} :</td>
+						
+					</tr>
+					<tr>
+						
+						<td><t:select t:model="schoolSelectionModel" t:value="school" t:id="school"/></td>
+						<td><t:checkbox t:value="candidate.store"/></td>
+						<td><t:datefield t:value="candidate.storeDate"/></td>
+						<td><t:checkbox t:value="candidate.examResult"/></td>
+					</tr>
+					<tr>
+						
+						<td colspan="4" style="text-align:right;">
+							<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+						    <t:actionlink t:id="cancel">
+								<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+							</t:actionlink>
+							<t:actionlink t:id="backOut">
+								<input type="button" class="btnFind" value="${message:back}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		</t:block>
+	     	
+	    <t:block t:id="registerFromPromote">
+	    	<fieldset>
+				<legend class="legendTitle">${message:fromPromote}</legend>
+				<table id="newspaper-layEmp">
+					<tr>
+						<td>${message:promoteOrganization} :</td>
+						<td>${message:appointmentLevel-label} :</td>
+						<td>${message:judge} :</td>
+					</tr>
+					<tr>
+						<td><t:select t:model="organizationSelectionModel" t:value="organizationPromote" validate="required" onChange="this.form.submit()"/></td>
+						<td><t:select t:model="levelSelectionModel" t:value="appointmentPromote" validate="required" onChange="this.form.submit()"/></td>
+						<td><t:select t:model="promoteHistorySelectionModel" t:value="employeePromote" validate="required"/></td>
+					</tr>
+					<tr>
+						<td>${message:examResult} :</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><t:checkbox t:value="candidatePromote.examResult"/></td>
+						<td colspan="2" style="text-align:right;">
+							<t:submit t:id="savePromote" class="btnFind save" value="${message:save}" />
+						    <t:actionlink t:id="cancelPromote">
+								<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+							</t:actionlink>
+							<t:actionlink t:id="backPromote">
+								<input type="button" class="btnFind" value="${message:back}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</fieldset>	
+	    </t:block>	
+	     	
+		<t:block t:id="grid">
+	    	<fieldset>
+				<legend class="legendTitle">${message:search}</legend>	
+			    <table id="newspaper-layEmp">
+				    <tr>
+					    <td>
+					    	${message:lastname} :<br/>
+					    	<t:textfield t:value="bean.lastname"/>
+					    </td>
+						<td>
+							${message:firstname} :<br/>
+							<t:textfield t:value="bean.firstname"/>
+						</td>
+						<td>
+							${message:candidateGSchool} :<br/>
+							<t:select t:model="schoolSelectionModel" t:value="bean.school" t:blankLabel="${message:all}"/>
+						</td>
+					</tr>
+
+					<tr>
+					    <td>
+					    	${message:candidateOrganization} :<br/>
+					    	<t:select t:model="organizationSelectionModel" t:value="bean.candidateOrganization" t:blankLabel="${message:all}"/>
+					    </td>
+					    <td>
+					    	${message:candidateNWork} :<br/>
+					    	<t:textfield t:value="bean.job"/>
+					    </td>
+					    <td>
+					    	${message:candidateDate} :<br/>
+					    	<t:datefield t:value="bean.candidateDate"/>
+					    </td>
+					</tr>  
+					<tr>
+						<td colspan="3" style="text-align:right;">
+							<t:submit t:id="search" class="btnFind search" value="${message:search}" />
+							<t:actionlink t:id="back">
+								<input type="button" class="btnFind" value="${message:back}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			
+			<fieldset>
+				<legend class="legendTitle">${message:candidates}</legend>
+				
+					<t:security.HasPermission permission= "add_candidate">
+						<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+					</t:security.HasPermission>
+				
+					<p align="right">${message:sum} ${listSize}</p>
+					
+					<t:grid t:source="listCompetenceCommitteeCandidates" 
+					t:row="valueCompetenceCommitteeCandidates"
+					t:include="lastname,firstname,gender,job,school,store" add="number,age,edit,delete"
+					rowClass="gridRowCSS" reOrder="number,lastname,firstname,age,gender" rowsPerPage="10" style="width:100%">	
+					
+					<p:numberCell>${number}</p:numberCell>
+					
+					<p:firstnameCell>
+						<t:actionlink t:id="doCandidate" t:context="valueCompetenceCommitteeCandidates">
+							${firstName}
+						</t:actionlink>	
+					</p:firstnameCell>
+					
+					<p:ageCell>${age}</p:ageCell>
+					<p:genderCell>${candidateGender}</p:genderCell>
+					<p:schoolCell>${schoolName}</p:schoolCell>
+					
+					<p:storeCell>${store}</p:storeCell>
+					
+					<p:editCell>
+					<t:security.HasPermission permission= "edit_candidate">
+						<t:actionlink t:id="edit" t:context="valueCompetenceCommitteeCandidates">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</t:security.HasPermission>	
+					</p:editCell>
+											
+					<p:deleteCell>
+					<t:security.HasPermission permission= "delete_candidate">
+						<t:actionlink t:id="delete" t:context="valueCompetenceCommitteeCandidates" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</t:security.HasPermission>		
+					</p:deleteCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="export">
+						<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>	
+			</fieldset>
+		</t:block>
+
+	</t:form>		
+    </body>    
+</html>

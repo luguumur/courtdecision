@@ -1,0 +1,111 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<t:security.HasPermission permission="show_employee_military">
+		<t:zone t:id="gradeZone" id="gradeZone">
+			<t:form t:zone="gradeZone">
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:Type}</label>
+							<t:select 
+								t:id="militaryClick"
+								t:model="militaryTypeSelectionModel"
+								value="military.militaryType" 
+								validate="required"
+								t:zone="militaryZone" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:Military}</label>
+							<t:zone t:id="militaryZone" id="militaryZone">
+								<t:select 
+									t:model="militarySelectionModel"
+									t:value="military.military" 
+									t:validate="required" />
+							</t:zone>
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:status}</label>
+							<t:select 
+								t:model="employeeDegreeStatusSelectionModel"
+								value="military.degreeStatus" 
+								validate="required" />
+						</td>
+						<td>
+							<span class="red">*</span>${message:tushaalDugaar}
+							<t:textfield 
+								t:id="tushaalDugaar"
+								t:value="military.tushaalDugaar" 
+								t:validate="required" />	
+						</td>
+					</tr>
+					<tr>	
+						<td>
+							<label><span class="red">*</span>${message:OlgosonOgnoo}</label>
+							<t:datefield 
+								t:id="olgosonOgnoo"
+								t:value="military.olgosonOgnoo" 
+								t:validate="required"
+								t:format="yyyy-MM-dd" />
+						</td>
+						<td colspan="3" style="text-align: right;">
+							<t:security.HasPermission permission="edit_employee_military">
+								<t:submit t:id="saveMilitary"
+									t:value="${message:save}" />
+							</t:security.HasPermission> 
+							
+							<t:actionlink t:id="cancelMilitary" t:zone="gradeZone">
+								<input type="button"
+									value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+		
+		<t:zone t:id="gradeListZone" id="gradeListZone">
+			<t:grid 
+				t:source="listMilitary"
+				t:row="valueMilitary"
+				t:include="degreeStatus,militaryType,military,olgosonOgnoo,tushaalDugaar"
+				t:add="edit,delete,number" 
+				t:reOrder="number" 
+				t:rowsPerPage="25" >
+				<p:militaryCell>
+					${militaryCell}
+				</p:militaryCell>
+				<p:numberCell>
+					${numberMilitary}
+				</p:numberCell>
+				<p:olgosonOgnooCell>
+					${olgosonOgnooCell}
+				</p:olgosonOgnooCell>
+				<p:editCell>
+					<t:security.HasPermission permission="edit_employee_military">
+						<t:actionlink t:id="editMilitary" t:context="valueMilitary" t:zone="gradeZone">
+							Засах
+						</t:actionlink>
+					</t:security.HasPermission>
+				</p:editCell>
+				<p:deleteCell>
+					<t:security.HasPermission permission="delete_employee_military">
+						<t:actionlink t:id="deleteMilitary" t:context="valueMilitary" t:zone="gradeListZone"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.HasPermission>
+				</p:deleteCell>
+				<p:empty>
+				${message:noData}
+			</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportMilitary">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</t:security.HasPermission>
+
+</t:container>

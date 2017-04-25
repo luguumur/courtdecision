@@ -1,0 +1,42 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<h3>Сүүлийн 30 хоногт сахилгын шийтгэл авсан ажилтан - ${SahilgaCount}</h3>
+		<t:grid 
+						t:source="listSahilgaEmployee" 
+						t:row="rowSahilgaEmployee" rowsPerPage="25" 
+		    			t:include="cause" 
+		    			t:add="organization,dateOfDemerit,firstName,appointment,sahilgaShiitgel,sahilgaTurul,commandSubject,number,edit"
+		    			reOrder="number,organization,appointment,firstName,commandSubject,sahilgaShiitgel,sahilgaTurul">
+		   				<p:numberCell>
+		   					${number}
+		   				</p:numberCell>
+		   				<p:organizationCell>
+		   					${orgSahilga}
+		   				</p:organizationCell>
+		   				<p:dateOfDemeritCell>
+		   					${dateOfDemerit}
+		   				</p:dateOfDemeritCell>	
+		   				<p:commandSubjectCell>
+		   					${commandSubject}
+		   				</p:commandSubjectCell>	    
+		   				<p:sahilgaShiitgelCell>
+		   					${sahilgaShiitgel}
+		   				</p:sahilgaShiitgelCell>	  
+		   				<p:sahilgaTurulCell>
+		   					${sahilgaTurul}
+		   				</p:sahilgaTurulCell>
+		   				<p:firstNameCell>
+		   					${firstName}
+		   				</p:firstNameCell>
+		   				<p:editCell>
+		    				<t:actionlink t:id="editDemerit" t:context="rowSahilgaEmployee.employee.id">
+		    					<img src="${editIcon}"/>
+		    				</t:actionlink>
+		   				</p:editCell>	
+		   				<p:empty>
+							${message:noData}
+						</p:empty>
+		   			</t:grid>
+</t:container>
+

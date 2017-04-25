@@ -1,0 +1,43 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<h3>${message:tsalinWarningType} - ${tsalinWarningTypeCount}</h3>
+	<div>
+		<t:grid t:source="listEmployeeSalary" t:row="rowEmployeeSalary"
+			rowsPerPage="25"
+			t:include="firstname,lastname,gender,odoogiinShatlal,tsalinSuljee"
+			t:add="number,organization,registerNo,tsalinEhlehOgnoo,tsalinDuusahOgnoo,edit"
+			reOrder="number,lastname,firstname,registerNo">
+			<p:numberCell>
+		   					${number}
+		   				</p:numberCell>
+			<p:organizationCell>
+		   					${organizationSalary}
+		   				</p:organizationCell>
+			<p:registerNoCell>
+		   					${registerNoSalary}
+		   				</p:registerNoCell>
+			<p:tsalinEhlehOgnooCell>
+		   					${tsalinEhlehOgnoo}
+		   				</p:tsalinEhlehOgnooCell>
+			<p:tsalinDuusahOgnooCell>
+		   					${tsalinDuusahOgnoo}
+		   				</p:tsalinDuusahOgnooCell>
+			<p:editCell>
+				<t:actionlink t:id="editTsalin" t:context="rowEmployeeSalary.id">
+					<img src="${editIcon}" />
+				</t:actionlink>
+			</p:editCell>
+			<p:empty>
+							${message:noData}
+						</p:empty>
+		</t:grid>
+		<div class="pager">
+			<t:actionlink t:id="first" class="button">Эхнийх</t:actionlink>
+			<t:actionlink t:id="prev" class="button">Өмнөх</t:actionlink>
+			<t:actionlink t:id="next" class="button">Дараах</t:actionlink>
+			<t:actionlink t:id="last" class="button">Сүүлийх</t:actionlink>
+		</div>
+	</div>
+</t:container>
+

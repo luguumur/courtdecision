@@ -1,0 +1,181 @@
+<html t:type="layout" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+    <body> <t:form>
+     		<!--<t:actionlink t:id="members" class="newButtonCssSelected">${message:members}</t:actionlink>-->
+			<!--<t:actionlink t:id="employees" class="newButtonCss">${message:employeeGeneralCouncil}</t:actionlink>-->
+     	<div class="block">
+     			<t:delegate to = "activeBlock"/>
+     	</div>	
+     	
+    	<t:block t:id="register">
+    		<table id="newspaper-layEmp">
+	    		<tr>
+					<td><span class="red">*</span> ${message:type}:</td>
+		    		<td><t:select t:model="addMemberTypeSelectionModel" t:value="addMemberType" validate="required" onChange="this.form.submit()" /></td>
+	    		</tr>
+    		</table>
+    		<div class="block">
+     			<t:delegate to = "subBlock"/>
+     		</div>
+    	</t:block> 
+    	<t:block t:id="listEmployee">
+    	<fieldset style="padding-top:0px; padding-bottom:0px;">
+	    <legend class="legendTitle">${message:search}</legend>
+    	<table id="newspaper-layEmp">
+	     	<tbody>
+	     		<tr>
+	     			<td>${message:firsTname} : <t:textfield t:value="bean.firstname"/></td>
+	     			<td>${message:memberStatus} : <t:select t:model="memberStatus" t:value="bean.memberStatus" t:blankLabel="${message:all}"/></td>
+	     			<td>${message:type} : <t:select t:model="addMemberTypeSelectionModel" t:value="bean.memberType" t:blankLabel="${message:all}" /></td>	
+	     			<td><t:submit t:id="search" class="btnFind search" value="${message:search}"/></td>
+	     		</tr>
+	     	</tbody>
+	     </table>
+	     </fieldset>
+	     <fieldset>
+	    	<legend class="legendTitle">${message:MemberList}</legend>
+	    	<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+	    	<p align="right">${message:sum} ${listSize}</p>
+    		<t:grid t:source="listGCCMember"  t:row="valueGCCMember" 
+    		t:include="employee,issuedDate" 
+    		add="number,appointment,mobilePhoneNo,workPhone,edit,delete" reOrder="number,employee,appointment" rowsPerPage="25" style="width:100%" rowClass="gridRowCSS"  >
+    			<p:employeeCell>
+    				<t:actionlink t:id="view" t:context="valueGCCMember">
+						${employeeName}
+					</t:actionlink>
+    			</p:employeeCell>
+    			
+    			<p:issuedDateCell>
+    				${issuedDate}
+    			</p:issuedDateCell>
+    			<p:appointmentCell>
+    				${appointmentName}
+    			</p:appointmentCell>
+    			<p:mobilePhonoNoCell>
+    				${mobilePhoneNo}
+    			</p:mobilePhonoNoCell>
+    			<p:workPhoneCell>
+    				${workPhone}
+    			</p:workPhoneCell>
+    			<p:editCell>
+					<t:actionlink t:id="edit" t:context="valueGCCMember">
+							<img src="${editIcon}"/>
+					</t:actionlink>
+				</p:editCell>
+				
+				<p:deleteCell>
+					<t:actionlink t:id="delete" t:context="valueGCCMember" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+				</p:deleteCell>
+				
+				<p:numberCell>
+						${number}
+				</p:numberCell>
+				
+				<p:empty>
+					${message:noData}
+				</p:empty>
+				
+    		</t:grid>
+	    		<p align="right">
+					<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+    	</fieldset>
+    	</t:block>
+    	<t:block t:id="outcourt">
+		    		<fieldset>
+			    		<legend class="legendTitle">${message:anketInformationRegister}</legend>
+						<table id="newspaper-layEmp">
+							<tr>
+			    				<td><span class="red">${errorMsg}</span></td>
+			    			</tr>
+							<tr>
+								<td>
+									<t:actionlink t:id="goPageEmployeeDetail"><input type="button" class="btnFind" value="${AnketInformation}"/></t:actionlink>
+								</td>
+								<td>
+									${message:employeeName}:
+									<t:textfield t:value="employeeInformation" disabled="true" size="30"/>
+								</td>
+							</tr>
+						</table>
+					</fieldset>
+					<fieldset >
+			    	<legend class="legendTitle">${message:gccMemberRegister}</legend>
+						<table id="newspaper-layEmp">
+							  <thead>
+								  <td><span class="red">*</span> ${message:status}:</td>
+								  <td><span class="red">*</span> ${message:issuedDate}:</td>
+								  <td>${message:issuedNo}:</td>
+								  <td>${message:quitDate}:</td>
+							  </thead>
+							  <tr>
+							  	  <td><t:select t:model="memberStatus" t:value="gccMember.memberStatus" validate="required" /></td>
+							  	  <td>
+							  	  <t:datefield t:id="issuedbhjhbjDate" t:value="gccMember.issuedDate" t:format="yyyy-MM-dd" t:validate="required"/>
+							  	  </td>
+							  	  <td><t:textfield t:value="gccMember.issuedNo"/></td>
+							  	  <td><t:datefield id="quitDate" t:value="gccMember.quitDate" t:format="yyyy-MM-dd"/></td>
+							  </tr>
+							  <tr>
+							  	  <td>
+							  	  ${message:isLeader} <t:checkbox value="gccMember.isLeader"/>
+							  	  </td>
+								  <td colspan="3" style="text-align:right;">
+								  		<t:submit t:id="save" class="btnFind search" value="${message:save}" />
+										<t:actionlink t:id="cancel">
+											<input type="button" class="btnFind" value="${message:back}"/>
+										</t:actionlink>
+								  </td>
+							  </tr>
+						</table>
+					</fieldset>
+			</t:block>
+			<t:block t:id="incourt">
+					<fieldset >
+			    	<legend class="legendTitle">${message:gccMemberRegister}</legend>
+						<table id="newspaper-layEmp">
+							  <tr>
+							  	  <td><span class="red">*</span> ${message:organization}:</td>
+							  	  <td><span class="red">*</span> ${message:employee}:</td>
+								  <td><span class="red">*</span> ${message:status}:</td>
+							  </tr>
+							  <tr>
+							  	  <td><select t:type="select" t:id="orgClick" t:model="organizationSelectionModel"  t:value="organization" t:zone="empOrgZone" t:validate="required"/></td>
+								  <td><t:zone t:id="empOrgZone" style="display: inline;">
+										<select t:type="select" t:model="EmployeeSelectionModel" t:value="gccMember1.employee" t:validate="required"/>
+								  </t:zone></td>				  	 
+							  	  <td><t:select t:model="memberStatus" t:value="gccMember1.memberStatus" validate="required" /></td>
+								</tr>
+								<tr>
+									<td>${message:issuedNo}:</td>
+									<td><span class="red">*</span> ${message:issuedDate}:</td>
+								    <td>${message:quitDate}:</td>
+								</tr>
+								<tr>
+									<td><t:textfield t:value="gccMember1.issuedNo"/></td>
+									<td><t:datefield t:value="gccMember1.issuedDate"  t:format="yyyy-MM-dd" validate="required"/></td>
+							  	 	<td><t:datefield t:value="gccMember1.quitDate" t:format="yyyy-MM-dd"/></td>
+								</tr>
+								<tr>
+								<td>
+							  	  ${message:isLeader} <t:checkbox value="gccMember1.isLeader"/>
+							  	  </td>
+								  <td colspan="3" style="text-align:right;">
+								  		<t:submit t:id="save1" class="btnFind search" value="${message:save}" />
+										<t:actionlink t:id="cancel1">
+											<input type="button" class="btnFind" value="${message:back}"/>
+										</t:actionlink>
+								  </td>
+							  </tr>
+						</table>
+					</fieldset>
+			</t:block>
+    </t:form> </body> 
+</html>

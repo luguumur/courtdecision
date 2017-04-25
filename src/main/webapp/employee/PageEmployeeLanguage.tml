@@ -1,0 +1,265 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> 
+<t:form>
+	<div style="width:100%">
+	<table id="newspaper-c" bgcolor="#E5E5E5">
+		<thead>
+			<td>
+				${message:languageInformation}
+			</td>
+		</thead>
+		<t:if test="show">
+		<tr>
+			<td><span class="red">*</span>${message:language} :</td>
+			<td><span class="red">*</span>${message:listening} :</td>
+			<td><span class="red">*</span>${message:speaking} :</td>
+			<td><span class="red">*</span>${message:reading} :</td>
+			<td><span class="red">*</span>${message:writing} :</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><t:select t:model="ForeignLanguageSelectionModel" t:value="language.foreignLanguage" t:validate="required" /></td>
+			<td><t:select t:model="LanguageLevelSelectionModel" t:value="language.listening" t:validate="required" /></td>
+			<td><t:select t:model="LanguageLevelSelectionModel" t:value="language.speaking" t:validate="required" /></td>
+			<td><t:select t:model="LanguageLevelSelectionModel" t:value="language.reading" t:validate="required" /></td>
+			<td><t:select t:model="LanguageLevelSelectionModel" t:value="language.writing" t:validate="required" /></td>
+			<td style="text-align:right;">
+				<t:security.hasPermission permission="add_language">
+					<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+				</t:security.hasPermission>
+				<t:actionlink t:id="cancel">
+					<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+				</t:actionlink>
+			</td>
+		</tr>
+		</t:if>
+		<tr>
+			<td colspan="6"> 
+				<t:grid t:source="listLanguage" t:row="valueLanguage" rowClass="gridRowCSS"  style="width:100%"
+				include="foreignLanguage,listening,speaking,reading,writing" add="edit,delete,numberCo"
+				reOrder="numberCo" rowsPerPage="25">
+					<p:numberCoCell>
+								${numberCo}
+					</p:numberCoCell>
+						<p:editCell>
+							<t:security.hasPermission permission="edit_language">
+								<t:actionlink t:id="edit" t:context="valueLanguage">
+										<img src="${editIcon}"/>
+									</t:actionlink>
+							</t:security.hasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.hasPermission permission="delete_language">
+								<t:actionlink t:id="delete" t:context="valueLanguage" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+							</t:security.hasPermission>		
+						</p:deleteCell>
+					<p:empty>
+							${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="exportLanguage">
+						<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+			</td>
+		</tr>
+	</table>
+	<br />
+	</div>
+	</t:form>
+	<div>
+	<table id="newspaper-c" bgcolor="#E5E5E5">
+		<thead>
+			<td>
+				${message:softwareInformation}
+			</td>
+		</thead>
+		<t:form>
+		<t:if test="show">
+		<tr>
+			<td><span class="red">*</span>${message:program} :</td>
+			<td><span class="red">*</span>${message:programlevel} :</td>
+		</tr>
+		<tr>
+			<td><t:select t:model="ComputerProgramSelectionModel" t:value="computer.program" t:validate="required"/></td>
+			<td><t:select t:model="LanguageLevelSelectionModel" t:value="computer.programlevel" t:validate="required"/></td>
+			<td style="text-align:right;">
+				<t:security.hasPermission permission="add_computer">
+					<t:submit t:id="saveProgram" class="btnFind save" value="${message:save}" />
+				</t:security.hasPermission>
+				<t:actionlink t:id="cancelProgram">
+					<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+				</t:actionlink>
+			</td>
+		</tr>
+		</t:if>
+		<tr>
+			<td colspan="3">
+				<t:grid t:source="listComputer" rowClass="gridRowCSS"  style="width:100%" t:row="valueComputer" 
+				include="program,programlevel" add="edit,delete,number"
+				reOrder="number" rowsPerPage="25">
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:programCell>
+						${programName}
+					</p:programCell>
+					<p:editCell>
+						<t:security.hasPermission permission="edit_computer">
+							<t:actionlink t:id="editProgram" t:context="valueComputer">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</t:security.hasPermission>
+					</p:editCell>
+					
+					<p:deleteCell>
+						<t:security.hasPermission permission="delete_computer">
+							<t:actionlink t:id="deleteProgram" t:context="valueComputer" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</t:security.hasPermission>
+					</p:deleteCell>
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				
+				<p align="right">
+					<t:actionlink t:id="exportComputer">
+						<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+			</td>
+		</tr>
+	</t:form>
+	<t:form>
+		<t:if test="show">
+			<tr>
+				<td><span class="red">*</span>${message:otherProgram} :</td>
+				<td><span class="red">*</span>${message:programlevel} :</td>
+			</tr>
+			<tr>
+				<td><t:textfield t:id="program" t:value="computerOther.otherProgram" t:validate="required" t:style="width:70%"/></td>
+				<td><t:select t:model="LanguageLevelSelectionModel" t:value="computerOther.otherProgramlevel" t:validate="required"/></td>
+				<td style="text-align:right;">
+					<t:security.hasPermission permission="add_computer">
+						<t:submit t:id="saveOtherProgram" class="btnFind save" value="${message:save}" />
+					</t:security.hasPermission>
+					<t:actionlink t:id="cancelOtherProgram">
+						<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+		</t:if>
+		<tr>
+			<td colspan="3">
+				<t:grid t:source="listComputerOther" rowClass="gridRowCSS"  style="width:100%" t:row="valueComputerOther" 
+				include="otherProgram,otherProgramlevel" add="edit,delete,number"
+				reOrder="number" rowsPerPage="25">
+					<p:numberCell>
+						${numberComputerOther}
+					</p:numberCell>
+					<p:editCell>
+						<t:security.hasPermission permission="edit_computer">
+							<t:actionlink t:id="editOtherProgram" t:context="valueComputerOther">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</t:security.hasPermission>
+					</p:editCell>
+					
+					<p:deleteCell>
+						<t:security.hasPermission permission="delete_computer">
+							<t:actionlink t:id="deleteOtherProgram" t:context="valueComputerOther" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</t:security.hasPermission>
+					</p:deleteCell>
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+						<t:actionlink t:id="exportOtherProgram">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+				</p>
+			</td>
+		</tr>
+	  </t:form> 
+	</table>
+	<t:form>
+	<br />
+	<table id="newspaper-c" bgcolor="#E5E5E5">
+		<thead>
+			<td>
+				${message:officefacilityInformation}
+			</td>
+		</thead>
+		<t:if test="show">
+		<tr>
+			<td><span class="red">*</span>${message:facility} :</td>
+			<td><span class="red">*</span>${message:facilityLevel} :</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><t:select t:model="OfficeEquipmentSelectionModel" t:value="officeEquipment.facility" t:validate="required" /></td>
+			<td><t:select t:model="LanguageLevelSelectionModel" t:value="officeEquipment.facilityLevel" t:validate="required" /></td>
+			<td style="text-align:right;">
+				<t:security.hasPermission permission="add_language">
+					<t:submit t:id="saveOfficeEquipment" class="btnFind save" value="${message:save}" />
+				</t:security.hasPermission>
+				<t:actionlink t:id="cancelOfficeEquipment">
+					<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+				</t:actionlink>
+			</td>
+		</tr>
+		</t:if>
+		<tr>
+			<td colspan="3"> 
+				<t:grid t:source="listOfficeEquipment" t:row="valueOfficeEquipment" rowClass="gridRowCSS"  style="width:100%"
+				include="facility,facilityLevel" add="edit,delete,numberCo"
+				reOrder="numberCo" rowsPerPage="25">
+					<p:facilityCell>
+								${facilityName}
+					</p:facilityCell>
+					<p:numberCoCell>
+								${numberOfficeEquipment}
+					</p:numberCoCell>
+						<p:editCell>
+							<t:security.hasPermission permission="edit_language">
+								<t:actionlink t:id="editOfficeEquipment" t:context="valueOfficeEquipment">
+										<img src="${editIcon}"/>
+								</t:actionlink>
+							</t:security.hasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.hasPermission permission="delete_language">
+								<t:actionlink t:id="deleteOfficeEquipment" t:context="valueOfficeEquipment" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+								</t:actionlink>
+							</t:security.hasPermission>		
+						</p:deleteCell>
+					<p:empty>
+							${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+						<t:actionlink t:id="exportOfficeEquipment">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+				</p>
+			</td>
+		</tr>
+	</table>	
+	</t:form>	
+	</div>
+</body> 
+</html>

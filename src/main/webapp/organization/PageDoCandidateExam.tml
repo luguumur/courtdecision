@@ -1,0 +1,44 @@
+<html t:type="layout" title="${message:MERGESHILHOROO}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+	
+    <body>
+    
+    	<t:form>
+    		<br />
+			<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+			<t:actionlink t:id="openPosition" class="newButtonCssSelected">${message:openPosition}</t:actionlink>
+			<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+			<t:actionlink t:id="pagePromote" class="newButtonCss">${message:promote}</t:actionlink>
+			<t:actionlink t:id="pageConclusion" class="newButtonCss">${message:conclusion}</t:actionlink>
+			
+			<div>
+				<fieldset>
+					<legend class="legendTitle">${message:exam}</legend>
+					<table>
+						<t:loop t:source="listCandidateExam" t:value="valueCandidateExam">
+							<tr>
+								<td>${valueCandidateExam.name} :</td>
+								<td><t:textfield t:value="empSkillPoint" size="10"/></td>
+							</tr>
+						</t:loop>
+						
+						<tr>
+							<td colspan="2" style="text-align:right;">
+								<t:submit t:id="saveExam" class="btnFind save" value="${message:save}" />
+								<t:actionlink t:id="backCandidate">
+									<input type="button" class="btnFind" value="${message:back}"/>
+								</t:actionlink>
+							</td>
+						</tr>
+							
+					</table>
+				</fieldset>	
+			</div>
+		</t:form>
+				
+    </body>    
+</html>

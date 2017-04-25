@@ -1,0 +1,56 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> <t:form>
+
+	<div style="width:100%">
+		<table id="newspaper-c">
+			<tr>
+				<td>
+					<t:grid t:source="listResultContract" t:row="valueResultContract" rowClass="gridRowCSS"  style="width:100%" 
+					include="allSupplyScore,specialSupplyScore,qualificationLevel" add="startContractDate,edit,delete,number"
+					reOrder="number" rowsPerPage="25">
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+					    <p:startContractDateCell>
+							${contractDate}
+						</p:startContractDateCell>
+						<p:allSupplyScoreCell>
+							${allSupply}
+						</p:allSupplyScoreCell>
+						<p:specialSupplyScoreCell>
+							${specialSupply}
+						</p:specialSupplyScoreCell>
+						<p:qualificationLevelCell>
+							${qualification}
+						</p:qualificationLevelCell>
+						<p:editCell>
+								<t:actionlink t:id="edit" t:context="valueResultContract">
+										<img src="${editIcon}"/>
+									</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+								<t:actionlink t:id="delete" t:context="valueResultContract" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+										<img src="${deleteIcon}"/>
+									</t:actionlink>
+						</p:deleteCell>	
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+</t:form> </body> 
+</html>

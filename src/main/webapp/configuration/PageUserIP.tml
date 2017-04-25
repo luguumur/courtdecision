@@ -1,0 +1,34 @@
+
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<t:select t:model="UserSelectionModel" t:value="userIP.user" t:validate="required"/>
+				<t:textfield value="userIP.ipAddress"/>
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listUserIP"  t:row="valueUserIP" t:include="id,user,ipAddress" t:add="edit,delete">
+					<p:userCell>
+						${userName}
+					</p:userCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueUserIP">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueUserIP">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

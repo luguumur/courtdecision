@@ -1,0 +1,32 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				Гадаад хэл: <t:textfield value="foreignLanguage.languageName"/>
+				&nbsp;
+				<t:submit class="btnFind save" t:id="save" t:value="${message:save}"/>
+			</div><br/>
+			<div>
+				<t:grid t:source="listForeignLanguage" t:row="valueForeignLanguage" t:include="id,languageName" t:add="edit,delete"
+				  rowsPerPage="25" >
+
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueForeignLanguage">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueForeignLanguage">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

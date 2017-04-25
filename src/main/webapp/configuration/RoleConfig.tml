@@ -1,0 +1,55 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+<t:form>
+
+	<t:delegate to="activeBlock" />
+
+	<t:block t:id="blockList">
+		<p align="left"><t:actionlink t:id="add">
+			<u>${message:add}</u>
+		</t:actionlink></p>
+		<t:grid t:source="listRole" t:row="valueRole"
+			t:include="id,name,description" t:add="edit">
+			<p:editCell>
+				<t:actionlink t:id="edit" t:context="valueRole">
+					<img src="${editIcon}" />
+				</t:actionlink>
+			</p:editCell>
+		</t:grid>
+	</t:block>
+
+	<t:block t:id="blockView">
+		<div>
+		<table>
+			<tr>
+				<td align="right">${message:roleName}<span class="red">*</span></td>
+				<td><t:textfield t:value="valueRole.name" t:validate="required"></t:textfield></td>
+			</tr>
+			<tr>
+				<td align="right">${message:description}</td>
+				<td><t:textarea t:cols="40" t:rows="2"
+					t:value="valueRole.description"></t:textarea></td>
+			</tr>
+			<tr>
+				<td colspan="2"><br />
+				<t:jquery.palette t:id="handling" encoder="encoder" model="model"
+					selected="selectedValues" selectedLabel="${message:selected}"
+					availableLabel="${message:active}" size="40" /></td>
+			</tr>
+			<tr>
+				<td><t:submit t:id="save" t:value="${message:save}" /> <t:actionlink
+					t:id="cancel">
+					<input type="button" value="${message:cancel}" />
+				</t:actionlink></td>
+			</tr>
+		</table>
+		</div>
+	</t:block>
+</t:form>
+</body>
+</html>

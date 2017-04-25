@@ -1,0 +1,592 @@
+<html t:type="layoutCD" title="${message:empList}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<script>
+	$("div.divWithScroll").scroll();
+</script>
+</head>
+<body class="loader">
+	<!-- 	<t:zone t:id="formZone" id="formZone"> -->
+	<t:form>
+		<fieldset>
+			<legend>${message:search}</legend>
+			<table class="form">
+				<tr>
+					<t:security.HasPermission permission="show_all_organization">
+						<td><label>${message:organization} :</label></td>
+					</t:security.HasPermission>
+					<td><label>${message:lastname} :</label></td>
+					<td><label>${message:firstname} :</label></td>
+					<td><label>${message:OccupationType} :</label></td>
+
+				</tr>
+				<tr>
+					<t:security.HasPermission permission="show_all_organization">
+						<td><t:select t:model="organizationSelectionModel"
+								t:value="bean.organization" t:blankLabel="${message:all}"
+								style="width:200px" /></td>
+					</t:security.HasPermission>
+					<td><t:textfield t:value="bean.lastname" /></td>
+					<td><t:textfield t:value="bean.firstname" /></td>
+					<td><t:select t:id="occupationType"
+							t:model="OccupationTypeSelectionModel"
+							t:value="bean.occupationType" t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" t:zone="ocAppointmentZone" /></td>
+				</tr>
+				<tr>
+					<td>${message:appointment} :</td>
+					<td>${message:gender} :</td>
+					<td>${message:registerNo} :</td>
+					<td>Нас :</td>
+				</tr>
+				<tr>
+					<td><t:zone t:id="ocAppointmentZone" id="ocAppointmentZone">
+							<t:select t:model="appointmentSelectionModel"
+								t:value="bean.appointment" t:blankLabel="${message:all}" />
+						</t:zone></td>
+					<td><t:select t:model="genderSelectionModel"
+							t:value="bean.gender" t:blankLabel="${message:all}"
+							style="width:200px" /></td>
+					<td><t:textfield t:value="bean.registerNo" /></td>
+					<td><t:textfield t:id="ageFrom" t:value="bean.ageFrom"
+							style="width:60px" /> ~ <t:textfield t:id="ageTo"
+							t:value="bean.ageTo" style="width:60px" /></td>
+
+				</tr>
+				<tr>
+					<td>${message:familyStatus-label}</td>
+					<td>${message:status} :</td>
+					<td>Улсад ажилласан жил :</td>
+					<td>ШШГБ-д ажилласан жил :</td>
+				</tr>
+				<tr>
+					<td><t:select t:id="familyStatus"
+							t:model="FamilyStatusSelectionModel" t:value="bean.familyStatus"
+							t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+					<td><t:select t:model="statusSelectionModel"
+							t:value="bean.status" t:blankLabel="${message:all}" /></td>
+					<td><t:textfield t:id="workedYearFrom"
+							t:value="bean.workedYearFrom" style="width:60px" /> ~ <t:textfield
+							t:id="workedYearTo" t:value="bean.workedYearTo"
+							style="width:60px" /></td>
+					<td><t:textfield t:id="workedYF"
+							t:value="bean.courtWorkedYearFrom" style="width:60px" /> ~ <t:textfield
+							t:id="workedYT" t:value="bean.courtWorkedYearTo"
+							style="width:60px" /></td>
+
+				</tr>
+			</table>
+			<br />
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showEduSearch" t:mixins="triggerfragment"
+						fragment="eduForm" />
+					Боловсролын зэрэг
+				</legend>
+				<t:formfragment t:id="eduForm" visible="showEduSearch">
+					<table class="form">
+						<tr>
+							<td><label>${message:degreeType}</label> <t:select
+									t:model="degreeTypeSelectionModel"
+									t:value="bean.educationDegree" t:blankLabel="${message:all}" />
+							</td>
+							<td><label>Мэргэжил</label> <t:select
+									t:model="OccupationSelectionModel" t:value="bean.occupation"
+									t:blankLabel="${message:all}" /></td>
+							<td><label>Элссэн он</label> <t:textfield
+									t:id="eduStartDateFrom" t:value="bean.eduStartDateFrom"
+									style="width:60px" /> - <t:textfield t:id="eduStartDateTo"
+									t:value="bean.eduStartDateTo" style="width:60px" /></td>
+							<td><label>Төгссөн он</label> <t:textfield
+									t:id="eduGraduateDateFrom" t:value="bean.eduGraduateDateFrom"
+									style="width:60px" /> - <t:textfield t:id="eduGraduateDateTo"
+									t:value="bean.eduGraduateDateTo" style="width:60px" /></td>
+						</tr>
+						<tr>
+							<td><label>${message:academicRank}</label> <t:select
+									t:model="academicRankSelectionModel"
+									t:value="bean.academinRank" t:blankLabel="${message:all}" /></td>
+							<td><label>Эрдмийн цол авсан он:</label> <t:textfield
+									t:id="academicRankFrom" t:value="bean.academicRankFrom"
+									style="width:60px" /> - <t:textfield t:id="academicRankTo"
+									t:value="bean.academicRankTo" style="width:60px" /></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showTrainingSearch" t:mixins="triggerfragment"
+						fragment="trainingForm" />
+					${message:training}
+				</legend>
+				<t:formfragment t:id="trainingForm" visible="showTrainingSearch">
+					<table class="form">
+						<tr>
+							<td><label>${message:country}</label> <t:select
+									t:id="ulsClick" t:model="countrySelectionModel"
+									t:value="bean.trainingCountry" t:blankLabel="${message:all}"
+									t:zone="trainingUlsZone" t:blankOption="ALWAYS" /></td>
+							<td><label>${message:city}</label> <t:zone
+									t:id="trainingUlsZone" id="trainingUlsZone">
+									<t:if test="mongolia">
+										<t:select t:model="provinceSelectionModel"
+											t:value="bean.trainingProvince" t:blankLabel="${message:all}"
+											t:blankOption="ALWAYS" />
+										<p:else>
+											<t:select t:model="citySelectionModel"
+												t:value="bean.trainingCity" t:blankOption="ALWAYS"
+												t:blankLabel="${message:all}" />
+										</p:else>
+									</t:if>
+								</t:zone></td>
+							<td><label>Сургалтанд хамрагсдан он:</label> <t:textfield
+									t:id="trainingYearFrom" t:value="bean.trainingStartDate"
+									style="width:60px" /> ~ <t:textfield t:id="trainingYearTo"
+									t:value="bean.trainingEndDate" style="width:60px" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showAwardSearch" t:mixins="triggerfragment"
+						fragment="awardForm" />
+					${message:honourPage}
+				</legend>
+				<t:formfragment t:id="awardForm" visible="showAwardSearch">
+					<table class="form">
+						<tr>
+							<td><label>Шагнал авсан эсэх</label> <t:select
+									t:model="yesNoSelectionModel" t:value="bean.isAward"
+									t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+							<td><label>${message:PrizeName}</label> <t:select
+									t:id="shagnalClick" t:model="AwardTypeSelectionModel"
+									t:value="bean.awardType" t:zone="shagnalZone"
+									t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+							<td><label>${message:awardType}</label> <t:zone
+									t:id="shagnalZone" style="display: inline;">
+									<t:if test="governmentPrize">
+										<t:select t:model="GovernmentPrizeSelectionModel"
+											t:value="governmentPrizeName" style="width:200px"
+											t:blankLabel="${message:all}" t:blankOption="ALWAYS" />
+									</t:if>
+									<t:if test="justiceMinistryPrize">
+										<t:select t:model="JusticeMinistryPrizeSelectionModel"
+											t:value="justicePrizeName" t:blankLabel="${message:all}"
+											t:blankOption="ALWAYS" />
+									</t:if>
+									<t:if test="statePrize">
+										<t:select t:model="StatePrizeSelectionModel"
+											style="width:200px" value="statePrizeName"
+											t:blankLabel="${message:all}" t:blankOption="ALWAYS" />
+									</t:if>
+									<t:if test="courtPrize">
+										<t:select t:model="courtPrizeSelectionModel"
+											t:value="courtPrizeName" t:blankOption="ALWAYS"
+											t:blankLabel="${message:all}" t:visible="true" />
+									</t:if>
+									<t:if test="otherOrganizationPrize">
+										<t:textfield t:id="ohterOrganizationPrize"
+											t:value="honour.otherPrize" style="width:200px" />
+									</t:if>
+									<t:if test="allPrize">
+										<t:textfield t:value="allPrizeText" disabled="true"
+											t:style="width: 200px" />
+									</t:if>
+								</t:zone></td>
+							<td><label>Тушаалын дугаар</label> <t:textfield
+									t:id="shagnalTushaalDugaar" t:value="bean.shagnalTushaalDugaar" /></td>
+						</tr>
+						<tr>
+							<td><label>${message:yearOfAwarded}</label> <t:datefield
+									t:id="awardDateStart" t:value="bean.awardDateStart"
+									style="width:85px" /> - <t:datefield t:id="awardDateEnd"
+									t:value="bean.awardDateEnd" style="width:85px" /></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showDemeritSearch" t:mixins="triggerfragment"
+						fragment="demeritForm" />
+					${message:demerit}
+				</legend>
+
+				<t:formfragment t:id="demeritForm" visible="showDemeritSearch">
+					<table class="form">
+						<tr>
+							<td><label>Сахилгын шийтгэл оногдуулсан эсэх</label> <t:select
+									t:model="yesNoSelectionModel" t:value="bean.isDemerit"
+									t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+							<td><label>${message:commandSubject}</label> <t:select
+									t:model="commandSubjectSelectionModel"
+									t:value="bean.commandSubject" t:blankLabel="${message:all}"
+									t:blankOption="ALWAYS" /></td>
+							<td><label>${message:sahilgaTurul}</label> <t:select
+									t:model="sahilgaTurulSelectionModel" t:blankOption="ALWAYS"
+									t:value="bean.sahilgaTurul" t:blankLabel="${message:all}" /></td>
+							<td><label>${message:demeritType}</label> <t:select
+									t:model="sahilgaShiitgelSelectionModel" t:value="bean.sahilga"
+									t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+						</tr>
+						<tr>
+							<td><label>Тушаалын дугаар</label> <t:textfield
+									t:id="sahilgaTushaalDugaar" t:value="bean.sahilgaTushaalDugaar" /></td>
+							<td><label>${message:yearOfDemerit}</label> <t:datefield
+									t:id="startDemeritDate" t:value="bean.sahilgaDateStart"
+									style="width:85px" /> - <t:datefield t:id="endDemeritDate"
+									t:value="bean.sahilgaDateEnd" style="width:85px" /></td>
+							<td><label>Сахилгын шийтгэл арилгасан он</label> <t:datefield
+									t:id="startDemeritCancelDate"
+									t:value="bean.sahilgaCancelDateStart" style="width:85px" /> -
+								<t:datefield t:id="endDemeritCancelDate"
+									t:value="bean.sahilgaCancelDateEnd" style="width:85px" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showAllowanceSearch" t:mixins="triggerfragment"
+						fragment="allowanceForm" />
+					${message:allowance}
+				</legend>
+
+				<t:formfragment t:id="allowanceForm" visible="showAllowanceSearch">
+					<table class="form">
+						<tr>
+							<td><label>Тэтгэмж, тусламж авсан эсэх</label> <t:select
+									t:model="yesNoSelectionModel" t:value="bean.isAllowance"
+									t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+							<td><label>${message:commandSubject}</label> <t:select
+									t:model="commandSubjectSelectionModel"
+									t:value="bean.allowanceCommandSubject"
+									t:blankLabel="${message:all}" t:blankOption="ALWAYS" /></td>
+							<td><label><span class="red">*</span>${message:allowanceType}</label>
+								<t:select t:model="allowanceTypeSelectionModel"
+									t:value="bean.allowanceType" t:blankLabel="${message:all}" /></td>
+							<td><label>Тушаалын дугаар</label> <t:textfield
+									t:id="allowanceTushaalDugaar"
+									t:value="bean.allowanceTushaalDugaar" /></td>
+						</tr>
+						<tr>
+							<td><label>Тэтгэмж, тусламж авсан мөнгөн дүн</label> <t:textfield
+									t:id="allowanceMoneyFrom" t:value="bean.allowanceMoneyFrom"
+									style="width:80px" /> - <t:textfield t:id="allowanceMoneyTo"
+									t:value="bean.allowanceMoneyTo" style="width:80px" /></td>
+							<td><label>Тэтгэмж, тусламж авсан он</label> <t:textfield
+									t:id="startAllowanceDate" t:value="bean.allowanceDateStart"
+									style="width:60px" /> - <t:textfield t:id="endAllowanceDate"
+									t:value="bean.allowanceDateEnd" style="width:60px" /></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showMilitarySearch" t:mixins="triggerfragment"
+						fragment="militaryForm" />
+					${message:militaryDegree-label}
+				</legend>
+				<t:formfragment t:id="militaryForm" visible="showMilitarySearch">
+
+					<table class="form">
+						<tr>
+							<td><label>Цол олголтын төрөл</label> <t:select
+									t:model="tsolOlgohTurulSelectionModel"
+									value="bean.tsolOlgohTurul" t:blankLabel="${message:all}"
+									t:blankOption="ALWAYS" /></td>
+							<td><label>Статус</label> <t:select
+									t:model="employeeDegreeStatusSelectionModel"
+									value="bean.employeeDegreeStatus" t:blankOption="ALWAYS"
+									t:blankLabel="${message:all}" /></td>
+							<td><label>Төрөл</label> <t:select t:id="militaryClick"
+									t:model="militaryTypeSelectionModel" value="bean.militaryType"
+									t:zone="militaryZone" t:blankLabel="${message:all}"
+									t:blankOption="ALWAYS" /></td>
+							<td><label>Цэргийн цол</label> <t:zone t:id="militaryZone"
+									style="display:inline;">
+									<t:select t:model="militarySelectionModel"
+										t:value="bean.military" t:blankLabel="${message:all}" />
+								</t:zone></td>
+						</tr>
+						<tr>
+							<td><t:textfield t:value="bean.tsolTushaalDugaar"
+									disabled="true" t:style="width: 200px" /></td>
+							<td><label>Цэргийн цол олгосон огноо</label> <t:datefield
+									t:id="degreeDateFrom" t:value="bean.degreeDateFrom"
+									style="width: 85px" /> - <t:datefield t:id="degreeDateTo"
+									t:value="bean.degreeDateTo" style="width: 85px" /></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showDisplacementSearch"
+						t:mixins="triggerfragment" fragment="displacementForm" />
+					${message:displacement}
+				</legend>
+				<t:formfragment t:id="displacementForm"
+					visible="showDisplacementSearch">
+					<table class="form">
+						<tr>
+							<td>${message:DisplacementType} : <t:select
+									t:id="DisplacementTypeClick"
+									t:model="DisplacementTypeSelectionModel"
+									t:value="bean.displacementType" t:blankLabel="${message:all}"
+									t:zone="displacementTypeZone" t:blankOption="ALWAYS" />
+							</td>
+							<td><label>Статус</label> <t:zone
+									t:id="displacementTypeZone" style="display: inline;">
+									<t:if test="QuiteJobDisplacement">
+										<t:select t:id="EmployeeStatusClick"
+											t:model="currentStatusSelectionModel"
+											t:value="bean.currentStatus" t:blankLabel="${message:all}"
+											t:zone="employeeStatusZone" t:blankOption="ALWAYS" />
+									</t:if>
+									<t:if test="MovementDisplacement">
+										<t:select t:id="displacementStatusClick"
+											t:model="DisplacementCauseTypeSelectionModel"
+											t:value="bean.displacementCause"
+											t:blankLabel="${message:all}" t:blankOption="ALWAYS" />
+									</t:if>
+									<t:if test="DisplacementAll">
+										<t:textfield t:value="allPrizeText" disabled="true"
+											t:style="width: 200px" />
+									</t:if>
+								</t:zone></td>
+							<td><label>Чөлөөлөгдөх шалтгаан</label> <t:zone
+									t:id="employeeStatusZone">
+									<t:if test="chuluulugdukh">
+										<t:select t:model="QuitJobChuluulugdukhSelectionModel"
+											t:value="bean.quitJobType" t:blankOption="ALWAYS"
+											t:blankLabel="${message:all}" />
+									</t:if>
+									<t:if test="khalagdah">
+										<t:select t:model="QuitJobKhalagdakhSelectionModel"
+											t:value="bean.quitJobType" t:blankOption="ALWAYS"
+											t:blankLabel="${message:all}" />
+									</t:if>
+									<t:if test="tetgever">
+										<t:select t:model="QuitJobTetgeverSelectionModel"
+											t:value="bean.quitJobType" t:blankOption="ALWAYS"
+											t:blankLabel="${message:all}" />
+									</t:if>
+									<t:if test="employeeStatusAll">
+										<t:textfield t:value="allPrizeText" disabled="true"
+											t:style="width: 200px" />
+									</t:if>
+								</t:zone></td>
+							<td><label>Шилжилт хөдөлгөөн хийсэн он</label> <t:textfield
+									t:id="quiteDateFrom" t:value="bean.quiteDateFrom"
+									style="width:60px" /> - <t:textfield t:id="quitDateTo"
+									t:value="bean.quiteDateTo" style="width:60px" /></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+			<fieldset>
+				<legend class="search">
+					<t:checkbox t:id="showVacationSearch" t:mixins="triggerfragment"
+						fragment="vacationForm" />
+					${message:vacation}
+				</legend>
+
+				<t:formfragment t:id="vacationForm" visible="showVacationSearch">
+					<table class="form">
+						<tr>
+							<td><label>Чөлөө авсан шалтгаан</label> <t:select
+									t:model="vacationTypeSelectionModel"
+									t:value="bean.vacationType" t:blankLabel="${message:all}" /></td>
+							<td><label>Чөлөө эхлэх огноо</label> <t:datefield
+									t:value="bean.chuluuEhlehOgnoo" t:format="yyyy-MM-dd" /></td>
+							<td><label>Чөлөө дуусах огноо</label> <t:datefield
+									t:value="bean.chuluuDuusahOgnoo" t:format="yyyy-MM-dd" /></td>
+							<td></td>
+						</tr>
+					</table>
+				</t:formfragment>
+			</fieldset>
+
+
+			<table class="form">
+				<tr>
+					<td style="text-align: right;" colspan="4"><t:submit
+							t:id="search" t:value="message:search" /> <t:actionlink
+							t:id="cancel" class="button">
+							<!-- 								onclick="loaderShow('loader');" -->
+								${message:cancel}
+							</t:actionlink> <t:jquery.dialoglink t:id="link1" t:dialog="myDialog"
+							class="button">
+								${message:selectColumn}
+							</t:jquery.dialoglink></td>
+				</tr>
+			</table>
+		</fieldset>
+	</t:form>
+	<!-- 	</t:zone> -->
+	<fieldset class="divWithScroll">
+		<!-- 		<t:zone t:id="listZone" id="listZone"> -->
+		<style type="text/css">
+.t-data-grid .t-data-grid-pager {
+	display: none;
+}
+</style>
+		<legend>${message:listEmployee} - ${listSize}</legend>
+		<t:grid t:source="listEmployee" t:row="valueEmployee"
+			t:include="${gridColumn}" add="${addedColumn},edit"
+			reOrder="number,firstName,lastName" rowsPerPage="25" inPlace="true">
+			<p:firstNameCell>
+				<t:pagelink t:page="pageEmployeeGeneral"
+					t:context="valueEmployee?.id">
+						${firstName}
+					</t:pagelink>
+			</p:firstNameCell>
+			<p:occupationCell>
+			 		${occupationName}
+			</p:occupationCell>
+			<p:appointmentNameCell>
+			 		${appointmentName}
+			 	</p:appointmentNameCell>
+			<p:organizationnameCell>
+			 		${organizationName}
+			 	</p:organizationnameCell>
+			<p:genderCell>
+			 		${empGender}
+			 	</p:genderCell>
+			<p:numberCell>
+					${number}
+				</p:numberCell>
+			<p:birthDateCell>
+					${birthDate}
+				</p:birthDateCell>
+			<p:courtOrgTotalWorkedYearCell>
+				<t:if test="courtWorkedYear">
+						${courtOrgTotalWorkedYear}
+					</t:if>
+			</p:courtOrgTotalWorkedYearCell>
+			<p:totalOrgWorkedYearCell>
+				<t:if test="totalWorkedYear">
+						${totalOrgWorkedYear}
+					</t:if>
+			</p:totalOrgWorkedYearCell>
+			<p:familyCountCell>
+					${familyCountExport}
+				</p:familyCountCell>
+
+			<p:origin1Cell>
+					${originExport}
+				</p:origin1Cell>
+			<p:childCountCell>
+					${childCountExport}
+				</p:childCountCell>
+			<p:courtMilitaryWorkedYearCell>
+				<t:if test="courtMilitaryWorkedYear">
+						${CourtMilitaryWorkedYearExport}
+					</t:if>
+			</p:courtMilitaryWorkedYearCell>
+			<p:CourtSimpleWorkedYearCell>
+				<t:if test="courtSimpleWorkedYear">
+						${CourtSimpleWorkedYearExport}
+					</t:if>
+			</p:CourtSimpleWorkedYearCell>
+			<p:militaryDegreeStatusCell>
+					${MilitaryDegreeStatusExport}
+				</p:militaryDegreeStatusCell>
+			<p:militaryDegreeCell>
+					${MilitaryDegreeExport}
+				</p:militaryDegreeCell>
+			<p:militaryDegreeDateCell>
+					${MilitaryDegreeDateExport}
+				</p:militaryDegreeDateCell>
+			<p:stateWorkedYearCell>
+					${StateWorkedYearExport}
+				</p:stateWorkedYearCell>
+			<p:editCell>
+				<t:pagelink t:page="pageEmployeeGeneral"
+					t:context="valueEmployee.id">
+							Засах
+						</t:pagelink>
+			</p:editCell>
+			<p:empty>
+						${message:noData}
+					</p:empty>
+		</t:grid>
+		<!-- 		</t:zone> -->
+
+		<!-- t:zone="listZone" -->
+		<div class="pager">
+			<t:actionlink t:id="first" class="button">Эхнийх</t:actionlink>
+			<t:actionlink t:id="prev" class="button">Өмнөх</t:actionlink>
+			<t:actionlink t:id="next" class="button">Дараах</t:actionlink>
+			<t:actionlink t:id="last" class="button">Сүүлийх</t:actionlink>
+		</div>
+		<p align="right" class="divWithScroll">
+			<t:actionlink t:id="export">
+				<img src="${imgExcel}" />
+			</t:actionlink>
+		</p>
+	</fieldset>
+</body>
+
+<t:jquery.dialog t:clientId="myDialog" t:params="param">
+	<!--  t:zone="listZone" -->
+	<t:form t:id="columnForm">
+		<b>Багана сонгоно уу</b>
+		<t:zone class="selectColumn" t:id="myZone" id="myZone">
+			<t:checkbox t:value="lastname" /> ${message:lastname}<br />
+			<t:checkbox t:value="origin1" /> ${message:persuasion}<br />
+			<t:checkbox t:value="gender" /> ${message:gender}<br />
+			<t:checkbox t:value="email" /> ${message:email}<br />
+			<t:checkbox t:value="register" /> ${message:registerNo}<br />
+			<t:checkbox t:value="status" /> ${message:status}<br />
+			<t:checkbox t:value="phoneNo" /> ${message:phoneNo}<br />
+			<t:checkbox t:value="appointment" /> ${message:appointment}<br />
+			<t:checkbox t:value="militaryDegreeStatus" /> Цэргийн цол статус<br />
+			<t:checkbox t:value="militaryDegree" /> Цэргийн цол<br />
+			<t:checkbox t:value="militaryDegreeDate" /> Цэргийн цол авсан огноо<br />
+			<t:checkbox t:value="org" /> ${message:organization}<br />
+			<t:checkbox t:value="occ" /> Мэргэжил<br />
+			<t:checkbox t:value="birthday" /> Төрсөн өдөр<br />
+			<t:checkbox t:value="FamilyCount" /> Ам бүлийн тоо<br />
+			<t:checkbox t:value="ChildCount" /> Хүүхдийн тоо<br />
+			<t:checkbox t:value="CourtWorkedYear" /> ШШГБ-д нийт ажилласан жил<br />
+			<t:checkbox t:value="CourtMilitaryWorkedYear" /> ШШГБ-д ажилласан жил/Цэргийн/<br />
+			<t:checkbox t:value="CourtSimpleWorkedYear" /> ШШГБ-д ажилласан жил/Энгийн/<br />
+			<t:checkbox t:value="TotalWorkedYear" /> Нийт ажилласан жил<br />
+			<t:checkbox t:value="StateWorkedYear" /> Улсад ажилласан жил<br />
+			<t:submit t:id="save" t:value="${message:choose}"
+				onClick="closeDialog()" />
+		</t:zone>
+	</t:form>
+</t:jquery.dialog>
+
+<script>
+	function closeDialog() {
+		$('#myDialog').dialog('close');
+	}
+</script>
+</html>
+

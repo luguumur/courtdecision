@@ -1,0 +1,31 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				${message:salaryScale} :
+				<t:textfield value="salaryScale.salaryScale" t:validate="required"/>&nbsp;				
+				<t:submit t:id="save" t:value="${message:save}" class="btnFind save" />
+			</div><br/>
+			<div>
+				<t:grid t:source="listSalaryScale"  t:row="valueSalaryScale" t:include="id,salaryScale" t:add="edit,delete"
+				 rowsPerPage="25">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueSalaryScale">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueSalaryScale">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

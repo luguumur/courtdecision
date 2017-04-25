@@ -1,0 +1,95 @@
+<html t:type="layoutCD" title="${message:configuration}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<body class="loader">
+	<t:form>
+		<table class="form">
+			<tr>
+				<td colspan="2"><label>${message:organization}</label> <t:select
+						t:id="org" t:model="organizationSelectionModel"
+						t:value="organization" t:validate="required"
+						onchange="form.submit();" /></td>
+				<td colspan="2"><label>${message:type} </label> <t:select
+						t:model="excelTypeSelectionModel" t:value="excelType"
+						t:blankLabel="${message:Choose}" onchange="form.submit();" /></td>
+			</tr>
+			<tr>
+				<td colspan="4">Анхааруулга!</td>
+			</tr>
+			<tr>
+				<td colspan="4"><t:delegate to="activeBlock" /></td>
+			</tr>
+		</table>
+	</t:form>
+</body>
+
+<t:block t:id="personalBlock">
+	<t:excelImport.compExcelPersonal t:id="compExcelPersonal" />
+</t:block>
+
+<t:block t:id="familyBlock">
+	<t:excelImport.compExcelFamily t:id="compExcelFamily" />
+</t:block>
+
+<t:block t:id="preResultBlock">
+	<t:excelImport.compExcelPreResult t:id="compExcelPreResult" />
+</t:block>
+
+<t:block t:id="gradeBlock">
+	<t:excelImport.compExcelGrade t:id="compExcelGrade" />
+</t:block>
+
+<t:block t:id="experienceBlock">
+	<t:excelImport.compExcelExperience t:id="compExcelExperience" />
+</t:block>
+
+<t:block t:id="trainigBlock">
+	<t:excelImport.compExcelTraining t:id="compExcelTraining" />
+</t:block>
+
+<t:block t:id="educationBlock">
+	<t:excelImport.compExcelEducation t:id="compExcelEducation" />
+</t:block>
+
+<t:block t:id="languageBlock">
+	<t:excelImport.compExcelLanguage t:id="compExcelLanguage" />
+</t:block>
+
+<t:block t:id="skillBlock">
+	<t:excelImport.compExcelSkill t:id="compExcelSkill" />
+</t:block>
+
+<t:block t:id="salaryBlock">
+	<t:excelImport.compExcelSalary t:id="compExcelSalary" />
+</t:block>
+
+<t:block t:id="honourBlock">
+	<t:excelImport.compExcelHonour t:id="compExcelHonour" />
+</t:block>
+
+<t:block t:id="sahilgaBlock">
+	<t:excelImport.compExcelSahilga t:id="compExcelSahilga" />
+</t:block>
+
+<t:block t:id="allowanceBlock">
+	<t:excelImport.compExcelAllowance t:id="compExcelAllowance" />
+</t:block>
+
+<t:block t:id="programBlock">
+	<t:excelImport.compExcelProgram t:id="compExcelProgram" />
+</t:block>
+
+<t:block t:id="officeItBlock">
+	<t:excelImport.compExcelOfficeEquipment t:id="compExcelOfficeEquipment" />
+</t:block>
+
+<t:block t:id="erdmiinTsolBlock">
+	<t:excelImport.compExcelAcademicRank t:id="compExcelAcademicRank" />
+</t:block>
+
+<t:block t:id="vacationBlock">
+	<t:excelImport.compExcelVacation t:id="compExcelVacation" />
+</t:block>
+
+</html>

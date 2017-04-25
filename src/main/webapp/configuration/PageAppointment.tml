@@ -1,0 +1,67 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+			<div>
+				<table>
+					<tr>						
+						<!--<td>	
+							${message:occupationType} :				
+						</td>-->	
+						<td>
+							${message:appointment}:
+						</td>
+						<td>														
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:select model="occupationTypeSelectionModel" t:value="appointment.occupationType" t:validate="required"/>
+						</td>
+						<td>
+							<t:textfield value="appointment.AppointmentName" style="width:300px;" t:validate="required"/>
+						</td>	
+						<td>														
+						</td>
+					</tr>
+					<tr>						
+						<td>	
+							${message:guitsetgehAjliinNemegdel} :	&nbsp;&nbsp;
+							<t:checkbox t:value="appointment.gaNemegdel"/>											
+						</td>
+						<td>	
+							<t:submit t:id="save" t:value="${message:save}" class="btnFind save"  />																
+						</td>
+					</tr>
+				</table>
+				<t:grid t:source="listAppointment"  t:row="valueAppointment" 
+				t:include="appointmentName" 
+				reOrder="number,occupationTypeName,appointmentName,guitsetgehAjliinNemegdel"  
+				t:add="number,guitsetgehAjliinNemegdel,edit,delete,occupationTypeName" rowsPerPage="25">
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:occupationTypeNameCell>
+						${valueAppointment?.occupationType?.name}
+					</p:occupationTypeNameCell>
+					<p:guitsetgehAjliinNemegdelCell>
+						${guitsetgehAjliinNemegdel}
+					</p:guitsetgehAjliinNemegdelCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueAppointment">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueAppointment">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

@@ -1,0 +1,29 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+	<body> <t:form>
+		
+			<div>
+				Шилжих шалтгааны төрөл: <t:textfield value="displacementCause.name" t:validate="required" style="width: 200px"/>&nbsp;
+				<t:submit t:id="Save" t:value="${message:save}" class="btnFind save"/>
+			</div>
+			<div>
+				<t:grid t:source="listDisplacementCause"  t:row="valueDisplacementCause" t:include="id,name" t:add="edit,delete"
+				 rowsPerPage="25">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueDisplacementCause">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueDisplacementCause">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

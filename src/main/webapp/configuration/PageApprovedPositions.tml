@@ -1,0 +1,67 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body>
+		<t:form>
+		
+			<div class="block">
+				<t:delegate to = "activeBlock"/>
+			</div>
+			
+			<t:block t:id="grid">
+				<div>
+					<t:grid t:source="listOrganization"  t:row="valueOrganization" t:include="id,name">
+						<p:nameCell>
+						 	<t:actionlink t:id="appointment" t:context="valueOrganization">
+						 		${name}
+						 	</t:actionlink>
+					 	</p:nameCell>
+					 	<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+				</div>	
+			</t:block>
+			
+			<t:block t:id="register">
+				<div>
+					<table>
+						<tr>
+							<td>${message:appointment} :</td>
+							<td>${message:establishment} :</td>
+						</tr>
+						<tr>
+							<td><t:select t:model="appointmentSelectionModel" t:value="approvedPositions.appointment" validate="required"/></td>
+							<td><t:textfield t:value="approvedPositions.establishment" size="10"/></td>
+						</tr>
+						<tr>	
+							<td colspan="2" style="text-align:right;">
+								<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+								<t:actionlink t:id="cancel">
+									<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+								</t:actionlink>
+							</td>
+						</tr>
+						
+					</table>
+					
+					<t:grid t:source="listApprovedPositions" t:row="valueApprovedPositions" 
+						t:include="id,appointment,establishment">
+						<p:appointmentCell>
+							${appointmentName} 
+					 	</p:appointmentCell>
+					 	<p:establishmentCell>
+							${establishmentSize}
+					 	</p:establishmentCell>
+					 	<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+				</div>
+			</t:block>
+		</t:form>
+	</body> 
+</html>

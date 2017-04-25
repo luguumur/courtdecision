@@ -1,0 +1,22 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns="tapestryarameter">
+		<table>
+			<tr>
+				<td colspan="2">${message:file}: <input t:type="upload"
+					t:id="file" t:value="fileEx" t:validate="required" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><br /> <t:submit t:id="importFromExcel"
+						t:value="${message:import}" /> <t:actionlink t:id="cancelImport">
+						<input type="button" value="${message:cancel}" />
+					</t:actionlink></td>
+			</tr>
+		</table>
+	<div class="errMsgDiv">
+		<t:loop t:source="errMsg" t:value="strRow">
+			<span>${strRow}</span>
+			<br />
+		</t:loop>
+	</div>	
+</t:container>

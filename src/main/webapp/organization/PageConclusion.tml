@@ -1,0 +1,114 @@
+	<html t:type="layout" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+    <body>
+    	<t:form>
+    		<br />
+	    	<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+			<t:actionlink t:id="openPosition" class="newButtonCss">${message:openPosition}</t:actionlink>
+			<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+			<t:actionlink t:id="promote" class="newButtonCss">${message:promote}</t:actionlink>
+			<t:actionlink t:id="conclusion" class="newButtonCssSelected">${message:conclusion}</t:actionlink>
+			
+			<div class="block">
+				<t:delegate to = "activeBlock"/>
+			</div>	
+			
+			<t:block t:id="register">
+				<fieldset>
+				<legend class="legendTitle">${message:members}</legend>
+					<table id="newspaper-layEmp">
+					<tr>
+						<td>${message:organization} :</td>
+						<td>${message:employee} :</td>
+						<td>${message:savingType} :</td>
+						
+					</tr>
+					<tr>
+						<td><t:select t:model="organizationSelectionModel" t:value="valueConclusion.organization" t:id="organization" onChange="this.form.submit()" /></td>
+						<td><t:select t:model="employeeSelectionModel" t:value="valueConclusion.employee" t:id="employee"/></td>
+						<td><t:select t:model="savingTypeSelectionModel" t:value="valueConclusion.saving" t:id="savingType"/></td>
+					</tr>
+					<tr>
+						<td>${message:decisionNumber} :</td>
+						<td>${message:decisionDate} :</td>
+						<td>${message:organizationType} :</td>
+					</tr>
+					
+					<tr>
+						<td><t:textfield t:value="valueConclusion.mandatoryNumber"/></td>
+						<td><t:datefield t:value="valueConclusion.conclusionDate" t:format="yyyy-MM-dd" /></td>
+						<td><t:select t:model="organizationTypeSelectionModel" t:value="valueConclusion.organizationType" t:id="organizationType"/></td>
+					</tr>
+					<tr>
+						<td>
+							<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+							<t:actionlink t:id="cancel">
+								<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+					</table>
+				</fieldset>
+			</t:block>
+			
+			<t:block t:id="grid">
+				<fieldset>
+				<legend class="legendTitle">${message:members}</legend>
+				
+					<t:security.HasPermission permission= "add_conclusion">
+						<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+					</t:security.HasPermission>
+					<p align="right">${message:sum} ${listSize}</p>
+					<t:grid t:source="listConclusion" t:row="valueConclusion" 
+					t:include="mandatoryNumber, conclusionDate, organizationType, employee" add="number,edit,delete" 
+					rowClass="gridRowCSS" rowsPerPage="25" reOrder="number" style="width:100%">
+    				
+    				<p:numberCell>${number}</p:numberCell>
+    				
+    				<p:conclusionDateCell>
+    					${conclusionDate}
+    				</p:conclusionDateCell>
+    				
+    				<p:organizationTypeCell>
+    					${organizationType}
+    				</p:organizationTypeCell>
+    				
+    				<p:employeeCell>
+    					${employeeName}
+    				</p:employeeCell>
+    				
+					<p:editCell>
+					<t:security.HasPermission permission= "edit_conclusion">
+						<t:actionlink t:id="edit" t:context="valueConclusion">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</t:security.HasPermission>	
+					</p:editCell>
+													
+					<p:deleteCell>
+					<t:security.HasPermission permission= "delete_conclusion">
+						<t:actionlink t:id="delete" t:context="valueConclusion" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</t:security.HasPermission>	
+					</p:deleteCell>
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				
+				<p align="right">
+					<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+				
+				</fieldset>
+			</t:block>
+			
+    	</t:form>
+    </body> 
+</html>

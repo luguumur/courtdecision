@@ -1,0 +1,160 @@
+@charset "utf-8";
+/* CSS Document */
+.body
+{
+	margin:auto;
+	background: url(../images/6720.png);
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.login
+{
+	min-height:280px;
+	width:450px;
+	background: #fff;
+	margin:auto;
+	margin-top:1.5%;
+	border-radius: 5px;
+	-moz-box-shadow: 0 0 5px #999;
+	-webkit-box-shadow: 0 0 5px #999;
+	box-shadow: 0 0 5px #999;
+}
+
+.loginLogo{	
+	margin:auto;
+	margin-top: 8%;
+	height:100px;
+	text-align: center;
+	width:100%;
+	background: url(../images/logo-cd.png) no-repeat center;	
+}
+
+.ie9 .login {
+	margin-left: 29%;
+}
+
+.ie9 .loginLogo {
+	background: url(../images/logo1_copy.png) no-repeat center;
+	height:87px;
+	text-align: center;
+}
+
+.loginHeader{
+	margin-top: 20px;
+	height:82px;
+	width:400px;
+	float:right;
+	font-family:"Times New Roman", Times, serif;
+	font-size:22px;
+	font-weight:normal;
+	text-shadow:1px 1px #999;
+	color:#333;
+	text-align:center;
+	margin-right:25px;
+}
+
+.loginFooter{
+	margin-top:20px;
+	margin-left:45px;
+	height:22px;
+	font-size:12px;
+	color: #666;
+	text-align: center;
+}
+
+.ie9 .loginFooter {
+	background: #3C6;
+	border: 1px solid green;
+}
+
+.loginUser{
+	width: 350px;
+}
+
+.lblError{
+	margin-bottom:-110px;
+	font-family:"Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size:12px;
+	height:10px;
+	margin-left:35%;
+	width:400px;
+	color:#C00;
+}
+
+.lblUsername{
+	margin-top:230px;
+	margin-left:60px;
+	font-size:12px;
+}
+
+.lblPassword{
+	margin-top:20px;
+	margin-left:120px;
+	font-size:12px;
+}
+
+.txtUsername{
+	margin-top:-25px;
+	margin-left:180px;
+	border: 2px solid #a8a8a8;
+	width:170px;
+}
+
+.txtPassword{
+	margin-top:-25px;
+	margin-left:180px;
+	border: 2px solid #a8a8a8;
+	width:170px;
+}
+.textinput{
+	margin-top:5px;
+	margin-left:170px;
+	border: 2px solid #a8a8a8;
+	width:170px;
+}
+.loginbtn	{
+	background-color: #EEE;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #EEE), color-stop(100%, #CCC));
+	border: 1px solid #CCC;
+	border-bottom: 1px solid #BBB;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 8px;
+	color: #333;
+	font: bold 11px;
+	line-height: 1;
+	padding: 4px 0;
+	text-align: center;
+	text-shadow: 0 1px 0 #EEE;
+	width: 90px;
+	margin-top:15px;
+	margin-left:262px;
+}
+.loginbtn:hover {
+    background-color: #dddddd;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #bbbbbb));
+    border: 1px solid #bbb;
+    border-bottom: 1px solid #999;
+    cursor: pointer;
+    text-shadow: 0 1px 0 #ddd; 
+}
+.loginbtn:active {
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #888;
+    -webkit-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+    -moz-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
+    box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee; 
+}
+
+.tjq-error-popup span{
+	display:none;
+}
+
+.notice{
+	min-height:280px;
+	width:450px;
+	font-size: 12px;
+	margin:auto;
+	margin-top:10px;
+}
+

@@ -1,0 +1,258 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<fieldset>
+		<legend>Ажилтаны чөлөөний мэдээлэл</legend>
+		<t:zone t:id="chuluuFormZone" id="chuluuFormZone">
+			<t:form t:id="chuluuForm" t:zone="chuluuFormZone,chuluuListZone">
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>Чөлөө олгосон
+								ажилтан</label> <t:select t:model="commandSubjectSelectionModel"
+								t:value="vacation.commandSubject" t:validate="required" /></td>
+						<td><span class="red">*</span>Чөлөө хүсэх төрөл <t:select
+								t:model="vacationTypeSelectionModel"
+								t:value="vacation.vacationType" t:validate="required" /></td>
+						<td><label><span class="red">*</span>Шалтгаан</label> <t:textarea
+								t:value="vacation.vacationCause" /></td>
+						<td><span class="red">*</span>${message:chuluuOlgosonOgnoo} <t:datefield
+								t:value="vacation.chuluuOlgosonOgnoo" t:validate="required"
+								t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td><label><span class="red">*</span>${message:chuluuTimeType-label}</label>
+							<t:select t:model="chuluuTimeTypeSelectionModel"
+								t:value="vacation.chuluuTimeType" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:hasSalary-label}</label>
+							<t:select t:model="yesNoSelectionModel"
+								t:value="vacation.hasSalary " t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:chuluuEhlehOgnoo}</label>
+							<t:datefield t:value="vacation.chuluuEhlehOgnoo"
+								t:validate="required" t:format="yyyy-MM-dd" /></td>
+						<td><label><span class="red">*</span>${message:chuluuDuusahOgnoo}</label>
+							<t:datefield t:value="vacation.chuluuDuusahOgnoo"
+								t:validate="required" t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td style="text-align: right;" colspan="4"><t:submit
+								t:id="saveVacation" t:value="${message:save}" /> <t:actionlink
+								t:id="cancelVacation" t:zone="chuluuFromZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+
+		<t:zone t:id="chuluuListZone" id="chuluuListZone">
+			<t:grid t:source="listVacation" t:row="valueVacation"
+				t:include="vacationType,vacationCause"
+				t:add="chuluuOlgosonAjiltan,vacationDate,vacationFromDate,vacationToDate,edit,delete,number"
+				reOrder="number,chuluuOlgosonAjiltan" rowsPerPage="25">
+				<p:numberCell>
+					${numberVacation}
+				</p:numberCell>
+				<p:chuluuOlgosonAjiltanCell>
+					${valueVacation?.commandSubject?.subjectName}
+				</p:chuluuOlgosonAjiltanCell>
+				<p:vacationTypeCell>
+					${valueVacation?.vacationType?.vacationTypeName}
+				</p:vacationTypeCell>
+				<p:vacationDateCell>
+					${vacationDate}
+				</p:vacationDateCell>
+				<p:vacationFromDateCell>
+					${vacationFromDate}
+				</p:vacationFromDateCell>
+				<p:vacationToDateCell>
+					${vacationToDate}
+				</p:vacationToDateCell>
+				<p:editCell>
+					<t:actionlink t:id="editVacation" t:context="valueVacation"
+						t:zone="chuluuFormZone">
+						<img src="${editIcon}" />
+					</t:actionlink>
+				</p:editCell>
+				<p:deleteCell>
+					<t:actionlink t:id="deleteVacation" t:context="valueVacation"
+						t:zone="chuluuListZone" t:mixins="confirmDelete"
+						message="${message:AreYouSureDelete}">
+						<img src="${deleteIcon}" />
+					</t:actionlink>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend>${message:travelAbroadInformation}</legend>
+		<t:zone t:id="travelAbroadFormZone" id="travelAbroadFormZone">
+			<t:form t:id="travelAbroadForm"
+				t:zone="travelAbroadFormZone,traveAbroadListZone">
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>${message:country}</label>
+							<t:select t:id="Country" t:model="CountrySelectionModel"
+								t:value="travelAbroad.country" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:travelType}</label>
+							<t:select t:model="TravelTypeSelectionModel"
+								t:value="travelAbroad.travelType" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:travelPurpose}</label>
+							<t:textarea t:value="travelAbroad.jobTask" /></td>
+						<td><label><span class="red">*</span>${message:wentDate}</label>
+							<t:datefield t:value="travelAbroad.wentDate"
+								t:validate="required" t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td><label><span class="red">*</span>${message:cameDate}</label>
+							<t:datefield t:value="travelAbroad.cameDate"
+								t:validate="required" t:format="yyyy-MM-dd" /></td>
+						<td style="text-align: right;" colspan="3" valign="bottom"><t:submit
+								t:id="saveTravel" t:value="${message:save}" /> <t:actionlink
+								t:id="cancelTravel" t:zone="travelAbroadFormZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+
+		<t:zone t:id="traveAbroadListZone" id="traveAbroadListZone">
+			<t:grid t:source="listTravelAbroad" t:row="valueTravelAbroad"
+				t:include="country,travelType,jobTask,wentDate,cameDate"
+				t:add="edit,delete,number" reOrder="number" rowsPerPage="25">
+				<p:numberCell>
+					${numberTravel}
+				</p:numberCell>
+				<p:wentDateCell>
+					${wentDateName}
+				</p:wentDateCell>
+				<p:cameDateCell>
+					${cameDateName}
+				</p:cameDateCell>
+				<p:countryCell>
+					${countryName}
+				</p:countryCell>
+				<p:travelTypeCell>
+					${valueTravelAbroad.travelType.name}
+				</p:travelTypeCell>
+				<p:editCell>
+					<t:actionlink t:id="editTravel" t:context="valueTravelAbroad"
+						t:zone="travelAbroadFormZone">
+						<img src="${editIcon}" />
+					</t:actionlink>
+				</p:editCell>
+				<p:deleteCell>
+					<t:actionlink t:id="deleteTravel" t:context="valueTravelAbroad"
+						t:zone="traveAbroadListZone" t:mixins="confirmDelete"
+						message="${message:AreYouSureDelete}">
+						<img src="${deleteIcon}" />
+					</t:actionlink>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportTravel">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend>${message:officialPassportInformation}</legend>
+		<t:zone t:id="officialPassportFormZone" id="officialPassportFormZone">
+			<t:form t:id="officialPassportForm"
+				t:zone="officialPassportFormZone, officialPassportListZone">
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>${message:passportNo}</label>
+							<t:textfield t:id="passportNo" t:value="passport.passportNo"
+								t:validate="required" /></td>
+						<td><label>${message:isGiven}</label> <t:checkbox
+								t:value="passport.isGiven" /></td>
+						<td><label><span class="red">*</span>${message:givenDate}</label>
+							<t:datefield t:id="givenDate" t:value="passport.givenDate"
+								t:validate="required" t:format="yyyy-MM-dd" /></td>
+						<td><label><span class="red">*</span>${message:expireDate}</label>
+							<t:datefield t:id="expireDate" t:value="passport.expireDate"
+								t:validate="required" t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>						
+						<td><label>${message:isDiplomat}</label> <t:checkbox
+								t:value="passport.isDiplomat" /></td>
+						<td><label>${message:isRetrieve}</label> <t:checkbox
+								t:value="passport.isRetrieve" /></td>
+						<td><label>${message:extentDate1}</label> <t:datefield
+								t:id="extentDate1" t:value="passport.extentDate1"
+								t:format="yyyy-MM-dd" /></td>
+						<td><label>${message:extentDate2}</label> <t:datefield
+								t:id="extentDate2" t:value="passport.extentDate2"
+								t:format="yyyy-MM-dd" /></td>
+					</tr>
+					<tr>
+						<td><label>${message:retrieveDate}</label> <t:datefield
+								t:id="retrieveDate" t:value="passport.retrieveDate"
+								t:format="yyyy-MM-dd" /></td>
+						<td colspan="3" style="text-align: right;" valign="bottom"><t:submit
+								t:id="savePassport" t:value="${message:save}" /> <t:actionlink
+								t:id="cancelPassport" t:zone="officialPassportFormZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+		<t:zone t:id="officialPassportListZone" id="officialPassportListZone">
+			<t:grid t:source="listPassport" t:row="valuePassport"
+				include="passportNo, givenDate, expireDate,isDiplomat"
+				add="edit,delete, number" rowsPerPage="15" reOrder="number">
+				<p:numberCell>
+					${number}
+				</p:numberCell>
+				<p:isDiplomatCell>
+					${isDiplomatPassport}
+				</p:isDiplomatCell>
+				<p:givenDateCell>
+					${givenDateName}
+				</p:givenDateCell>
+				<p:expireDateCell>
+					${expireDateName}
+				</p:expireDateCell>
+				<p:editCell>
+					<t:security.hasPermission permission="edit_passport">
+						<t:actionlink t:id="editPassport" t:context="valuePassport"
+							t:zone="officialPassportFormZone">
+							<img src="${editIcon}" />
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_passport">
+						<t:actionlink t:id="deletePassport" t:context="valuePassport"
+							t:zone="officialPassportListZone" t:mixins="confirmDelete"
+							message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}" />
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+
+				<p:empty>
+					${message:noData}
+				</p:empty>
+
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="export">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</fieldset>
+</t:container>

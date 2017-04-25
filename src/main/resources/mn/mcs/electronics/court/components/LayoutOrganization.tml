@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html t:type="layout" title="${message:name}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		<title>${title}</title>
+		<t:if test="heading">
+			<meta name="heading" content="${heading}" />
+		</t:if>
+		<t:if test="menu">
+			<meta name="menu" content="${menu}" />
+		</t:if>
+	</head>
+	<body id="${bodyId}">
+	
+	<div id="page">
+			
+			<!--<div id="sub">
+				<h2>${message:advertisment}</h2>
+				<t:delegate to="subMenuBlock" />
+			</div>
+			-->
+			
+		
+			<fieldset>
+				<legend class="legendTitle">Байгууллагын мэдээлэл</legend>
+				<table id="newspaper-layEmp">
+					<thead>
+			        <tr>
+			        	<td>${message:name} :</td>
+						<td>${message:shortname} :</td>
+						<td>${message:register} :</td>
+						<td>${message:address} :</td>
+			        </tr>
+			        </thead>    
+			        <tr>
+			            <td>${organization.name}</td>
+						<td>${organization.shortName}</td>
+						<td>${organization.register}</td>
+						<td>${organization.address}</td>
+			        </tr>
+			        <thead>
+			        <tr>
+			            <td>${message:postAddress} :</td>
+						<td>${message:webpage-label} :</td>
+						<td>${message:workPhone} :</td>
+						<td>${message:email-label} :</td>
+			        </tr>
+			        </thead>    
+			        <tr>
+			            <td>${organization.postAddress}</td>
+						<td>${organization.webpage}</td>
+						<td>${organization.phoneNo}</td>
+						<td>${organization.email}</td>
+			        </tr>
+				</table>
+				
+				<legend class="legendTitle">${message:prescription}</legend>
+					<table id="newspaper-layEmp">  
+				    	<tr>
+				        	<td>${organization.briefIntroduction}</td>
+				        </tr>
+				</table>
+			</fieldset>
+		
+			<t:if test="newOrganization">
+				<div class="empMenu">
+					<ul>
+						<li class="${activeStatistic}"><t:actionlink t:id="goToPageOrganization">${message:goToOrganization}</t:actionlink></li>
+						<li class="${activeEmployee}"><t:actionlink t:id="goToEmployeePage">${message:goToEmployee}</t:actionlink></li>
+						<li class="${activeInfo}"><t:actionlink t:id="goToPageOrganizationInfo">${message:goToOrganizationInfo}</t:actionlink></li>
+						<!--<li class="${activeProperty}"><t:actionlink t:id="goToPageOrganizationProperty">Эд хөрөнгийн мэдээлэл</t:actionlink></li>-->
+					</ul>	
+				</div>
+			</t:if>	
+			<t:body />
+		</div>
+		</body> 
+
+<t:block id="subMenuBlock"/>
+<t:block id="navBlock"/>
+
+</html>

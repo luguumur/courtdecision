@@ -1,0 +1,175 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<head>
+		<script>
+			$("div.divWithScroll").scroll();
+		</script>
+	</head>
+
+<body class="loaderEstablishment">
+	<t:form>
+		<fieldset>
+			<legend>${message:searchField}</legend>
+			<table class="form">
+				<tr>
+					<td>
+						<label>Анги/алба</label>
+						<t:select 
+							t:model="organizationSelectionModel" 
+							t:value="establishment.organization"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />
+					</td>
+					<td>
+						<label>Орон тооны нэр</label>
+						<t:textfield 
+							t:value="establishment.name"
+							t:label="message:name" />
+					</td>
+					<td>
+						<label>Албан тушаалын төрөл</label>
+						<t:select 
+							t:id="appointmentType"
+							t:model="appointmentTypeSelectionModel" 
+							t:value="establishment.appointmentType"
+							t:blankOption="NEVER"
+							t:zone="appointmentZone" />
+					</td>
+					<td>
+						<label>Албан тушаал</label>
+						<t:zone t:id="appointmentZone" id="appointmentZone">
+							<t:select 
+								t:model="appointmentSelectionModel" 
+								t:value="establishment.appointment"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</t:zone>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>${message:utTzTtTuSortName-label}</label>
+						<t:select 
+							t:id="utTzTtTuSort"
+							t:model="utTzTtTuSortSelectionModel" 
+							t:value="establishment.utTzTtTuSort"
+							t:zone="utTzTtTuLevelZone"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />
+					</td>
+					<td>
+						<label>${message:utTzTtTuLevelName-label}</label>
+						<t:zone t:id="utTzTtTuLevelZone" id="utTzTtTuLevelZone">
+							<t:select 
+								t:model="utTzTtTuLevelSelectionModel" 
+								t:value="establishment.utTzTtTuLevel"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</t:zone>
+					</td>
+					<td>
+						<label>${message:militaryRankName-label}</label>
+						<t:select 
+							t:model="militaryRankSelectionModel" 
+							t:value="establishment.militaryRankType"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />
+					</td>
+					<td>
+						<label>${message:statusName-label}</label>
+						<t:checkbox 
+							t:value="establishment.status" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label>${message:mainName-label}</label>
+						<t:checkbox 
+							t:value="establishment.main" />	
+					</td>
+					<td style="text-align:right;" colspan="3">				    
+						<t:submit 
+							t:id="search" 
+							t:value="${message:search}"
+							onclick="loaderShow('loaderEstablishment');" />
+							
+						<t:actionlink t:id="cancel" class="button" onclick="loaderShow('loaderEstablishment');">
+							${message:cancel}
+						</t:actionlink>
+						
+						<t:pagelink t:page="establishmentEdit" t:context="-2" class="button">
+							${message:add}
+						</t:pagelink>
+					</td>
+				</tr>
+			</table>
+		</fieldset>
+
+		<fieldset class="divWithScroll">
+			<legend>Жагсаалт - ${count}</legend>	
+			<t:zone t:id="listZone" id="listZone">	
+				<div>
+					<t:grid 
+						t:source="listEstablishment" 
+						t:row="valueEstablishment"
+						t:rowsPerPage="20"
+						t:pagerPosition="bottom"
+						t:add="number,edit,appointmentName,statusName,mainName,utTzTtTuSortName,
+							utTzTtTuLevelName,organizationName,militaryRankName,numName,nuhugdsunName,sulName"
+						t:include="name"
+						t:reOrder="number,organizationName,name,appointmentName,utTzTtTuSortName,
+							utTzTtTuLevelName,militaryRankName,mainName,numName,nuhugdsunName,sulName,
+							statusName,edit">
+						<p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:organizationNameCell>
+							${valueEstablishment?.organization?.name}
+						</p:organizationNameCell>
+						<p:appointmentNameCell>
+							${valueEstablishment?.appointment?.appointmentName}
+						</p:appointmentNameCell>
+						<p:utTzTtTuSortNameCell>
+							${valueEstablishment?.utTzTtTuSort?.name}
+						</p:utTzTtTuSortNameCell>
+						<p:militaryRankNameCell>
+							${militaryRankTypeName}
+						</p:militaryRankNameCell>	
+						<p:utTzTtTuLevelNameCell>
+							${utTzTtTuLevelName}
+						</p:utTzTtTuLevelNameCell>	
+						<p:mainNameCell>
+							${mainName}
+						</p:mainNameCell>
+						<p:statusNameCell>
+							${statusName}
+						</p:statusNameCell>
+						<p:numNameCell>
+							${numName}
+						</p:numNameCell>
+						<p:nuhugdsunNameCell>
+							${nuhugdsunName}
+						</p:nuhugdsunNameCell>
+						<p:sulNameCell>
+							${sulName}
+						</p:sulNameCell>
+						<p:editCell>						
+							<t:pagelink t:page="establishmentEdit" t:context="valueEstablishment.id">
+								Засах
+							</t:pagelink>
+						</p:editCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					 </t:grid>
+				 </div>
+			 </t:zone>
+		</fieldset> 
+	</t:form>
+</body>
+
+</html>
+
+

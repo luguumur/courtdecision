@@ -1,0 +1,167 @@
+<html t:type="layout" title="${message:settings}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<link rel="stylesheet" href="${styles}" type="text/css"/>
+	<body>
+		<t:form>
+			<div class="adminLeft">
+				<t:actionlink t:id="design">
+					<input type="button" class="btnFind" value="Загвар тохируулах"/>
+				</t:actionlink>
+				<br /><br />
+				
+				<t:actionlink t:id="role">
+					<input type="button" class="btnFind" value="Эрхийн тохиргоо"/>
+				</t:actionlink>
+				<br /><br />
+			</div>
+			
+			
+			<div class="blockAdmin">
+				<t:delegate to="activeBlock" />
+			</div>
+			
+			<t:block t:id="design">
+				<fieldset>
+					<legend>Загвар тохиргоо</legend>
+					<br />
+					<table>
+						<tr>
+							<td width="50%">
+								<img src="${imageUrl}" width="80px" height="87px" /><br />
+								<input t:type="upload" class="profileImage" size="5" t:id="file"/>
+							</td>
+							<td width="50%">
+								<img src="${backUrl}" width="10px" height="87px" /><br />
+								<input t:type="upload" class="profileImage" size="5" t:id="file2"/>
+							</td>
+						</tr>
+						<tr>	
+							<td width="100%" colspan="2">
+								Header : <t:textfield t:value="projectConfig.head" size="50" /><br /><br />
+								Footer : <t:textfield t:value="projectConfig.foot" size="50" /><br /><br />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" style="text-align:right;">
+								<t:submit class="btnFind save" t:id="save" t:value="${message:save}"/>
+								<t:actionlink t:id="cancel">
+									<input type="button" class="btnFind" value="${message:back}"/>
+								</t:actionlink>
+							</td>
+						</tr>
+					</table>
+					<br />
+					<table t:type="grid" t:source="listProjectConfig" t:row="valueProjectConfig" style="width:100%" 
+						t:rowsPerPage="5" t:pagerPosition="top" t:exclude="uuid,backPath,picturePath">
+					</table>
+					<br />
+				</fieldset>
+				
+				<fieldset>
+					<legend>Цэсний тохиргоо</legend>
+					<br />
+					<table>
+						<tr>
+							<td>
+								Нэр:<br />
+								<t:textfield t:value="projectMenuConfig.menuLabel" size="40" />
+							</td>
+							<td>
+								Зам:<br />
+								<t:textfield t:value="projectMenuConfig.menuLink" size="20" />
+							</td>
+							<td>
+								Байрлал:<br />
+								<t:textfield t:value="projectMenuConfig.menuLocation" size="5" />
+							</td>
+						</tr>
+						<tr>	
+							<td>
+								Эрх:<br />
+								<t:select t:model="permissionSelectionModel" t:value="projectMenuConfig.permission" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4" style="text-align:right;">
+								<t:submit class="btnFind save" t:id="saveMenu" t:value="${message:save}"/>
+							</td>
+						</tr>
+					</table>
+					<t:grid t:source="listProjectMenuConfig" t:row="valueProjectMenuConfig" t:exclude="uuid,menuLocation,permission"
+						t:add="location,permissionType,edit,delete" style="width:100%;">
+						<p:locationCell>
+							${location}
+						</p:locationCell>
+						<p:permissionTypeCell>
+							${permissionType}
+						</p:permissionTypeCell>
+						<p:editCell>
+							<t:actionlink t:id="editMenu" t:context="valueProjectMenuConfig">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</p:editCell>
+						
+						<p:deleteCell>
+							<t:actionlink t:id="deleteMenu" t:context="valueProjectMenuConfig">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</p:deleteCell>
+						
+					</t:grid>
+				</fieldset>
+			</t:block>
+			
+			<t:block t:id="role">
+				<table>
+					<tr>
+						<td>${message:permissionName} :</td>
+						<td>${message:displayName} :</td>
+						<td>${message:isShow}</td>
+						<td>${message:isComponent}</td>
+						<td></td>
+					</tr>
+					<tr>	
+	    				<td><t:textfield t:value="permission.permissionName"/></td>
+	    				<td><t:textfield t:value="permission.displayName" t:validate="required"/></td>
+	    				<td><t:checkbox t:value="permission.isShow"/></td>
+	    				<td><t:checkbox t:value="permission.isComponent"/></td>
+	    				<td><t:submit t:id="saveComponentPermission" t:value="${message:save}"/></td>
+	    			</tr>
+	    		</table>
+	    		
+	    		<br/>
+				<table t:type="Grid" t:source="listPermission" t:row="valuePermission" style="width:100%;"
+					t:model="model" t:include="id,permissionName,displayName,isshow" t:add="delete">
+					<p:permissionNameCell>
+						<input t:type="TextField" t:value="valuePermission.permissionName" size="15"/>
+					</p:permissionNameCell>
+					<p:displayNameCell>
+						<input t:type="TextField" t:value="valuePermission.displayName" size="40"/>
+					</p:displayNameCell>
+					<p:isShowCell>
+						<input t:type="Checkbox" t:value="valuePermission.isShow"/>
+					</p:isShowCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valuePermission">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+			 	</table>	
+			 	
+				<br/>
+				<t:submit class="btnFind save" t:id="savePer" t:value="${message:save}" style="margin-left:77%;"/>
+			</t:block>
+			
+			<t:block t:id="fieldRole">	
+				<t:jquery.palette t:id="handling" encoder="encoder" model="permissionSelectionModel" selected="selectedValues" 
+				selectedLabel="${message:selected}" availableLabel="${message:active}" size="40" />	
+				<t:submit t:id="saveCompenentConfig" t:value="${message:save}" />	
+			</t:block>
+			
+		</t:form>
+	</body> 
+</html>

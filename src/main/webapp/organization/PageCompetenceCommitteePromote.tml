@@ -1,0 +1,140 @@
+<html t:type="layout" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+    <body> <t:form>
+    <br />
+    	<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+		<t:actionlink t:id="openPosition" class="newButtonCss">${message:openPosition}</t:actionlink>
+		<t:actionlink t:id="resource" class="newButtonCss">${message:resource}</t:actionlink>
+		<t:actionlink t:id="promote" class="newButtonCssSelected">${message:promote}</t:actionlink>
+		<t:actionlink t:id="conclusion" class="newButtonCss">${message:conclusion}</t:actionlink>
+	    
+	    	<div class="block">
+     			<t:delegate to = "activeBlock"/>
+     		</div>
+			
+
+		<t:block t:id="register">
+			<fieldset>
+			<legend class="legendTitle">${message:promoteEmployee}</legend>
+			<table id="newspaper-layEmp">
+				<tr>
+					<td>${message:organization} :</td>
+					<td>${message:isGeneralJudge} :</td>
+					<td>${message:judge} :</td>
+				</tr>
+				<tr>
+					<td><t:select t:model="organizationSelectionModel" t:value="organization" validate="required" onChange="this.form.submit()"/></td>
+					<td><t:select model="levelSelectionModel" t:value="appointmentLevel" t:validate="required" onChange="this.form.submit()"/></td>
+					<td><t:select t:model="employeeSelectionModel" t:value="employee" validate="required"/></td>
+				</tr>
+			</table>
+			</fieldset>
+			
+			<fieldset>
+			<legend class="legendTitle">${message:promote}</legend>
+			<table id="newspaper-layEmp">
+				<tr>
+					<td>${message:promotedOrganization} :</td>
+					<td>${message:promotedDate} :</td>
+					<td>${message:promoteCause} :</td>
+				</tr>
+				<tr>
+					<td><t:select t:model="organizationSelectionModel" t:value="promoteHistory.promotedOrganization" validate="required"/></td>
+					<td><t:datefield id="promotedDate" t:value="promoteHistory.promoteDate" validate="required" t:format="yyyy-MM-dd"/></td>
+					<td><t:textarea t:value="promoteHistory.promoteCause" cols="30"/></td>
+				</tr>
+				<tr>
+					<td><span class="red">*</span>${message:promoteCityProvince} :</td>
+					<td><span class="red">*</span>${message:promoteDistrictSum} :</td>
+					<td>${message:promoteOrganization} :</td>
+				</tr>
+				
+				<tr>
+					<td><t:select t:model="cityProvinceSelectionModel" t:value="promoteHistory.city" validate="required" onChange="this.form.submit()"/></td>
+					<td><t:select t:model="districtSumSelectionModel" t:value="promoteHistory.districtSum" validate="required"/></td>
+					<td><t:select t:model="organizationSelectionModel" t:value="promoteHistory.promoteOrganization"/></td>		    
+			    </tr>
+			    
+				<tr>
+					<td><span class="red">*</span>${message:promoteDate} :</td>
+					<td>${message:promoteState} :</td>
+				</tr>
+				
+				<tr>	
+					<td><t:datefield id="promoteDate" t:value="promoteHistory.promoteDate" validate="required" t:format="yyyy-MM-dd"/></td>
+					<td><t:textfield id="promoteState" t:value="promoteHistory.promoteState"/></td>
+					<td>
+						<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+						<t:actionlink t:id="cancel">
+							<input type="button" class="btnFind cancel" value="${message:cancel}"/>
+						</t:actionlink>
+					</td>
+				</tr>
+			</table>
+			</fieldset>
+
+	    </t:block>
+	     	
+		<t:block t:id="grid">
+			<fieldset>
+			<legend class="legendTitle">${message:employeeList}</legend>
+			<table id="newspaper-layEmp">
+			    <tr>
+					<td>${message:promoteOrganization} :<br/><t:select t:model="organizationSelectionModel" t:value="bean.promoteOrganization" t:blankLabel="${message:all}"/></td>
+					<td>${message:employee} :<br/><t:select t:model="employeeSelectionModel" t:value="bean.employee" t:blankLabel="${message:all}"/></td>   
+			    	<td>
+			    		<t:submit t:id="search" class="btnFind search" value="${message:search}" />
+			    	</td>
+			    </tr>					
+			</table>
+			</fieldset>
+			<fieldset>
+				<legend class="legendTitle">${message:promoteHistory}</legend>
+				<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+				<p align="right">${message:sum} ${listSize}</p>
+				<t:grid t:source="listPromoteHistory" t:row="valuePromoteHistory" add="number, edit, delete"
+				t:include="promoteOrganization, employee, promoteDate" reOrder="number"
+				rowClass="gridRowCSS" rowsPerPage="25" style="width:100%">
+				
+					<p:numberCell>${number}</p:numberCell>
+					<p:promoteOrganizationCell>
+						${promoteOrganizationName}
+					</p:promoteOrganizationCell>
+					
+					<p:employeeCell>
+						${employeeFirstName}
+					</p:employeeCell>
+					
+					<p:promoteDateCell>
+						${promoteDate}
+					</p:promoteDateCell>
+					
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valuePromoteHistory">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+								
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valuePromoteHistory" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+					<p:empty>
+						${message:noData}
+					</p:empty>	
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+			</fieldset>
+		</t:block>
+		
+    </t:form> </body> 
+</html>

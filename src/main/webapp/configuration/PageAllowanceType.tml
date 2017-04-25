@@ -1,0 +1,34 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				${message:allowanceTypeConfig} : 
+				<t:textfield value="allowanceType.allowanceTypeName" t:validate="required" style="width: 200px"/> &nbsp;
+				<t:submit t:id="save" t:value="${message:save}" class="btnFind save"/>
+			</div>
+			<div>
+				<t:grid t:source="listAllowanceType" t:row="valueAllowanceType" t:include="allowanceTypeName" 
+				reorder="number" t:add="number,edit,delete" rowsPerPage="15" >
+					<p:numberCell>
+						${number}
+					</p:numberCell>	
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueAllowanceType">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueAllowanceType">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

@@ -1,0 +1,31 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head></head>
+	<body>
+		<t:form>
+			<div>
+				${message:stateWorkedYear} : <t:textfield value="workedYear.stateWorkedYear" validate="required"/><br/>
+				${message:majorWorkedYear} : <t:textfield value="workedYear.majorWorkedYear" validate="required" /><br/>
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listWorkedYear" t:row="valueWorkedYear" 
+				t:include="id, stateWorkedYear, majorWorkedYear" t:add="edit">
+				
+					<p:stateWorkedYearCell>
+						${stateWorkedYear}
+					</p:stateWorkedYearCell>
+					<p:majorWorkedYearCell>
+						${majorWorkedYear}
+					</p:majorWorkedYearCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueWorkedYear">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+				</t:grid> 
+			</div>
+		</t:form>
+	</body> 
+</html>

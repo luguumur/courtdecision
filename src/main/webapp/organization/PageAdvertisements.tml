@@ -1,0 +1,36 @@
+<html t:type="layoutCD" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		
+	</head>
+    <body> 
+    	<t:form>
+			<fieldset>
+				<legend>${message:advertisements} - ${listSize}</legend>
+				<t:grid 
+					t:source="listNotice" 
+					t:row="valueNotice"
+					t:include="createdEmp,createdDate,content"
+					add="number, delete" 
+					rowsPerPage="25" reOrder="number">	
+					<p:numberCell>${number}</p:numberCell>
+					<p:createdEmpCell>${employeeName}</p:createdEmpCell>
+					<p:createdDateCell>${createdDate}</p:createdDateCell>
+					
+					<p:deleteCell>
+					<t:security.HasPermission permission= "delete_advertisement">
+						<t:actionlink t:id="delete" t:context="valueNotice">
+							Устгах
+						</t:actionlink>
+					</t:security.HasPermission>	
+					</p:deleteCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>	
+			</fieldset>	
+	    </t:form> 
+    </body> 
+</html>

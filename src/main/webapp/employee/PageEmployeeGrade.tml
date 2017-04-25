@@ -1,0 +1,114 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> 
+ <t:security.HasPermission permission= "show_employee_military">
+<t:form>
+	<div style="width:100%">
+		<table id="newspaper-c">
+			<thead>
+				<td style="width:300px">
+					${message:employeeMilitary}
+				</td>
+			</thead>
+			<tr>
+				<td>
+					<span class="red">*</span>${message:Type} :
+				</td>
+				<td>
+					<span class="red">*</span>${message:Military} :
+				</td>
+				<td>
+					<span class="red">*</span>${message:status} :
+				</td>				
+			</tr>
+			<tr>
+				<td>
+					<t:select t:id="militaryClick" t:model="militaryTypeSelectionModel" value="military.militaryType" validate="required" t:zone="militaryZone" t:style="width: 200px"/>
+				</td>
+				<td>
+					<t:zone t:id="militaryZone" style="display:inline;">
+						<t:select t:model="militarySelectionModel" t:value="military.military" t:validate="required" t:style="width: 200px"/>
+					</t:zone>	
+				</td>
+				<td>
+					<t:select t:model="employeeDegreeStatusSelectionModel" value="military.degreeStatus" validate="required" t:style="width: 200px"/>
+				</td>				
+			</tr>
+			<tr>
+				<td>
+					<span class="red">*</span>${message:tushaalDugaar} :
+				</td>
+				<td>
+					<span class="red">*</span>${message:OlgosonOgnoo} :
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<t:textfield t:id="tushaalDugaar" t:value="military.tushaalDugaar" t:validate="required"/>
+				</td>
+				<td>
+					<t:datefield t:id="olgosonOgnoo" t:value="military.olgosonOgnoo" t:validate="required" t:format="yyyy-MM-dd"/>
+				</td>
+				<td>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align:right;">
+					<t:security.HasPermission permission= "edit_employee_military">
+						<t:submit t:id="saveMilitary" class="btnFind save" t:value="${message:save}"/>
+					</t:security.HasPermission>
+					<t:actionlink t:id="cancelMilitary">
+						<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<t:grid t:source="listMilitary" t:row="valueMilitary" include="degreeStatus,militaryType,military,olgosonOgnoo,tushaalDugaar" 
+						add="edit,delete,number" reOrder="number" rowsPerPage="25" rowClass="gridRowCSS"  style="width:100%">
+						<p:militaryCell>
+							${militaryCell}
+						</p:militaryCell>
+						<p:numberCell>
+							${numberMilitary}
+						</p:numberCell>
+						<p:olgosonOgnooCell>
+							${olgosonOgnooCell}
+						</p:olgosonOgnooCell>
+						<p:editCell>
+							<t:security.HasPermission permission= "edit_employee_military">
+								<t:actionlink t:id="editMilitary" t:context="valueMilitary">
+									<img src="${editIcon}"/>
+								</t:actionlink>
+							</t:security.HasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.HasPermission permission= "delete_employee_military">
+								<t:actionlink t:id="deleteMilitary" t:context="valueMilitary" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+									<img src="${deleteIcon}"/>
+								</t:actionlink>
+							</t:security.HasPermission>	
+						</p:deleteCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportMilitary">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+			</tr>
+		</table>
+	</div>
+</t:form>
+</t:security.HasPermission>
+</body> 
+</html>

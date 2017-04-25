@@ -1,0 +1,33 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+			<div>
+				<t:textfield t:id="intention" value="intention.intention" t:validate="required"/>
+				
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listIntention" t:row="valueLandIntention" t:include="id,intention" t:add="edit,delete">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueLandIntention">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueLandIntention">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid> 
+			</div>
+	</t:form> </body> 
+</html>

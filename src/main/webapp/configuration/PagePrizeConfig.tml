@@ -1,0 +1,296 @@
+<html t:type="layoutCD" title="${message:configuration}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+	<script>	
+		$(function() {
+			$("#accordion").accordion({
+				heightStyle : "content",
+				autoHeight : false,
+				collapsible : true,
+				active : false
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<div class="accordBox">
+		<div id="accordion">
+			<h3>Төрийн шагнал</h3>
+			<div>
+				<t:zone t:id="statePrizeFormZone" id="statePrizeFormZone">
+					<t:form t:zone="statePrizeFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>${message:statePrizeControlName}</label>
+									<t:textfield 
+										t:value="statePrize.name" />
+								</td>
+								<td valign="bottom">
+									<t:submit 
+										t:id="save" 
+										t:value="${message:save}"/>
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				
+				<t:zone t:id="statePrizeListZone" id="statePrizeListZone">		
+					<t:grid 
+						t:source="listStatePrize" 
+						t:row="valueStatePrize" 
+						t:include="name" 
+						t:add="edit,delete,number" 
+						rowsPerPage="15" reOrder="number"
+						inPlace="true">
+					    <p:numberCell>
+							${number}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="edit" t:context="valueStatePrize" t:zone="statePrizeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="delete" t:context="valueStatePrize"  t:zone="statePrizeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Засгийн газрын шагнал</h3>
+			<div>
+				<t:zone t:id="governmentPrizeFormZone" id="governmentPrizeFormZone">
+					<t:form t:zone="governmentPrizeFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>${message:governmentPrizeControlName}</label>
+									<t:textfield 
+										t:value="governmentPrize.name" 
+										t:validate="required" />
+								</td>
+								<td>
+									<t:submit  valign="bottom"
+										t:id="saveGovernment" 
+										t:value="${message:save}"/>
+								</td>
+							</tr>	
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="governmentPrizeListZone" id="governmentPrizeListZone">
+					<t:grid 
+						t:source="listGovernmentPrize" 
+						t:row="valueGovernmentPrize" 
+						t:include="name" t:add="edit,delete,number" 
+						rowsPerPage="15" 
+						reOrder="number" inPlace="true">
+					    <p:numberCell>
+							${numberGov}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="editGovernment" t:context="valueGovernmentPrize" t:zone="governmentPrizeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteGovernment" t:context="valueGovernmentPrize" t:zone="governmentPrizeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Хууль зүйн яамны шагнал</h3>
+			<div>
+				<t:zone t:id="justiceMinistryPrizeFormZone" id="justiceMinistryPrizeFormZone">
+					<t:form t:zone="justiceMinistryPrizeFormZone">
+						<table>
+							<tr>
+								<td>
+									<label>${message:justiceMinistryPrizeControlName}</label>
+									<t:textfield 
+										t:value="justiceMinistryPrize.name" 
+										t:validate="required" />
+								</td>
+								<td>
+									<t:submit valign="bottom"
+										t:id="saveJusticeMinistry" 
+										t:value="${message:save}"/>
+								</td>
+								
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="justiceMinistryPrizeListZone" id="justiceMinistryPrizeListZone">
+					<t:grid 
+						t:source="listJusticeMinistryPrize" 
+						t:row="valueJusticeMinistryPrize" 
+						t:include="name" t:add="edit,delete,number" 
+						rowsPerPage="15" 
+						reOrder="number" inPlace="true">
+					    <p:numberCell>
+							${numberJus}
+						</p:numberCell>
+						<p:editCell>
+							<t:actionlink t:id="editJusticeMinistry" 
+								t:context="valueJusticeMinistryPrize" 
+								t:zone="justiceMinistryPrizeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteJusticeMinistry" 
+								t:context="valueJusticeMinistryPrize"
+								t:zone="justiceMinistryPrizeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>	 
+			</div>
+			<h3>ШШГЕГ-ын шагнал</h3>
+			<div>
+				<t:zone t:id="courtPrizeFormZone" id="courtPrizeFormZone">
+					<t:form t:zone="courtPrizeFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>${message:courtPrizeControlName}</label>
+									<t:textfield 
+										t:value="courtPrize.name" 
+										t:validate="required" />
+								</td>
+								<td>
+									<label>Шагнал хоорондын зай/жил/</label>
+									<t:textfield 
+										t:value="courtPrize.shagnalZai" 
+										t:validate="required" />
+								</td>							
+								<td>
+									<t:submit valign="bottom"
+										t:id="saveCourt" 
+										t:value="${message:save}"/>
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="courtPrizeListZone" id="courtPrizeListZone">
+					<t:grid 
+						t:source="listCourtPrize" 
+						t:row="valueCourtPrize" 
+						t:include="name" 
+						t:add="edit,delete,number,shagnalJil" 
+						rowsPerPage="15" 
+						reOrder="number,name,shagnalJil" 
+						inPlace="true">
+					    <p:numberCell>
+							${numberCourt}
+						</p:numberCell>
+						 <p:shagnalJilCell>
+							${shagnalJil}
+						</p:shagnalJilCell>
+						<p:editCell>
+							<t:actionlink t:id="editCourt" t:context="valueCourtPrize" t:zone="courtPrizeFormZone">
+								Засах
+							</t:actionlink>
+						</p:editCell>
+						<p:deleteCell>
+							<t:actionlink t:id="deleteCourt" t:context="valueCourtPrize" t:zone="courtPrizeListZone">
+								Устгах
+							</t:actionlink>
+						</p:deleteCell>
+					</t:grid>
+				</t:zone>
+			</div>
+			<h3>Сахилга шийтгэл</h3>
+			<div>
+				<t:zone t:id="sahilgaShiitgelFormZone" id="sahilgaShiitgelFormZone">
+					<t:form t:zone="sahilgaShiitgelFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>Сахилгын арга хэмжээ авагдах төрөл :</label>
+									<t:textfield value="sahilgaShiitgel.shiitgelName" t:validate="required" t:style="width:70%"/>
+								</td>						
+								<td valign="bottom">
+									<t:submit t:id="saveSahilgaShiitgel" class="btnFind save" t:value="${message:save}"/>
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="sahilgaShiitgelListZone" id="sahilgaShiitgelListZone">
+					<t:grid t:source="listSahilgaShiitgel"  t:include="shiitgelName" t:row="valueSahilgaShiitgel" t:add="durationTime,edit,delete,number"
+						rowsPerPage="15" reOrder="number" style="width:75%">
+							<p:numberCell>
+								${sahilgaShiitgelNumber}
+							</p:numberCell>
+							<p:durationTimeCell>
+								${duration}
+							</p:durationTimeCell>
+							<p:editCell>
+								<t:actionlink t:id="editSahilgaShiitgel" t:context="valueSahilgaShiitgel"  t:zone="sahilgaShiitgelFormZone">
+									Засах
+								</t:actionlink>
+							</p:editCell>
+							<p:deleteCell>
+								<t:actionlink t:id="deleteSahilgaShiitgel" t:context="valueSahilgaShiitgel"  t:zone="sahilgaShiitgelFormZone">
+									Устгах
+								</t:actionlink>
+							</p:deleteCell>
+					</t:grid> 
+				</t:zone>
+			</div>
+			<h3>Сахилгын арга хэмжээ авагдах төрөл</h3>
+			<div>
+				<t:zone t:id="sahilgaTurulFormZone" id="sahilgaTurulFormZone">
+					<t:form t:zone="sahilgaTurulFormZone">
+						<table class="form">
+							<tr>
+								<td>
+									<label>Сахилгын арга хэмжээ авагдах төрөл :</label>
+									<t:textfield value="sahilgaTurul.sahilgaTurulName" t:validate="required" t:style="width:70%"/>
+								</td>						
+								<td valign="bottom">
+									<t:submit t:id="saveSahilgaTurul" class="btnFind save" t:value="${message:save}"/>
+								</td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+				<t:zone t:id="sahilgaTurulListZone" id="sahilgaTurulListZone">
+					<t:grid t:source="listSahilgaTurul"  
+					t:include="sahilgaTurulName" 
+					t:row="valueSahilgaTurul" 
+					t:add="edit,delete,number" 
+					rowsPerPage="15" 
+					reOrder="number" 
+					inPlace="true">
+				 	<p:numberCell>
+						${sahilgaTurulNumber}
+					</p:numberCell>
+					<p:editCell>
+						<t:actionlink t:id="editSahilgaTurul" t:context="valueSahilgaTurul" t:zone="sahilgaTurulFormZone"> 
+							Засах
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="deleteSahilgaTurul" t:context="valueSahilgaTurul" t:zone="sahilgaTurulFormZone">
+							Устгах
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid>
+				</t:zone>
+			</div>			
+		</div>
+	</div>
+</body>
+</html>

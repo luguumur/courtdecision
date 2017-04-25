@@ -1,0 +1,118 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<t:zone t:id="skillZone" id="skillZone">
+		<t:form t:id="skillForm" t:zone="skillZone">
+			<table class="form">
+				<tr>
+					<td width="50%" valign="top">
+						<fieldset>
+							<legend>Хувь хүний ур чадвар</legend>
+							<table>
+								<t:loop t:source="listSkillType" t:value="valueSkillType">
+									<tr>
+										<td colspan="2">${valueSkillType.name}</td>
+										<td colspan="2"><t:select class="select-skill" t:model="skillPointSelectionModel"
+												t:value="empSkillPoint" /></td>
+									</tr>
+								</t:loop>
+							</table>
+						</fieldset>
+					</td>
+					<td width="50%"  valign="top">
+						<fieldset>
+							<legend>Хүмүүсийн хоорондын харилцааны ур чадвар</legend>
+							<table>
+								<t:loop t:source="listSkillType1" t:value="valueSkillType">
+
+									<tr>
+										<td colspan="2">${valueSkillType.name}</td>
+										<td colspan="2"><t:select  class="select-skill" t:model="skillPointSelectionModel"
+												t:value="empSkillPoint" /></td>
+									</tr>
+								</t:loop>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+				<tr>
+					<td width="50%"  valign="top">
+						<fieldset>
+							<legend>Бүлгээр ажиллах ур чадвар</legend>
+							<table>
+								<t:loop t:source="listSkillType2" t:value="valueSkillType">
+									<tr>
+										<td colspan="2">${valueSkillType.name}</td>
+										<td colspan="2"><t:select class="select-skill" t:model="skillPointSelectionModel"
+												t:value="empSkillPoint" /></td>
+									</tr>
+								</t:loop>
+							</table>
+						</fieldset>
+					</td>
+					<td width="50%"  valign="top">
+						<fieldset>
+							<legend>Бусад ур чадвар</legend>
+							<table>
+								<t:loop t:source="listSkillType3" t:value="valueSkillType">
+									<tr>
+										<td colspan="2">${valueSkillType.name}</td>
+										<td colspan="2"><t:select class="select-skill" t:model="skillPointSelectionModel"
+												t:value="empSkillPoint" /></td>
+									</tr>
+								</t:loop>
+							</table>
+						</fieldset>
+					</td>
+				</tr>
+				<tr>
+					<td>Дээр дурдсанаас бусад ур чадварыг бүртгэнэ үү.</td>
+				</tr>
+				<tr>
+					<td>
+						<t:textfield
+							t:value="employee.busadSkillName1" />
+					</td>
+					<td>		
+						<t:select class="select-skill"
+							t:model="skillPointSelectionModel"
+							t:value="employee.busadSkillOnoo1" />
+					</td>
+				</tr>
+				<tr>	
+					<td>
+						<t:textfield
+							t:value="employee.busadSkillName2" />
+					</td>
+					<td>		
+						<t:select class="select-skill" t:model="skillPointSelectionModel"
+							t:value="employee.busadSkillOnoo2" />	
+					</td>
+				</tr>
+				<tr>	
+					<td>
+						<t:textfield
+							t:value="employee.busadSkillName3" />
+					</td>
+					<td>		
+						<t:select class="select-skill"
+							t:model="skillPointSelectionModel"
+							t:value="employee.busadSkillOnoo3" />	
+					</td>
+				</tr>
+				<tr>
+					<td></td>	
+					<td align="left">
+						<t:submit
+							t:id="save" 
+							value="${message:save}" />
+						<t:actionlink t:id="cancel" t:zone="skillZone" class="button">
+							${message:cancel}
+						</t:actionlink>
+					</td>
+				</tr>
+			</table>
+		</t:form>
+	</t:zone>
+
+</t:container>

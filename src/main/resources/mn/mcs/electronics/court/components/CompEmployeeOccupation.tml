@@ -1,0 +1,198 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<t:zone t:id="occupationZone" id="occupationZone">
+		<t:form t:id="occupationForm"
+			t:zone="occupationZone,occupationListZone">
+			<table class="form">
+				<tr>
+					<td>${message:mainOccupation} <t:checkbox
+							t:id="ismainOccupation"
+							t:value="currentOccupation.mainOccupation" />
+						${message:Tenderer} <t:checkbox t:id="isTenderer"
+							t:value="currentOccupation.tenderer" />
+					</td>
+					<td colspan="2"><label><span class="red">*</span>${message:goToOrganizationSubUnit}</label>
+						<t:select t:id="organizationSM"
+							t:model="organizationSelectionModel"
+							t:value="currentOccupation.organization" t:validate="required"
+							t:blankOption="ALWAYS" t:blankLabel="${message:Choose}" /></td>
+					<td><label><span class="red">*</span>
+							${message:AccessedDate}</label> <t:datefield t:id="issuedDate"
+							t:value="currentOccupation.issuedDate" t:validate="required"
+							t:format="yyyy-MM-dd" /></td>
+				</tr>
+			</table>
+			<fieldset>
+				<legend>1. ${message:occupationName}</legend>
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>
+								${message:OccupationRole}</label> <t:select
+								t:model="OccupationRoleSelectionModel"
+								t:value="currentOccupation.occupationRole" t:validate="required"
+								t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+								t:id="occupationRole" /></td>
+						<td>${message:MilitaryOrSimple} <t:select
+								t:model="militaryOrSimpleSelectionModel"
+								t:value="currentOccupation.militaryOrSimple"
+								t:validate="required" />
+						</td>
+						<td><label><span class="red">*</span>
+								${message:OccupationType}</label> <t:select t:id="occupationType"
+								t:model="OccupationTypeSelectionModel"
+								t:value="currentOccupation.occupationType" t:validate="required"
+								t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+								t:zone="ocAppointmentZone" /></td>
+						<td><label><span class="red">*</span>
+								${message:OccupationName}</label> <t:zone t:id="ocAppointmentZone"
+								id="ocAppointmentZone">
+								<t:select t:model="AppointmentSelectionModel"
+									t:value="currentOccupation.appointment" t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" t:validate="required"
+									t:id="appointment" />
+							</t:zone></td>
+						<td></td>
+					</tr>
+				</table>
+			</fieldset>
+
+			<fieldset>
+				<legend>2. ${message:UtTzTtTuLevel-label}</legend>
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>${message:UtTzClick-label}</label>
+							<t:select t:id="UtTzClick" t:model="UtTzTtTuSortSelectionModel"
+								t:value="utTzTtTuSort" t:validate="required"
+								t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+								t:zone="uTtzZeregZone" /></td>
+						<td><label><span class="red">*</span>${message:utTzTtTuLevel-label}</label>
+							<t:zone t:id="uTtzZeregZone" id="uTtzZeregZone">
+								<t:select t:model="OccupationLevelSelectionModel"
+									t:value="utTzTtTuLevel" t:validate="required"
+									t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+									t:id="utTzTtTuLevel" />
+							</t:zone></td>
+						<td><label>${message:isDirectoryTraining}</label> <t:checkbox
+								t:id="isDirectory"
+								t:value="currentOccupation.isDirectoryTraining" /></td>
+						<td><label>${message:isQualificationTraining}</label> <t:checkbox
+								t:id="isQualification"
+								t:value="currentOccupation.isQualificationTraining" /></td>
+					</tr>
+				</table>
+			</fieldset>
+
+			<fieldset>
+				<legend>3. ${message:tsalinClick-label}</legend>
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>
+								${message:tsalinClick-label}</label> <t:select t:id="tsalinClick"
+								t:model="SalaryNetworkSelectionModel"
+								t:value="currentOccupation.salaryNetwork" t:validate="required"
+								t:blankOption="ALWAYS" t:blankLabel="${message:Choose}"
+								t:zone="tsalinZone" /></td>
+						<td><label><span class="red">*</span>${message:salaryScaleName-label}</label>
+							<t:zone t:id="tsalinZone" id="tsalinZone">
+								<t:select t:model="SalaryScaleSelectionModel"
+									t:value="currentOccupation.salaryScale" t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" t:validate="required"
+									t:id="salaryScaleName" />
+							</t:zone></td>
+						<td><label><span class="red">*</span>${message:salaryDate-label}
+						</label> <t:datefield t:value="currentOccupation.salaryDate"
+								t:validate="required" t:format="yyyy-MM-dd" t:date="salaryDate" />
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			<fieldset>
+				<legend>4. ${message:ShiljihHudulguun-label}</legend>
+				<table class="form">
+					<tr>
+						<td><label>Шилжих эсэх</label> <t:select
+								t:model="YesNoSelectionModel" t:value="shiljih"
+								t:blankOption="ALWAYS" t:validate="required" t:id="shiljih"
+								t:zone="shiljihZone" /></td>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>
+				</table>
+				<t:zone t:id="shiljihZone" id="shiljihZone">
+					<table class="form">
+						<tr>
+							<td><label><span class="red">*</span>
+									${message:QuitDate}</label> <t:datefield t:id="QuitDate"
+									t:value="lastCurrentOccupation?.quitDate" t:validate="required"
+									t:format="yyyy-MM-dd" t:disabled="shiljiltDisabled" /></td>
+							<td><label><span class="red">*</span>${message:causetype}</label>
+								<t:select t:model="DisplacementCauseTypeSelectionModel"
+									t:value="lastCurrentOccupation?.displacementType"
+									t:validate="required" t:disabled="shiljiltDisabled" /></td>
+							<td><label>${message:cause}</label> <t:textarea
+									t:value="lastCurrentOccupation?.displacementCause" cols="50"
+									rows="2" t:disabled="shiljiltDisabled" /></td>
+						</tr>
+					</table>
+				</t:zone>
+			</fieldset>
+			<table class="form">
+				<tr>
+					<td colspan="3"><t:submit t:id="save"
+							t:value="${message:save}" /></td>
+				</tr>
+			</table>
+		</t:form>
+	</t:zone>
+	<t:zone t:id="occupationListZone" id="occupationListZone">
+		<fieldset>
+			<legend>Албан хаагчийн шилжих хөдөлгөөний түүх</legend>
+			<t:grid t:source="listCurrentOccupation"
+				t:row="valueCurrentOccupation"
+				t:include="organization,appointment,issuedDate,isNowDisplacement"
+				t:add="edit,delete,numberCo" reOrder="numberCo" rowsPerPage="10">
+				<p:organizationCell>
+				${valueCurrentOccupation?.organization?.name}
+			</p:organizationCell>
+				<p:issuedDateCell>
+				${issuedDate}
+			</p:issuedDateCell>
+				<p:appointmentCell>
+				${valueCurrentOccupation?.appointment?.appointmentName}
+			</p:appointmentCell>
+				<p:isNowDisplacementCell>
+					<t:if test="${valueCurrentOccupation?.isNowDisplacement}">
+							${message:true}
+							<p:else>
+							${message:false}
+							</p:else>
+					</t:if>
+				</p:isNowDisplacementCell>
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_employee_displacement">
+						<t:actionlink t:id="delete" t:context="valueCurrentOccupation"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								Устгах
+							</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:editCell>
+					<t:security.hasPermission permission="edit_employee_displacement">
+						<t:actionlink t:id="editDisplacement" t:zone="occupationZone"
+							t:context="valueCurrentOccupation">
+						Засах
+					</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+				<p:numberCoCell>
+				${numberCo}
+			</p:numberCoCell>
+				<p:empty>
+						${message:noData}
+					</p:empty>
+			</t:grid>
+		</fieldset>
+	</t:zone>
+</t:container>

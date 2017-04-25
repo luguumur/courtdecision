@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<head>
+<title>${message:header}</title>
+<t:if test="heading">
+	<meta name="heading" content="${heading}" />
+</t:if>
+<t:if test="menu">
+	<meta name="menu" content="${menu}" />
+</t:if>
+
+<link rel="icon" type="image/ico" href="${favicon}" />
+<link rel="stylesheet" href="${styles}" type="text/css" />
+<script>
+	$(function() {
+		$('.hasdatepicker').datepicker({
+			dateFormat : 'yyyy-mm-dd'
+		});
+	});
+</script>
+</head>
+
+<body id="${bodyId}">
+	<div class="main">
+		<t:form>
+			<div class="header">
+				<div class="headerLeft"></div>
+				<div class="headerCenter">${message:header}</div>
+				<t:security.user>
+					<div class="headerUser">
+						<t:jquery.dialogajaxlink t:id="link2" t:dialog="changePassword"
+							t:zone="changePassword">
+					 				${username} 
+					 			</t:jquery.dialogajaxlink>
+					</div>
+				</t:security.user>
+
+				<div class="headerLogOut">
+					<t:actionlink t:id="logout">${message:user_logout}</t:actionlink>
+				</div>
+
+				<div class="topmenu">
+					<div class="navigation">
+						<ul>
+							<li class="home selected"><t:pagelink t:page="home"
+									class="actionlink">
+									<span>${message:home}</span>
+								</t:pagelink></li>
+
+							<li class="plain"><t:pagelink t:page="home"
+									class="actionlink">
+									<span>Ð�Ð½Ñ…Ð°Ð°Ñ€ÑƒÑƒÐ»Ð³Ð°</span>
+								</t:pagelink></li>
+
+							<li class="plain"><t:pagelink t:page="home"
+									class="actionlink">
+									<span>Ð—Ð°Ñ€Ð»Ð°Ð»</span>
+								</t:pagelink></li>
+
+							<li class="plain"><t:actionlink t:id="getUserGuide"
+									class="actionlink">
+									<span>Ð“Ð°Ñ€Ñ‹Ð½ Ð°Ð²Ð»Ð°Ð³Ð°</span>
+								</t:actionlink></li>
+
+							<t:if test="McseAdmin">
+								<li class="plain"><t:pagelink
+										t:page="configuration/pageProjectConfig" class="actionlink">
+										<span>${message:administration}</span>
+									</t:pagelink></li>
+							</t:if>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+
+
+		</t:form>
+		<t:body />
+
+	</div>
+	<div class="navigation"></div>
+	<div class="footer"></div>
+
+</body>
+<t:block id="subMenuBlock" />
+
+<!--<t:block id="navBlock"/>-->
+
+<t:jquery.dialog t:clientId="changePassword" t:params="param"
+	t:title="Ð¥Ñ�Ñ€Ñ�Ð³Ð»Ñ�Ð³Ñ‡Ð¸Ð¹Ð½ Ñ…Ñ�Ñ�Ñ�Ð³">
+	<t:form>
+		<fieldset>
+			<legend class="legendTitle">${message:UserInformation}</legend>
+			<table style="width: 100%;">
+				<tr>
+					<td>${message:lastname} :</td>
+					<td>${lastName}</td>
+				</tr>
+				<tr>
+					<td>${message:firstname} :</td>
+					<td>${firstName}</td>
+				</tr>
+				<tr>
+					<td>${message:appointment} :</td>
+					<td>${appointmentName}</td>
+				</tr>
+				<tr>
+					<td>${message:registerNo} :</td>
+					<td>${registerNo}</td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend class="legendTitle">${message:changePassword}</legend>
+			<table>
+				<tr>
+					<td><span class="red">*</span>${message:currentPassword} :</td>
+					<td><t:passwordfield t:value="currentPassword" /></td>
+				</tr>
+				<tr>
+					<td><span class="red">*</span>${message:newPassword} :</td>
+					<td><t:passwordfield t:value="newPassword" /></td>
+				</tr>
+				<tr>
+					<td><span class="red">*</span>${message:confirmPassword} :</td>
+					<td><t:passwordfield t:value="confirmPassword" /></td>
+				</tr>
+				<tr>
+					<td colspan="2" style="text-align: right;"><t:submit
+							t:id="changePass" t:value="${message:save}"
+							t:mixins="jquery/button" /></td>
+				</tr>
+			</table>
+		</fieldset>
+		<fieldset>
+			<legend class="legendTitle">${message:userLoginHistory}</legend>
+			<t:grid t:source="listLoginHistory" t:row="valueLoginHistory"
+				t:include="loginName,employee,loginDate" style="width:100%;"
+				rowClass="gridRowCSS">
+				<p:employeeCell>
+					${employeeName}
+				</p:employeeCell>
+				<p:loginDateCell>
+					${loginDate}
+				</p:loginDateCell>
+			</t:grid>
+		</fieldset>
+	</t:form>
+</t:jquery.dialog>
+</html>

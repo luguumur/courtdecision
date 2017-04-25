@@ -1,0 +1,12 @@
+<html t:type="layout" title="literal:Report Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+<body>
+    <p>
+    	 <t:form t:id="doReportsForm" action="reportsForm" target="_blank">
+                <t:submit t:id="onSubmit" name="Run Report" value="Run Report" />
+        </t:form>
+    </p>
+</body> 
+</html>

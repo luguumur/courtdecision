@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html t:type="layoutCD" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+	<head>
+		<title>${title}</title>
+		<t:if test="heading">
+			<meta name="heading" content="${heading}" />
+		</t:if>
+		<t:if test="menu">
+			<meta name="menu" content="${menu}" />
+		</t:if>
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+	
+	<body id="${bodyId}">
+
+		<div id="content" class="clearfix">
+			<div class="navcolumn">
+				<h5 class="legendTitle">${message:menu}</h5>
+				<ul>
+					<center style="margin-bottom:5px;margin-top:10px;"><u>Хэрэглэгчийн тохиргоо</u></center>
+					<li><t:pagelink page="configuration/userConfig">Хэрэглэгчийн тохиргоо</t:pagelink></li>
+					<li><t:actionlink t:id="goRoleConfig">Роль тохиргоо</t:actionlink></li>
+					<li><t:pagelink page="configuration/permissionConfig">Эрхийн тохиргоо</t:pagelink></li>
+					<li><t:pagelink page="configuration/infoConfig">Мэдээлэл харах тохиргоо</t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageUserIP">Хэрэглэгчийн IP хаяг</t:pagelink></li>-->					
+										
+					<center style="margin-bottom:5px;margin-top:10px;"><u>Байгууллагын мэдээлэл</u></center>
+					<!--<li><t:pagelink page="configuration/pagePropertyType">Эд хөрөнгийн ангилал</t:pagelink></li>-->
+					<li><t:pagelink page="configuration/pageFinancingType">Санхүүжилтийн төрөл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAppurtenanceLead">Харьяалагдах захиргаа</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAppurtenanceLocation">Харьяалагдах байршил</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageOrganizationType">Байгууллагын төрөл</t:pagelink></li>	
+					
+					<center style="margin-bottom:5px;margin-top:10px;"><u>Цалин, албан тушаалын мэдээлэл</u></center>
+					<li><t:pagelink page="configuration/pageOccupationRole">Албан тушаалын үүрэг</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageOccupationType">Албан тушаалын төрөл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAppointment">Албан тушаал</t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageApprovedPositions">Батлагдсан орон тоо</t:pagelink></li>-->
+					<li><t:pagelink page="configuration/pageSalaryNetwork">Цалинжих хэлбэр</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageSalaryScale">Цалингийн шатлал</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageDisplacementCause">Шилжих шалтгааны төрөл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageQuitCause">Чөлөөлөгдөх шалтгааны төрөл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageSalaryNetworkConfig">Цалингийн сүлжээний тохиргоо</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAdditionalSalary">Нэмэгдэл цалингийн төрөл</t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageSalaryJudge">Шүүгчийн албан тушаалын цалингийн хэмжээ</t:pagelink></li>-->
+					<li><t:pagelink page="configuration/pageRetireAge">Тэтгэвэрт гарах нас</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageOccupationRank">Зэрэглэлийн ангилал</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageUtTzTtTuSort">ТТ,ТҮ,ТҮЭМ-ний албаны ангилал</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageUtTzTtTuLevel">ТТ,ТҮ,ТҮЭМ-ний албаны зэрэглэл</t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageWorkedYear">Ажилласан жилээр анхааруулга өгөх хугацаа</t:pagelink></li>-->
+					
+				
+					
+					<center style="margin-bottom:5px;margin-top:10px;"><u>Ажилтны мэдээлэл</u></center>
+					<li><t:pagelink page="configuration/pageCountry">Улс</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageCity">Хот /Гадаад улсын/</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageCityProvince">Хот, аймаг</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageDistrictSum">Сум, дүүрэг</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageSchool">Сургууль</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageDegreeType">Эзэмшсэн боловсрол</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageEducationDegree">Боловсролын зэрэг</t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageOrdinance">Зарлиг,захирамж,тогтоол</t:pagelink></li>-->					
+					<li><t:pagelink page="configuration/pageOccupation">Мэргэжил</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageSkillGroup">Ур чадварын ангилал</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageSkillType">Ур чадвар</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageOrigin">Үндэс угсаа</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAscription">Нийгмийн гарал</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageQuitJobCause">Ажлаас гарах шалтгаан</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageForeignLanguage">Гадаад хэл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageComputerProgram">Компьютерийн програм</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageFacility">Оффисийн тоног төхөөрөмж</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAcademicRank">Эрдмийн цол</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageRelative">Таны юу болох </t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageAppointmentSort">Зэрэг дэвийн ангилал </t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAppointmentLevel">Зэрэг дэвийн ангилалын зэрэглэл </t:pagelink></li>-->					
+					<li><t:pagelink page="configuration/pageTravelType">Гадаадад зорчсон чиглэл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageFamilyAppointmentType">Гэр бүлийн хүний албан тушаалын төрөл</t:pagelink></li>
+					<!--<li><t:pagelink page="configuration/pageDeclarationInfo">Хөрөнгө орлогын мэдүүлэг</t:pagelink></li>					
+					<li><t:pagelink page="configuration/pageLandIntention">Газрын зориулалт</t:pagelink></li>-->
+					<li><t:pagelink page="configuration/pageEducationDoctorType">Докторын зэрэг</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageScienceDoctorType">Магистрын зэрэг</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageMilitaryRank">Цэргийн цол</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageCommandSubject">Тушаал гаргасан субъект</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageAllowanceType">Тэтгэмж тусламж</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageVacationType">Чөлөө</t:pagelink></li>				
+					<center style="margin-bottom:5px;margin-top:10px;"><u>Сахилга шийтгэл</u></center>
+					<li><t:pagelink page="configuration/pageSahilgaShiitgel">Сахилгын шийтгэл</t:pagelink></li>
+					<li><t:pagelink page="configuration/pageSahilgaTurul">Сахилгын арга хэмжээ авагдах төрөл</t:pagelink></li>
+					
+				</ul>
+			</div>
+			<div style="width:98%;">
+				<br/>
+				<t:body />
+			</div>	
+		</div>
+
+ </body> 
+<t:jquery.dialog t:clientId="layoutDialog" t:params="param" t:title="Анхааруулга" t:draggable="true">
+	
+	<t:zone t:id="myZone" id="myZone" style="width:400px; height:200px;">
+	
+			<t:actionlink t:id="goRetireEmployee">1. ${message:retire}</t:actionlink><br/>
+			<t:actionlink t:id="goGeneralJudge">2. ${message:generelJudge}</t:actionlink><br/>
+	</t:zone>
+</t:jquery.dialog>	
+ <t:block id="subMenuBlock"/>
+<t:block id="navBlock"/>
+</html>

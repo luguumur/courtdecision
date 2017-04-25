@@ -1,0 +1,30 @@
+<html t:type="layout" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		
+	</head>
+    <body>
+		<t:form t:id="form">
+    		<table class="newspaper-c">
+    			<tr><td>
+				    <t:loop t:source="listField" t:value="valueField">
+						<t:if test="textField">
+							<input t:type="textfield" id="${componentId}"
+							t:value="organization.briefIntroduction" style="margin:15px 5px 20px 20px;"/>
+						</t:if>
+							
+						<t:if test="nextRow">
+							<br />
+						</t:if>
+				   	</t:loop>
+			  	</td></tr>
+			  	<tr>
+			  		<td>
+			  			<t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>
+			  		</td>
+			  	</tr>
+			</table>
+		</t:form>  
+	</body> 
+</html>

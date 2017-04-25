@@ -1,0 +1,24 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				Таны юу болох: <t:textfield value="relativeType.name" t:validate="required" style="width: 200px"/> &nbsp;
+				<t:submit t:id="save" t:value="${message:save}" class="btnFind save"/>
+			</div><br/>
+			<div>
+				<t:grid t:source="listRelativeType" t:row="valueRelativeType" t:include="id, name" t:add="edit" rowsPerPage="25" >
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueRelativeType">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

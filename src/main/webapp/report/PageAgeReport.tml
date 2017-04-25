@@ -1,0 +1,59 @@
+<html t:type="layout" title="${message:report}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<head>
+	
+	</head>
+	<body> <t:form>
+		<div class="block">
+			<div class="newspaper-a">
+				
+				<fieldset>
+					<legend class="legendTitle">${message:ageReportList}</legend>
+					<t:security.hasPermission permission="show_all_organization">
+					<table class="searchField">
+						<tr>
+							<td>${message:name}:</td>
+							<!--<td>${message:appointmentType}:</td>-->
+						</tr>
+						<tr>
+							<td>
+								<t:select t:model="organizationSelectionModel" t:value="org" t:blankLabel="${message:all}" t:style="width: 450px"/>
+								&nbsp; <t:submit t:id="search" class="btnFind search" t:value="${message:search}"/>
+							</td>
+							<!--<td>
+								 <t:select t:model="appointmentTypeSelectionModel" t:value="appointmentType"/>
+							</td>-->
+						</tr>
+						<!--<tr>
+							<td colspan="2" style="text-align:right;">								
+							</td>
+							<td></td>
+						</tr>-->
+					</table><br/>
+					</t:security.hasPermission>
+					<t:grid t:source="listAge" t:row="valueAge"
+					width="50%" rowClass="Gridrowcss" t:add="levelAge,countOfficer">
+						<p:levelAgeCell>
+							${level}
+						</p:levelAgeCell>
+						<p:countOfficerCell>
+							${valueAge}
+						</p:countOfficerCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+						
+					</t:grid> 
+					<p align="center">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}"/>
+						</t:actionlink> 
+					</p>
+				</fieldset>		
+				
+			</div>
+		</div>
+	</t:form> </body> 
+</html>

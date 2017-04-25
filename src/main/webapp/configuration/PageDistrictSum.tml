@@ -1,0 +1,37 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>${message:districtSumName} :</td>
+						<td>${message:cityProvinceName} :</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><t:textfield value="districtSum.districtSumName" t:validate="required"/></td>
+						<td><t:select t:model="cityProvinceSelectionModel" value="districtSum.city" validate="required"/></td>
+						<td><t:submit t:id="save" class="btnFind save" t:value="${message:save}"/></td>
+					</tr>	
+				</table>
+			</div>
+			<div>
+				<t:grid t:source="listDistrictSum" t:row="valueDistrictSum" t:include="id,districtSumName" t:add="cityName,edit">
+					<p:cityNameCell>
+						${cityName}
+					</p:cityNameCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueDistrictSum">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

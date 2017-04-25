@@ -1,0 +1,110 @@
+<html t:type="layoutCD" title="${message:configuration}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<body>
+<t:security.HasPermission permission="go_config_page">	
+	<t:form>
+		<t:grid t:source="listUser" t:row="valueUser"
+			t:include="organization,lastname,firstname"
+			t:add="number,selection,usernameEmp,role"
+			reOrder="selection,number,usernameEmp">
+			<p:roleCell>
+				${role}
+			</p:roleCell>
+			<p:numberCell>
+				${number}
+			</p:numberCell>
+			<p:selectionCell>
+				<t:checkbox t:value="selected" />
+			</p:selectionCell>
+			<p:usernameEmpCell>
+				${username}
+			</p:usernameEmpCell>
+			<p:organizationCell>
+				${organization}
+			</p:organizationCell>
+	
+		</t:grid>
+	
+		<div align="left">
+		<table>
+			<tr>
+				<td><t:actionlink t:id="selectAll">
+					<input type="button" value="Бүгдийг нь сонгох" />
+				</t:actionlink> <t:actionlink t:id="deselectAll">
+					<input type="button" value="Цэвэрлэх" />
+				</t:actionlink></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Үйлдэл:<t:select t:model="OperationSelectionModel"
+					t:value="operation" t:validate="Required" /></td>
+				<td><t:submit t:id="execute" t:value="Гүйцэтгэх" /></td>
+			</tr>
+		</table>
+		</div>
+	
+		<t:if test="usernames">
+			<fieldset><legend><b>Шинэ нууц үг(с)</b></legend>
+	
+			<div class="t-data-grid">
+			<table style="width: 100%" class="t-data-grid">
+				<thead>
+					<tr>
+						<th>Хэрэглэгчийн нэр</th>
+						<th>Нэр</th>
+						<th>Нууц үг</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t:loop t:source="usernames" t:value="usernameLoop">
+						<tr>
+							<td>${usernameLoop}</td>
+							<td>${fullnameLoop}</td>
+							<td>${passwdLoop}</td>
+						</tr>
+					</t:loop>
+				</tbody>
+			</table>
+			<p align="right"><t:actionlink t:id="exportToExcel">
+				<img src="${imgExcel}" />
+			</t:actionlink></p>
+			</div>
+			</fieldset>
+		</t:if>
+	
+		<t:if test="phones">
+			<fieldset><legend> <b>Утасны жагсаалт</b></legend>
+	
+			<div class="t-data-grid">
+			<table style="width: 100%" class="t-data-grid">
+				<thead>
+					<tr>
+						<th>Хэрэглэгчийн нэр</th>
+						<th>Гэрийн утас</th>
+						<th>Гар утас</th>
+						<th>Ажлын утас</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t:loop t:source="phones" t:value="namesLoop">
+						<tr>
+							<td>${namesLoop}</td>
+							<td>${phoneLoop}</td>
+							<td>${mobileLoop}</td>
+							<td>${workPhoneLoop}</td>
+						</tr>
+					</t:loop>
+				</tbody>
+			</table>
+			<p align="right"><t:actionlink t:id="exportToExcelPhones">
+				<img src="${imgExcel}" />
+			</t:actionlink></p>
+			</div>
+	
+			</fieldset>
+		</t:if>
+	</t:form>
+</t:security.HasPermission>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>
+							<span class="red">*</span>Чөлөөлөгдөх шалтгааны төрөл: &nbsp;
+						</td>						
+						<td>
+							<span class="red">*</span>${message:cause}:
+						</td>
+						<td>														
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:select t:model="QuitTypeSelectionModel" t:value="quitJobCause.causeType" t:validate="required"/>	
+						</td>
+						<td>
+							<t:textfield value="quitJobCause.causeName" t:validate="required" t:style="width: 200px"/>
+						</td>
+						<td>
+							<t:submit t:id="Save" t:value="${message:save}" class="btnFind save"/>
+						</td>
+					</tr>
+				</table>				
+			</div>
+			<div>
+				<t:grid t:source="listQuitJobCause"  t:row="valueQuitJobCause" t:include="causeType,causeName" t:add="number,edit,delete"
+				 reOrder="number" rowsPerPage="25" >
+				 	<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:commandSubjectCell>
+						${valueQuitJobCause.causeType.name}
+					</p:commandSubjectCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueQuitJobCause">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueQuitJobCause">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

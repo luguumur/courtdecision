@@ -1,0 +1,133 @@
+ <html t:type="layoutEmployee" title="literal:Employee Home"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body>
+<div style="width: 100%">
+	<table id="newspaper-c" bgcolor="#E5E5E5">
+		<tr>
+			<td><t:zone t:id="trainingZone" id="trainingZone"
+					style="display: inline;">
+					<t:form t:id="trainingForm" t:zone="trainingZone,trainingListZone">
+							<table style="width: 100%">
+								<t:if test="show">
+									<tr>
+										<td><span class="red">*</span>${message:country} :</td>
+										<td><span class="red">*</span>${message:city} :</td>
+										<td>${message:trainingOrganization} :</td>
+										<td>${message:gradeDate} :</td>
+
+									</tr>
+									<tr>
+										<td><t:select t:id="ulsClick"
+												t:model="countrySelectionModel" t:value="country"
+												t:blankLabel="" t:validate="required" t:zone="ulsZone" /></td>
+										<td><t:zone t:id="ulsZone" id="ulsZone" style="display: inline;">
+												<t:if test="isMongolia">
+													<t:select t:model="provinceSelectionModel"
+														t:value="province" t:validate="required" />
+												</t:if>
+												<t:if test="notMongolia">
+													<t:select t:model="citySelectionModel" t:value="city"
+														t:validate="required" />
+												</t:if>
+											</t:zone></td>
+										<td><t:textfield t:id="trainingOrganization"
+												t:value="training.trainingOrganization" t:style="width:70%" /></td>
+										<td><t:datefield t:id="gradeDate" class="startDate"
+												t:value="training.gradeDate" t:format="yyyy-MM-dd" /></td>
+									</tr>
+									<tr>
+										<td><span class="red">*</span>Эхэлсэн он :</td>
+										<td><span class="red">*</span>Дууссан он :</td>
+										<td><span class="red">*</span>${message:course} :</td>
+										<td>${message:subject} :</td>
+									</tr>
+									<tr>
+										<td><t:textfield class="startDate"
+												t:value="training.startDate" t:validate="required"
+												style="width: 60px" /></td>
+										<td><t:textfield t:id="endDate" class="endDate"
+												t:value="training.endDate" t:validate="required"
+												style="width: 60px" /></td>
+										<td><t:textfield t:id="course" t:value="training.course"
+												t:validate="required" t:style="width:70%" /></td>
+										<td><t:textfield t:id="subject"
+												t:value="training.subject" t:style="width:70%" /></td>
+									</tr>
+									<tr>
+										<td colspan="4" style="text-align: right;"><t:security.hasPermission
+												permission="add_training">
+												<t:submit t:id="save" class="btnFind save"
+													t:value="${message:save}" />
+											</t:security.hasPermission> <t:actionlink t:id="cancel" t:zone="trainingZone">
+												<input type="button" class="btnFind refresh"
+													value="${message:cancel}" />
+											</t:actionlink></td>
+									</tr>
+								</t:if>
+							</table>
+					</t:form>
+				</t:zone></td>
+		</tr>
+		<tr>
+			<td>
+				<t:zone t:id="trainingListZone" id="trainingListZone">
+				<table style="width: 100%">
+					<tr>
+						<td colspan="4"><t:grid t:source="listTraining"
+								t:row="valueTraining" rowClass="gridRowCSS" style="width:100%"
+								include="country,city,trainingOrganization,startDate,endDate,course,subject"
+								add="edit,delete,number" reOrder="number" rowsPerPage="25">
+								<p:numberCell>
+									${number}
+						</p:numberCell>
+								<p:countryCell>
+			    				${countryName}
+			    		</p:countryCell>
+								<p:cityCell>
+			    				${cityName}
+			    		</p:cityCell>
+								<p:startDateCell>
+							${startday}
+						</p:startDateCell>
+								<p:endDateCell>
+							${endday}
+						</p:endDateCell>
+								<p:editCell>
+									<t:security.hasPermission permission="edit_training">
+										<t:actionlink t:id="edit" t:context="valueTraining"
+											t:zone="trainingZone">
+											<img src="${editIcon}" />
+										</t:actionlink>
+									</t:security.hasPermission>
+								</p:editCell>
+								<p:deleteCell>
+									<t:security.hasPermission permission="delete_training">
+										<t:actionlink t:id="delete" t:context="valueTraining" t:zone="trainingListZone"
+											t:mixins="confirmDelete"
+											message="${message:AreYouSureDelete}">
+											<img src="${deleteIcon}" />
+										</t:actionlink>
+									</t:security.hasPermission>
+								</p:deleteCell>
+								<p:empty>
+								${message:noData}
+						</p:empty>
+							</t:grid>
+							<p align="right">
+								<t:actionlink t:id="export">
+									<img src="${imgExcel}" />
+								</t:actionlink>
+							</p></td>
+					</tr>
+				</table>
+				</t:zone>
+			</td>
+		</tr>
+	</table>
+</div>
+</body>
+</html>

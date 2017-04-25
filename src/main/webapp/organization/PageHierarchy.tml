@@ -1,0 +1,9 @@
+<html t:type="layoutCD" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+    <body>
+		<div class="hierarchy">
+			<img src="${hierarchy}" />
+		</div>
+	</body> 
+</html>

@@ -1,0 +1,49 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head></head>
+	<body>
+		<t:form>
+			<div>
+				<table>
+					<tr>
+						<td>${message:male} : </td>
+						<td><t:textfield value="retireAge.maleAge" validate="required"/></td>
+					</tr>
+					<tr>
+						<td>${message:female} :	</td>
+						<td><t:textfield value="retireAge.femaleAge" validate="required" />	</td>
+					</tr>
+					<tr>
+						<td colspan="2" align="right"><t:submit t:id="save" t:value="${message:save}"  class="btnFind save"/></td>
+					</tr>
+				</table>			 
+				<!--${message:generalJudgeDate} : <t:textfield value="retireAge.generalJudgeDate" validate="required"/><br/>-->				
+			</div>
+			<div>
+				<t:grid t:source="listRetireAge" t:row="valueRetireAge" 
+				t:include="id, maleAge, femaleAge" t:add="edit">
+				
+					<p:maleAgeCell>
+						${maleAge}
+					</p:maleAgeCell>
+					
+					<p:femaleAgeCell>
+						${femaleAge}
+					</p:femaleAgeCell>
+					
+					<!--<p:generalJudgeDateCell>
+						${generalJudgeDate}
+					</p:generalJudgeDateCell>-->
+					
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueRetireAge">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					
+				</t:grid> 
+			</div>
+		</t:form>
+	</body> 
+</html>

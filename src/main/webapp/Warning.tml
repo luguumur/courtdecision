@@ -1,0 +1,54 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+<head>
+<script>
+	$(function() {
+		$("#accordion").accordion({
+			heightStyle : "content",
+			autoHeight : false
+		});
+	});
+</script>
+</head>
+
+<body>
+	<t:form>
+		<table>
+			<tr>
+				<td><label>${message:alertType} </label> <t:select
+						t:model="alertTypeSelectionModel" t:value="alertType"
+						t:blankLabel="${message:Choose}" onchange="form.submit();" /></td>
+			</tr>
+		</table>
+		<div class="accordBox">
+			<div id="accordion">
+				<t:delegate to="activeBlock" />
+			</div>
+		</div>
+	</t:form>
+
+	<t:block t:id="disciplineBlock">
+		<t:warning.compWarningDiscipline t:id="compWarningDiscipline" />
+	</t:block>
+	<t:block t:id="tsolBlock">
+		<t:warning.compWarningTsol t:id="compWarningTsol" />
+	</t:block>
+	<t:block t:id="tetgeverBlock">
+		<t:warning.compWarningTetgever t:id="compWarningTetgever" />
+	</t:block>
+	<t:block t:id="shagnalBlock">
+		<t:warning.compWarningShagnal t:id="compWarningShagnal" />
+	</t:block>
+	<t:block t:id="tsalinBlock">
+		<t:warning.compWarningTsalin t:id="compWarningTsalin" />
+	</t:block>
+	<t:block t:id="udaanJilBlock">
+		<t:warning.compWarningUdaanJil t:id="compWarningUdaanJil" />
+	</t:block>
+	<t:block t:id="demeritBlock">
+		<t:warning.compWarningDemerit t:id="compWarningDemerit" />
+	</t:block>
+</body>
+</html>

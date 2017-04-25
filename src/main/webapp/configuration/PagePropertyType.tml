@@ -1,0 +1,30 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<t:textfield value="propertyType.name"/>
+				<t:select t:model="PropertyTypeNameSelectionModel" t:value="propertyType.propertyTypeName" />
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listPropertyType" t:row="valuePropertyType" t:include="id,name,propertyTypeName" t:add="edit,delete">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valuePropertyType">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valuePropertyType">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

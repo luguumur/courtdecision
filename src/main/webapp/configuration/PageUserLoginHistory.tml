@@ -1,0 +1,62 @@
+<html t:type="layoutCD" title="${message:configuration}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<body>
+	<t:security.HasPermission permission="go_config_page">
+		<t:form>
+			<table class="form">
+				<tr>
+					<td>
+						<label>Анги, алба</label> 
+						<t:select 
+							t:model="organizationSelectionModel"
+							t:value="bean.organization" 
+							t:blankLabel="message:all" />
+					</td>
+					<td>
+						<label>Хэрэглэгч</label> 
+						<t:select 
+							t:model="userSelectionModel"
+							t:value="bean.user" 
+							t:blankLabel="message:all" />
+					</td>
+					<td>
+						<label>Нэвтэрсэн огноо</label> 
+						<t:datefield
+							t:value="bean.dateFrom" 
+							t:label="message:dateFrom"
+							t:format="yyyy-MM-dd" />
+							-
+						<t:datefield
+							t:value="bean.dateTo" 
+							t:label="message:dateTo"
+							t:format="yyyy-MM-dd" />	
+					</td>
+					<td>
+						<t:submit t:id="search" t:value="message:search" />
+					</td>
+				</tr>
+			</table>
+			<t:grid t:source="list" t:row="rowHistory" t:include="id"
+				t:add="systemName,organization,login,name"
+				t:reOrder="id,organization,systemName,name,login" t:rowsPerPage="20">
+				<p:systemNameCell>
+					${systemName}
+				</p:systemNameCell>
+				<p:nameCell>
+					${name}
+				</p:nameCell>
+				<p:organizationCell>
+					${organization}
+				</p:organizationCell>
+				<p:loginCell>
+					${loginDate}
+				</p:loginCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+		</t:form>
+	</t:security.HasPermission>
+</body>
+</html>

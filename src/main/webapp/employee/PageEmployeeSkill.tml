@@ -1,0 +1,120 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> 
+<t:zone t:id="skillZone" id="skillZone">
+<t:form t:id="skillForm">
+	<div style="width:100%">
+		<table id="newspaper-c">
+			<tr valign="top">
+				<td width="50%">
+				<fieldset>
+					<legend class="legendTitle">Хувь хүний ур чадвар</legend>
+					<table>
+						<t:loop t:source="listSkillType" t:value="valueSkillType">
+						
+							<tr>
+								<td>${valueSkillType.name}</td>
+								<td>
+									<t:select t:model="skillPointSelectionModel"
+									 t:value="empSkillPoint" />
+								</td>
+							</tr>
+						</t:loop>
+					</table>
+				</fieldset>	
+				</td>
+				<td width="50%">
+				<fieldset>
+					<legend class="legendTitle">Хүмүүсийн хоорондын харилцааны ур чадвар</legend>
+					<table>
+						<t:loop t:source="listSkillType1" t:value="valueSkillType">
+						
+							<tr>
+								<td>${valueSkillType.name}</td>
+								<td>
+									<t:select t:model="skillPointSelectionModel"
+									 t:value="empSkillPoint" />
+								</td>
+							</tr>
+						</t:loop>
+					</table>
+				</fieldset>	
+				</td>
+			</tr>	
+			<tr>	
+				<td>
+					<fieldset>
+						<legend class="legendTitle">Бүлгээр ажиллах ур чадвар</legend>
+						<table>
+							<t:loop t:source="listSkillType2" t:value="valueSkillType">
+							
+								<tr>
+									<td>${valueSkillType.name}</td>
+									<td>
+										<t:select t:model="skillPointSelectionModel"
+										 t:value="empSkillPoint" />
+									</td>
+								</tr>
+							</t:loop>
+						</table>
+					</fieldset>
+				</td>
+				<td>
+					<fieldset>
+						<legend class="legendTitle">Бусад ур чадвар</legend>
+						<table>
+							<t:loop t:source="listSkillType3" t:value="valueSkillType">
+							
+								<tr>
+									<td>${valueSkillType.name}</td>
+									<td>
+										<t:select t:model="skillPointSelectionModel"
+										 t:value="empSkillPoint" />
+									</td>
+								</tr>
+							</t:loop>
+						</table>
+					</fieldset>	
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					${message:OtherSkill}
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="left"><t:textfield t:value="employee.busadSkillName1" size="60"/></td>
+				<td ><t:select t:model="skillPointSelectionModel" t:value="employee.busadSkillOnoo1" /></td>
+			</tr>
+			
+			<tr>
+				<td  align="left"><t:textfield t:value="employee.busadSkillName2" size="60"/></td>
+				<td ><t:select t:model="skillPointSelectionModel" t:value="employee.busadSkillOnoo2" /></td>
+			</tr>
+			
+			<tr>
+				<td align="left"><t:textfield t:value="employee.busadSkillName3" size="60"/></td>
+				<td><t:select t:model="skillPointSelectionModel" t:value="employee.busadSkillOnoo3" /></td>
+			</tr>
+			<t:if test="show">
+			<tr>
+				<td colspan="3" style="text-align:right;">
+					<t:submit class="btnFind save" t:id="empSkills" value="${message:save}"/>
+					<t:actionlink t:id="cancel" t:zone="skillZone">
+						<input class="btnFind" type="button" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+		</table>
+	</div>
+	</t:form> 
+	</t:zone>
+</body> 
+</html>

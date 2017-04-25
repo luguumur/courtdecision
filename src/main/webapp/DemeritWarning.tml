@@ -1,0 +1,64 @@
+<html t:type="layout" title="literal:Court-HR"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+     
+    <head>
+    	
+    </head>
+	<body>
+			<t:form>			
+	    		<legend class="legendTitle">Сахилгын шийтгэл авсан ажилчид</legend>  
+	    			<div>
+	    				<table>
+	    					<tr>
+	    						<td>&nbsp; &nbsp; Огноо:</td>
+	    						<td><t:datefield t:value="startDate" t:format="yyyy-MM-dd" t:style="width:80px"/></td>
+	    						<td>~</td>  
+								<td><t:datefield t:value="endDate" t:format="yyyy-MM-dd" t:style="width:80px"/></td>
+								<td>
+									<t:submit class="btnFind search" t:id="search" t:value="${message:search}"/>
+									<t:actionlink t:id="cancel">
+										<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+									</t:actionlink>
+								</td>									
+	    					</tr>
+	    				</table>
+	    			</div>
+		    		<div class="alert">
+		    			<t:grid t:source="listEmployee" t:row="rowEmployee" rowsPerPage="25" 
+		    			t:include="cause" t:add="dateOfDemerit,firstName,appointment,sahilgaShiitgel,sahilgaTurul,commandSubject,number,edit" width="100%" 
+		    			reOrder="number,appointment,firstName,commandSubject,sahilgaShiitgel,sahilgaTurul">
+		    				<p:numberCell>
+		    					${number}
+		    				</p:numberCell>
+		    				<p:dateOfDemeritCell>
+		    					${dateOfDemerit}
+		    				</p:dateOfDemeritCell>	
+		    				<p:commandSubjectCell>
+		    					${commandSubject}
+		    				</p:commandSubjectCell>	    
+		    				<p:sahilgaShiitgelCell>
+		    					${sahilgaShiitgel}
+		    				</p:sahilgaShiitgelCell>	  
+		    				<p:sahilgaTurulCell>
+		    					${sahilgaTurul}
+		    				</p:sahilgaTurulCell>	  
+		    				<p:appointmentCell>
+		    					${appointment}
+		    				</p:appointmentCell>
+		    				<p:firstNameCell>
+		    					${firstName}
+		    				</p:firstNameCell>
+		    				<p:editCell>
+			    				<t:actionlink t:id="edit" t:context="rowEmployee.employee.id">
+			    					<img src="${editIcon}"/>
+			    				</t:actionlink>
+		    				</p:editCell>	
+		    				<p:empty>
+								${message:noData}
+							</p:empty>
+		    			</t:grid>
+		    		</div>		
+			</t:form>
+	</body>
+</html>

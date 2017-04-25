@@ -1,0 +1,44 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<h3>${message:tsolWarningType} - ${tsolWarningTypeCount}</h3>
+	<div>
+		<t:grid t:source="listEmployeeMilitary" t:row="rowEmployeeMilitary"
+			rowsPerPage="25" t:include="firstname,lastname,gender,odoogiinTsol"
+			t:add="number,registerNo,tsolOgnoo,tsolDuusahOgnoo,edit,organization,top"
+			reOrder="number,organization,lastname,firstname,registerNo">
+			<p:numberCell>
+		   					${number}
+		   				</p:numberCell>
+			<p:organizationCell>
+		   					${organizationDegree}
+		   				</p:organizationCell>
+			<p:registerNoCell>
+		   					${registerNoDegree}
+		   				</p:registerNoCell>
+			<p:disciplineddateCell>
+		   					${startDate}
+		   				</p:disciplineddateCell>
+			<p:hetersenHonogCell>
+				<span class="red"> ${rowEmployeeMilitary.hetersenHonog} </span>
+			</p:hetersenHonogCell>
+			<p:tsolOgnooCell>
+		   					${tsolOgnoo}
+		   				</p:tsolOgnooCell>
+			<p:TsolDuusahOgnooCell>
+		   					${TsolDuusahOgnoo}
+		   				</p:TsolDuusahOgnooCell>
+			<p:TopCell>
+		   					${isTop}
+		   				</p:TopCell>
+			<p:editCell>
+				<t:pagelink t:page="pageEmployeeGeneral"
+					t:context="rowEmployeeMilitary.id">Засах</t:pagelink>
+			</p:editCell>
+			<p:empty>
+				${message:noData}
+			</p:empty>
+		</t:grid>
+	</div>
+</t:container>
+

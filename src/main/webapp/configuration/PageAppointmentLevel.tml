@@ -1,0 +1,47 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+			<table>
+				<tr>
+					<td>${message:name}</td>
+					<td>${message:appointmentSort}</td>
+					<td>${message:appointmentType}</td>
+				</tr>
+				<tr>
+					<td><t:textfield value="appointmentLevel.name" t:validate="required"/></td>
+					<td><t:select t:model="AppointmentSortSelectionModel" value="appointmentLevel.appointmentSort" t:validate="required"/></td>
+					<td><t:select t:model="AppointmentTypeSelectionModel" value="appointmentLevel.appointmentType" t:validate="required"/></td>
+				</tr>
+				<tr>
+					<td>
+						<t:submit t:id="save" t:value="${message:save}"/>
+					</td>
+				</tr>
+			</table>
+			</div>
+			<div>
+				<t:grid t:source="listAppointmentLevel" t:row="valueAppointmentLevel" t:include="id,name,appointmentSort,appointmentType" t:add="edit,delete">
+					<p:appointmentSortCell>
+						${appointmentSortName}
+					</p:appointmentSortCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueAppointmentLevel">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueAppointmentLevel">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

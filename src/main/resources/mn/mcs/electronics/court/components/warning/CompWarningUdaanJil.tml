@@ -1,0 +1,31 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<h3>${message:udaanJilText} - ${UdaanJilTextCount}</h3>
+	<div>
+		<t:grid t:source="listUdaanJilEmployee" t:row="rowUdaanJilEmployee"
+			rowsPerPage="25"
+			t:include="baiguullaga,heltes,appointment,firstname,lastname,workedYear"
+			t:add="number,edit"
+			reOrder="number,baiguullaga,heltes,appointment,lastname,firstname,workedYear">
+			<p:numberCell>
+   					${number}
+   				</p:numberCell>
+			<p:editCell>
+				<t:actionlink t:id="editUdaanJil" t:context="rowUdaanJilEmployee.id">
+					<img src="${editIcon}" />
+				</t:actionlink>
+			</p:editCell>
+			<p:empty>
+					${message:noData}
+				</p:empty>
+		</t:grid>
+		<div class="pager">
+			<t:actionlink t:id="first" class="button">Эхнийх</t:actionlink>
+			<t:actionlink t:id="prev" class="button">Өмнөх</t:actionlink>
+			<t:actionlink t:id="next" class="button">Дараах</t:actionlink>
+			<t:actionlink t:id="last" class="button">Сүүлийх</t:actionlink>
+		</div>
+	</div>
+</t:container>
+

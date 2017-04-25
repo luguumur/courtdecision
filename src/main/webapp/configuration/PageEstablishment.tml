@@ -1,0 +1,34 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body>
+		<t:form>
+			<div class="block">
+				<t:delegate to = "activeBlock"/>
+			</div>
+			
+			<t:block t:id="grid">
+				<div>
+					<t:grid t:source="listOrganizationType" t:row="valueOrganizationType" t:include="name" t:add="edit">
+						<p:editCell>
+							<t:actionlink t:id="edit" t:context="valueOrganizationType">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</p:editCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid> 
+				</div>
+			</t:block>
+			
+			<t:block t:id="register">
+				<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+			</t:block>
+			
+		</t:form>
+	</body> 
+</html>

@@ -1,0 +1,24 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> 
+	<t:form>
+			<div>
+				<table>
+					<tr>
+						<td><span class="red">*</span>${message:decDate}:</td>
+						<td><span class="red">*</span>${message:dictate}:</td>
+					</tr>
+					<tr>
+						<td><t:datefield t:id="decDate" t:value="valueDeclarationInfo.decDate" t:validate="required"  t:format="yyyy-MM-dd"/></td>
+						<td><t:textfield t:id="dictate" t:value="valueDeclarationInfo.dictate" t:validate="required"/></td>
+						<td><t:submit t:id="save" t:value="${message:save}"/></td>
+					</tr>
+				</table>
+			</div>
+	</t:form> 
+	</body> 
+</html>

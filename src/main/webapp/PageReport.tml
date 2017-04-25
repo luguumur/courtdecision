@@ -1,0 +1,164 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$('#dataTable').dataTable({
+			"sScrollX" : "100%",
+			"sScrollY" : 600,
+			"bScrollCollapse" : true,
+			"bPaginate" : false,
+			"bSort" : false,
+			"bFilter" : false,
+			"bInfo" : false,
+			"asStripeClasses" : [ 'strip1', 'strip2', 'strip3' ]
+		});
+	});
+
+	$("div.divWithScroll").scroll();
+</script>
+</head>
+<body class="loader">
+	<fieldset class="divWithScroll">
+		<t:actionlink t:id="exportToExcel" class="button">Excel рүү гаргах</t:actionlink>
+		<table class="report display dataTable" id="dataTable">
+			<thead>
+				<tr>
+					<th rowspan="2">Анги албад</th>
+					<th rowspan="2">Нийт</th>
+					<th colspan="2">Хүйс</th>
+					<th colspan="9">Нас</th>
+					<th colspan="8">Боловсрол</th>
+					<th colspan="12">Цол</th>
+					<th colspan="3">Албан тушаал</th>
+					<th colspan="2">Цалин</th>
+					<th rowspan="2">Анги албад</th>
+				</tr>
+				<tr>
+					<th>Эрэгтэй</th>
+					<th>Эмэгтэй</th>
+					<th>21 хүртэл</th>
+					<th>21-30</th>
+					<th>31-35</th>
+					<th>36-40</th>
+					<th>41-45</th>
+					<th>46-50</th>
+					<th>51-55</th>
+					<th>56-59</th>
+					<th>60с дээш</th>
+					<th>Доктор</th>
+					<th>Магистр</th>
+					<th>Бакалавр</th>
+					<th>Дип дээд</th>
+					<th>Тусгай дунд</th>
+					<th>Бүрэн дунд</th>
+					<th>Бүрэн бус дунд</th>
+					<th>Бага</th>
+					<th>Хурандаа</th>
+					<th>Дэд хурандаа</th>
+					<th>Хошууч</th>
+					<th>Ахмад</th>
+					<th>Ахлах дэслэгч</th>
+					<th>Дэслэгч</th>
+					<th>Сургагч ахлагч</th>
+					<th>Ахлах ахлагч</th>
+					<th>Ахлагч</th>
+					<th>Дэд ахлагч</th>
+					<th>Офицер</th>
+					<th>Ахлагч</th>
+					<th>Удирдах</th>
+					<th>Гүйцэтгэх</th>
+					<th>Туслах</th>
+					<th>ТТ-ийн</th>
+					<th>ТҮ-ийн</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr t:type="loop" t:source="listBean" t:value="bean">
+					<td>${organizationName}</td>
+					<td class="all">${bean.num}</td>
+					<td>${bean.female}</td>
+					<td>${bean.male}</td>
+					<td>${bean.age1}</td>
+					<td>${bean.age2}</td>
+					<td>${bean.age3}</td>
+					<td>${bean.age4}</td>
+					<td>${bean.age5}</td>
+					<td>${bean.age6}</td>
+					<td>${bean.age7}</td>
+					<td>${bean.age8}</td>
+					<td>${bean.age9}</td>
+					<td>${bean.edu1}</td>
+					<td>${bean.edu2}</td>
+					<td>${bean.edu3}</td>
+					<td>${bean.edu4}</td>
+					<td>${bean.edu5}</td>
+					<td>${bean.edu6}</td>
+					<td>${bean.edu7}</td>
+					<td>${bean.edu8}</td>
+					<td>${bean.tsol1}</td>
+					<td>${bean.tsol2}</td>
+					<td>${bean.tsol3}</td>
+					<td>${bean.tsol4}</td>
+					<td>${bean.tsol5}</td>
+					<td>${bean.tsol6}</td>
+					<td>${bean.tsol7}</td>
+					<td>${bean.tsol8}</td>
+					<td>${bean.tsol9}</td>
+					<td>${bean.tsol10}</td>
+					<td>${bean.tsol11}</td>
+					<td>${bean.tsol12}</td>
+					<td>${bean.at1}</td>
+					<td>${bean.at2}</td>
+					<td>${bean.at3}</td>
+					<td>${bean.sal1}</td>
+					<td>${bean.sal2}</td>
+					<td>${organizationName}</td>
+				</tr>
+				<tr>
+					<td>Нийт</td>
+					<td class="all">${allnum}</td>
+					<td>${allfemale}</td>
+					<td>${allmale}</td>
+					<td>${allage1}</td>
+					<td>${allage2}</td>
+					<td>${allage3}</td>
+					<td>${allage4}</td>
+					<td>${allage5}</td>
+					<td>${allage6}</td>
+					<td>${allage7}</td>
+					<td>${allage8}</td>
+					<td>${allage9}</td>
+					<td>${alledu1}</td>
+					<td>${alledu2}</td>
+					<td>${alledu3}</td>
+					<td>${alledu4}</td>
+					<td>${alledu5}</td>
+					<td>${alledu6}</td>
+					<td>${alledu7}</td>
+					<td>${alledu8}</td>
+					<td>${alltsol1}</td>
+					<td>${alltsol2}</td>
+					<td>${alltsol3}</td>
+					<td>${alltsol4}</td>
+					<td>${alltsol5}</td>
+					<td>${alltsol6}</td>
+					<td>${alltsol7}</td>
+					<td>${alltsol8}</td>
+					<td>${alltsol9}</td>
+					<td>${alltsol10}</td>
+					<td>${alltsol11}</td>
+					<td>${alltsol12}</td>
+					<td>${allat1}</td>
+					<td>${allat2}</td>
+					<td>${allat3}</td>
+					<td>${allsal1}</td>
+					<td>${allsal2}</td>
+					<td>Нийт</td>
+				</tr>
+			</tbody>
+		</table>
+	</fieldset>
+</body>
+</html>

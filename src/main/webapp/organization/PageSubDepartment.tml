@@ -1,0 +1,63 @@
+<html t:type="layoutCD" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+    <body>
+		<t:form>
+		
+			<fieldset>
+				<legend>${message:subDepartment}</legend>
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:subDepartmentName}</label>
+							<t:textfield 
+								t:id="name" 
+								t:value="subDepartment.name" 
+								validate="required"/>	
+						</td>
+						<td>
+				 			<t:submit t:id="saveSubDepartment" value="${message:save}" />
+			     			<t:actionlink t:id="cancelSubDepartment">
+								<input type="button" class="btnFind" value="${message:cancel}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		
+			<fieldset>
+				<legend>${message:subDepartment} - ${listSize}</legend>
+				<t:grid 
+					t:source="listSubDepartment" 
+					t:row="valueSubDepartment" 
+					t:include="id,name" 
+					add="edit,delete" rowsPerPage="10"
+					inPlace="true">
+											
+					<p:editCell>
+						<t:security.HasPermission permission= "edit_department">
+							<t:actionlink t:id="edit" t:context="valueSubDepartment">
+								Засах
+							</t:actionlink>
+						</t:security.HasPermission>
+					</p:editCell>
+											
+					<p:deleteCell>
+						<t:security.HasPermission permission= "delete_department">
+							<t:actionlink t:id="deleteDepartment" t:context="valueSubDepartment" 
+								t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+								Устгах
+							</t:actionlink>
+						</t:security.HasPermission>	
+					</p:deleteCell>
+											
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+			</fieldset>
+		</t:form>
+	</body> 
+</html>

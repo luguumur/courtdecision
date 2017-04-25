@@ -1,0 +1,134 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<div>
+		<div>
+			<t:zone t:id="nowResultZone" id="nowResultZone">
+				<t:form t:id="nowResultForm" t:zone="nowResultZone">
+					<div style="width: 100%">
+						<table class="form">
+							<thead>
+								<td>Үр дүнгийн гэрээний биелэлт</td>
+								<td>Өгвөл зохих оноо</td>
+								<td>Өгсөн/дундаж оноо</td>
+							</thead>
+							<tr>
+								<td><span class="red">*</span> ${message:allProductSupply}</td>
+								<td>0-40</td>
+								<td><t:textfield t:id="allSupplyScore"
+										t:value="result.allSupplyScore" t:validate="required, max=40" /></td>
+							</tr>
+							<tr>
+								<td><span class="red">*</span>
+									${message:specialProductSupply}</td>
+								<td>0-40</td>
+								<td><t:textfield t:id="specialSupplyScore"
+										t:value="result.specialSupplyScore"
+										t:validate="required,max=40" /></td>
+							</tr>
+							<tr>
+								<td><span class="red">*</span>
+									${message:qualificationLevel}</td>
+								<td>0-30</td>
+								<td><t:textfield t:id="qualificationLevel"
+										t:value="result.qualificationLevel"
+										t:validate="required,max=30" /></td>
+							</tr>
+							<tr>
+								<td><span class="red">*</span> ${message:contractDate}</td>
+								<td><t:datefield t:id="date" t:value="result.contractDate"
+										t:validate="required" t:format="yyyy-MM-dd" /></td>
+							</tr>
+							<tr>
+								<td><span class="red">*</span>
+									${message:directSuperiorScore}</td>
+								<td><t:select t:model="LanguageLevelSelectionModel"
+										t:value="result.directSuperiorScore" t:validate="required" /></td>
+							</tr>
+							<tr>
+								<td>${message:directSuperiorCause}</td>
+								<td><t:textarea t:value="result.directSuperiorCause" /></td>
+							</tr>
+							<tr>
+								<td><span class="red">*</span> ${message:SuperiorScore}</td>
+								<td><t:select t:model="LanguageLevelSelectionModel"
+										t:value="result.SuperiorScore" t:validate="required" /></td>
+							</tr>
+							<tr>
+								<td>${message:SuperiorCause}</td>
+								<td><t:textarea t:value="result.SuperiorCause" /></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td style="text-align: right;" colspan="2"><t:submit
+										t:id="saveResultContract" class="btnFind save"
+										value="${message:save}" /> <t:actionlink t:id="cancel"
+										t:zone="nowResultZone">
+										<input type="button" class="btnFind refresh"
+											value="${message:cancel}" />
+									</t:actionlink></td>
+							</tr>
+						</table>
+					</div>
+
+				</t:form>
+			</t:zone>
+			<t:zone t:id="preResultListZone" id="preResultListZone">
+				<div style="width: 100%">
+					<table id="newspaper-c" style="width: 100%">
+						<tr>
+							<td align="left"><t:grid t:source="listResultContract"
+									t:row="valueResultContract" rowClass="gridRowCSS"
+									style="width:100%"
+									include="allSupplyScore,specialSupplyScore,qualificationLevel"
+									add="startContractDate,edit,delete,number" reOrder="number"
+									rowsPerPage="25">
+									<p:numberCell>
+							${number}
+						</p:numberCell>
+									<p:startContractDateCell>
+							${contractDate}
+						</p:startContractDateCell>
+									<p:allSupplyScoreCell>
+							${allSupply}
+						</p:allSupplyScoreCell>
+									<p:specialSupplyScoreCell>
+							${specialSupply}
+						</p:specialSupplyScoreCell>
+									<p:qualificationLevelCell>
+							${qualification}
+						</p:qualificationLevelCell>
+									<p:editCell>
+										<t:actionlink t:id="editResult" class="editRow"
+											t:context="valueResultContract" t:zone="nowResultZone">
+												Засах
+											</t:actionlink>
+									</p:editCell>
+									<p:deleteCell>
+										<t:actionlink t:id="delete" t:context="valueResultContract"
+											t:mixins="confirmDelete"
+											message="${message:AreYouSureDelete}"
+											t:zone="preResultListZone">
+												Устгах
+											</t:actionlink>
+									</p:deleteCell>
+									<p:empty>
+									${message:noData}						
+						</p:empty>
+								</t:grid>
+								<p align="right">
+									<t:actionlink t:id="export">
+										<img src="${imgExcel}" />
+									</t:actionlink>
+								</p></td>
+						</tr>
+					</table>
+				</div>
+			</t:zone>
+		</div>
+	</div>
+
+
+
+</t:container>

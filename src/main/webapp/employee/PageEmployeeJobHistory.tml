@@ -1,0 +1,143 @@
+﻿<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> <t:form>
+
+	<div style="width:100%">
+	<br />
+	<table id="newspaper-c">
+	<tr>
+	<td>
+		<fieldset>
+	    	<legend class="legendTitle">Албан хаагчийн ажлын туршлага</legend>
+			<t:grid t:source="listExperience" t:row="valueExperience" style="width:100%" rowClass="gridRowCSS" 
+			include="organizationType,organizationName,appointment,startDate,endDate" add="number"
+			reOrder="number" rowsPerPage="10">
+		    		<p:startDateCell>
+			${startday}
+			</p:startDateCell>
+			<p:endDateCell>
+				${endday}
+			</p:endDateCell>
+			<p:numberCell>
+						${number}
+			</p:numberCell>
+			<p:empty>
+					${message:noData}
+			</p:empty>
+		</t:grid>
+		<p align="right">
+			<t:actionlink t:id="exportEmpExpierence">
+					<img src="${imgExcel}" />
+			</t:actionlink>
+		</p>
+		</fieldset>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<fieldset>
+	    	<legend class="legendTitle">Албан хаагчийн шилжих хөдөлгөөний түүх</legend>
+			<t:grid t:source="listCurrentOccupation" t:row="valueCurrentOccupation" style="width:100%" rowClass="gridRowCSS" 
+			include="appointment,toAppointment,organization,toOrganization" t:add="IssuedDatea,QuitDatea,edit,delete,numberCo"
+			reOrder="numberCo" rowsPerPage="10">
+			<p:issuedDateaCell>
+				${issuedDatea}
+			</p:issuedDateaCell>
+			<p:quitDateaCell>
+				${quitDatea}
+			</p:quitDateaCell>
+			<p:appointmentCell>
+				${appointmentName}
+			</p:appointmentCell>
+			<p:toAppointmentCell>
+				${toAppointmentName}
+			</p:toAppointmentCell>
+			<p:organizationCell>
+				${organizationName}
+			</p:organizationCell>
+			<p:toOrganizationCell>
+				${toOrganizationName}
+			</p:toOrganizationCell>
+			<p:deleteCell>
+				<t:security.hasPermission permission="delete_employee_displacement">
+					<t:actionlink t:id="delete" t:context="valueCurrentOccupation" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+				</t:security.hasPermission>
+			</p:deleteCell>	
+			<p:editCell>
+				<t:security.hasPermission permission="edit_employee_displacement">
+					<t:actionlink t:id="editDisplacement" t:context="valueCurrentOccupation">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>	
+			<p:numberCoCell>
+						${numberCo}
+			</p:numberCoCell>
+			<p:empty>
+					${message:noData}
+			</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportEmpMovement">
+						<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</fieldset>
+	</td>
+	</tr>
+	<tr>
+	<td>
+		<fieldset>
+	    	<legend class="legendTitle">Албан хаагчийн ажлаас гарсан түүх</legend>
+				<t:grid t:source="listQuitJob" t:row="valueQuitJob" style="width:100%" rowClass="gridRowCSS"
+					include="quitType,quitCause,month,money" t:add="quit,numberQ,edit,delete"
+				reOrder="numberQ" rowsPerPage="10">
+			<p:quitCell>
+				${quitDat}
+			</p:quitCell>
+			<p:quitCauseCell>
+				${quitCauseName}
+			</p:quitCauseCell>
+			<p:monthCell>
+				${monthQuantity}
+			</p:monthCell>
+			<p:numberQCell>
+						${numberQ}
+			</p:numberQCell>
+			<p:deleteCell>
+				<t:security.hasPermission permission="delete_employee_quitJob">
+					<t:actionlink t:id="deleteQuitJob" t:context="valueQuitJob" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+				</t:security.hasPermission>
+			</p:deleteCell>	
+			<p:editCell>
+				<t:security.hasPermission permission="edit_employee_quitJob">
+					<t:actionlink t:id="editQuitJob" t:context="valueQuitJob">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>
+			<p:empty>
+					${message:noData}
+			</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportEmpQuitJob">
+						<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</fieldset>
+		</td>
+		</tr>
+	</table>
+	</div>
+
+</t:form> </body> 
+</html>

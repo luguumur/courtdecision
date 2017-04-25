@@ -1,0 +1,107 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+ <head>
+	
+	</head>
+	<body>
+		<t:form>
+			<div>
+				<fieldset style="padding-top:0px; padding-bottom:0px;">
+					<legend class="legendTitle">${message:search}</legend>
+					<table id="newspaper-searchSalCon" width="100%">
+						<tr>
+							<td>
+								Төрийн захиргааны зэрэглэл: <br/>
+								<t:select t:model="levelSelectionModel" t:value="searchSalary.level"/>
+							</td>
+							<td>
+								Цалингийн сүлжээний шатлал: <br/>
+								<t:select t:model="salaryPhaseSelectionModel" t:value="searchSalary.phase"/>
+							</td>
+							<td style="text-align:right;">
+								<t:submit t:id="search" class="btnFind search" t:value="${message:search}"/>
+							</td>
+						</tr>
+					</table>
+				</fieldset>
+			</div>
+		</t:form>
+					
+		<t:form>
+			<div>
+				<fieldset style="padding-top:0px; padding-bottom:0px;">
+					<legend class="legendTitle">Шинээр бүртгэх</legend>
+						<table width="100%">	
+							<tr>
+								<td>
+									Төрийн захиргааны зэрэглэл: <br/>
+									<t:select t:model="levelSelectionModel" t:value="salary.level" t:validate="required"/>
+								</td>
+								<td>
+									Цалингийн сүлжээний шатлал: <br/>
+									<t:select t:model="salaryPhaseSelectionModel" t:value="salary.phase" t:validate="required"/>
+								</td>
+								<td>
+									Цалингийн дүн<span class="red">*</span>: <br/>
+									<t:textfield t:value="salary.amount" t:validate="required"/>
+								</td>
+							</tr>
+							<tr>	
+								<td>
+									Огноо<span class="red">*</span>: <br/>
+									<t:datefield t:value="salary.date"  t:format="yyyy-MM-dd" t:validate="required"/>
+								</td>
+								<td>
+									Хүчинтэй хугацаа/жилээр/<span class="red">*</span>: <br/>
+									<t:textfield t:value="salary.validTime" t:validate="required"/>
+								</td>
+								<td>
+									Идэвхитэй :<br/>
+									<t:checkbox t:value="salary.active"/>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align:right;" colspan="3">
+									<t:submit t:id="save" class="btnFind save" style="margin-top:13px;" t:value="${message:save}"/>
+								</td>
+							</tr>
+						</table>
+				</fieldset>
+			</div>
+			<div>
+				<t:grid t:source="listTuriinZahirgaaSalaryNetwork" t:row="valueTuriinZahirgaaSalaryNetwork"
+				t:include="level,phase,amount,date,active" t:add="number,edit,delete" rowsPerPage="25" reOrder="number">
+				 	<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:levelCell>
+						${level}
+					</p:levelCell>
+					<p:phaseCell>
+						${phase}
+					</p:phaseCell>
+					<p:amountCell>
+						${amount}
+					</p:amountCell>
+					<p:dateCell>
+						${date}
+					</p:dateCell>
+					<p:activeCell>
+						${active}
+					</p:activeCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueTuriinZahirgaaSalaryNetwork">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueTuriinZahirgaaSalaryNetwork">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid>
+			</div>
+		</t:form>
+	</body> 
+ </html>

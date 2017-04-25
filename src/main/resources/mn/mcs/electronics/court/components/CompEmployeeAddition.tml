@@ -1,0 +1,273 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns="tapestryarameter" xmlns:p="tapestry:parameter">
+	<fieldset>
+		<legend>${message:honourInformation}</legend>
+		<t:zone t:id="awardZone" id="awardZone">
+			<t:form t:zone="awardZone">
+				<t:if test="show">
+					<table class="form">
+						<tr>
+							<td><label><span class="red">*</span>${message:awardType}</label>
+								<t:select 
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" 
+								t:id="shagnalClick" 
+								t:model="AwardTypeSelectionModel"
+								t:value="honour.awardType"
+								t:validate="required" 
+								t:zone="shagnalZone" /></td>
+							<td><label><span class="red">*</span>${message:PrizeName}</label>
+								<t:zone t:id="shagnalZone" id="shagnalZone" style="display: inline;">
+									<t:if test="!otherOrganizationPrize">
+										<t:select t:model="StatePrizeSelectionModel"
+											t:value="honour.award" t:validate="required" />
+									</t:if>
+									<t:if test="otherOrganizationPrize">
+										<t:textfield t:id="ohterOrganizationPrize"
+											t:value="honour.otherPrize" t:validate="required" />
+									</t:if>
+								</t:zone></td>
+							<td><span class="red">*</span>${message:DateOfAwarded} <t:datefield
+									t:id="DateOfAward" t:value="honour.dateOfAwarded"
+									t:format="yyyy-MM-dd" t:validate="required" /></td>
+							<td><label>${message:authenticationId}</label> <t:textfield
+									t:value="honour.authenticationId" /></td>
+						</tr>
+						<tr valign="top">
+							<td><label>${message:dictateId}</label> <t:textfield
+									style="width: 90%" t:value="honour.dictateId" /></td>
+							<td><label>${message:description}</label> <t:textarea
+									t:value="honour.description" /></td>
+							<td style="text-align: right;" colspan="2" valign="bottom">
+								<t:submit t:id="SaveState" t:value="${message:save}" /> <t:actionlink
+									t:id="CancelState" t:zone="awardZone">
+									<input type="button" value="${message:cancel}" />
+								</t:actionlink>
+							</td>
+						</tr>
+					</table>
+				</t:if>
+				<t:grid t:source="listHonour" t:row="valueHonour"
+					include="awardType,authenticationId,dictateId,dateOfAwarded"
+					t:add="edit,delete, number, awardName" rowsPerPage="15"
+					reOrder="number, awardType,awardName">
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:awardNameCell>
+						${awardName}
+					</p:awardNameCell>
+					<p:dateOfAwardedCell>
+						${dateOfAwarded}
+					</p:dateOfAwardedCell>
+
+					<p:editCell>
+						<t:security.hasPermission permission="edit_honour">
+							<t:actionlink t:id="editState" t:context="valueHonour"
+								t:zone="awardZone">
+								<img src="${editIcon}" />
+							</t:actionlink>
+						</t:security.hasPermission>
+					</p:editCell>
+
+					<p:deleteCell>
+						<t:security.hasPermission permission="delete_honour">
+							<t:actionlink t:id="deleteState" t:context="valueHonour"
+								t:mixins="confirmDelete" message="${message:AreYouSureDelete}"
+								t:zone="awardZone">
+								<img src="${deleteIcon}" />
+							</t:actionlink>
+						</t:security.hasPermission>
+					</p:deleteCell>
+
+					<p:empty>
+					${message:noData}
+				</p:empty>
+
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="export">
+						<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+			</t:form>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend>${message:demeritInformation}</legend>
+		<t:zone t:id="sahilgaZone" id="sahilgaZone">
+			<t:form t:zone="sahilgaZone">
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>${message:commandSubject}</label>
+							<t:select t:model="commandSubjectSelectionModel"
+								t:value="sahilga.commandSubject" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:sahilgaTurul}</label>
+							<t:select t:model="sahilgaTurulSelectionModel"
+								t:value="sahilga.sahilgaTurul" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:demeritType}</label>
+							<t:select t:model="sahilgaShiitgelSelectionModel"
+								t:value="sahilga.sahilgaShiitgel" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:fond}</label>
+							<t:textarea t:id="undeslel" t:value="sahilga.cause"
+								t:validate="required" /></td>
+					</tr>
+					<tr>
+						<td><label><span class="red">*</span>
+								${message:blamedDate}</label> <t:datefield t:id="blamedDate"
+								t:value="sahilga.shiitgelAvagdsanOgnoo" t:validate="required"
+								t:format="yyyy-MM-dd" /></td>
+						<td><label>${message:tushaalDugaar}</label> <t:textfield
+								t:id="tushaalDugaar" t:value="sahilga.avagdsanShiitgelDugaar" />
+						</td>
+						<td><label>${message:arilgasanTushaalOgnoo}</label> <t:datefield
+								t:id="arilgasanTushaalOgnoo"
+								t:value="sahilga.arilgasanTushaalOgnoo" t:format="yyyy-MM-dd" />
+						</td>
+						<td><label>${message:arilgasanTushaalDugaar}</label> <t:textfield
+								style="width: 90%" t:id="arilgasanTushaalDugaar"
+								t:value="sahilga.arilgasanTushaalDugaar" /></td>
+					</tr>
+					<tr>
+						<td style="text-align: right;" colspan="4"><t:submit
+								t:id="SaveSahilga" class="btnFind save"
+								t:value="${message:save}" /> <t:actionlink t:id="CancelSahilga"
+								t:zone="sahilgaZone">
+								<input type="button" class="btnFind refresh"
+									value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+				<t:grid t:source="listSahilga" t:row="valueSahilga"
+					t:include="commandSubject,sahilgaTurul,sahilgaShiitgel,cause"
+					t:exclude="shiitgelAvagdsanOgnoo,arilgasanTushaalOgnoo"
+					add="number,shiitgelAvagdsanDate,arilgasanTushaalDate,edit,delete"
+					reorder="number,commandSubject,sahilgaTurul,sahilgaShiitgel,cause"
+					rowsPerPage="15" reOrder="number">
+					<p:numberCell>
+			    		${numberSahilga}
+			    	</p:numberCell>
+					<p:commandSubjectCell>
+			    		${valueSahilga?.commandSubject?.subjectName}
+			    	</p:commandSubjectCell>
+					<p:sahilgaTurulCell>
+			    		${valueSahilga?.sahilgaTurul?.sahilgaTurulName}
+			    	</p:sahilgaTurulCell>
+					<p:sahilgaShiitgelCell>
+			    		${valueSahilga?.sahilgaShiitgel?.shiitgelName}
+			    	</p:sahilgaShiitgelCell>
+					<p:shiitgelAvagdsanDateCell>
+			    		${shiitgelAvagdsanOgnoo}
+			    	</p:shiitgelAvagdsanDateCell>
+					<p:arilgasanTushaalDateCell>
+			    		${arilgasanTushaalOgnoo}
+			    	</p:arilgasanTushaalDateCell>
+					<p:editCell>
+						<t:actionlink t:id="editSahilga" t:context="valueSahilga"
+							t:zone="sahilgaZone">
+							<img src="${editIcon}" />
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="deleteSahilga" t:context="valueSahilga"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}"
+							t:zone="sahilgaZone">
+							<img src="${deleteIcon}" />
+						</t:actionlink>
+					</p:deleteCell>
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="exportDemerit">
+						<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+			</t:form>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend>${message:allowanceInformation}</legend>
+		<t:zone t:id="tetgemjZone">
+			<t:form t:zone="tetgemjZone">
+				<table class="form">
+					<tr>
+						<td><label><span class="red">*</span>${message:commandSubject}</label>
+							<t:select t:model="commandSubjectSelectionModel"
+								t:value="allowance.commandSubject" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:allowanceType}</label>
+							<t:select t:model="allowanceTypeSelectionModel"
+								t:value="allowance.allowanceType" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:fond}</label>
+							<t:textarea t:id="cause" t:value="allowance.cause"
+								t:validate="required" /></td>
+						<td><span class="red">*</span>${message:dictateId} <t:textfield
+								t:id="allowanceNumber" t:value="allowance.tushaalDugaar"
+								t:validate="required" /></td>
+					</tr>
+					<tr>
+
+						<td><label><span class="red">*</span>${message:allowanceMoney}</label>
+							<t:textfield t:id="allowanceMoney"
+								t:value="allowance.allowanceMoney" t:validate="required" /></td>
+						<td><label><span class="red">*</span>${message:olgosonOgnoo}</label>
+							<t:datefield t:id="allowanceDate"
+								t:value="allowance.olgosonOgnoo" t:validate="required"
+								t:format="yyyy-MM-dd" /></td>
+						<td style="text-align: right;" colspan="2" valign="bottom"><t:submit
+								t:id="SaveAllowance" class="btnFind save"
+								t:value="${message:save}" /> <t:actionlink
+								t:id="CancelAllowance" t:zone="tetgemjZone">
+								<input type="button" class="btnFind refresh"
+									value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+				<t:grid t:source="listAllowance" t:row="valueAllowance"
+					include="tushaalDugaar,commandSubject,allowanceType,cause,allowanceMoney"
+					add="dateOfAllowance,number,edit,delete" reOrder="number"
+					rowsPerPage="15">
+
+					<p:numberCell>
+					    		${numberAllowance}
+					    </p:numberCell>
+					<p:commandSubjectCell>
+					    		${valueAllowance?.commandSubject?.subjectName}
+					    </p:commandSubjectCell>
+					<p:allowanceTypeCell>
+					    		${valueAllowance?.allowanceType?.allowanceTypeName}
+					    </p:allowanceTypeCell>
+					<p:allowanceTypeCell>
+					    		${valueAllowance?.allowanceType?.allowanceTypeName}
+					    </p:allowanceTypeCell>
+					<p:allowanceMoneyCell>
+					    		${valueAllowance?.allowanceMoney}
+					    </p:allowanceMoneyCell>
+					<p:dateOfAllowanceCell>
+					    		${dateOfAllowance}
+					    </p:dateOfAllowanceCell>
+					<p:editCell>
+						<t:actionlink t:id="editAllowance" t:context="valueAllowance"
+							t:zone="tetgemjZone">
+							<img src="${editIcon}" />
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="deleteAllowance" t:context="valueAllowance"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}"
+							t:zone="tetgemjZone">
+							<img src="${deleteIcon}" />
+						</t:actionlink>
+					</p:deleteCell>
+					<p:empty>
+							${message:noData}
+						</p:empty>
+				</t:grid>
+			</t:form>
+		</t:zone>
+	</fieldset>
+</t:container>

@@ -1,0 +1,40 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+	<body> 
+		<t:form>	
+			<div>
+				<table>
+					<tr>
+						<td>
+							${message:EducationDoctor} :
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<t:textfield value="educationDoctorType.name" t:validate="required"/> &nbsp;
+							<t:submit t:id="save" t:value="${message:save}" class="btnFind save"/>
+						</td>
+					</tr>
+				</table>
+			</div><br/>
+			<div>
+				<t:grid t:source="listEducationDoctor" t:row="valueDegreeTypeOfEducationDoctor" t:include="id,name" t:add="edit,delete"
+				 rowsPerPage="15" >
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueDegreeTypeOfEducationDoctor">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueDegreeTypeOfEducationDoctor">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		</t:form> 
+	</body> 
+</html>

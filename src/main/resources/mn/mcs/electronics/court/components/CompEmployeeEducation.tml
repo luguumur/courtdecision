@@ -1,0 +1,457 @@
+<t:container
+xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+xmlns="tapestryarameter" xmlns:p="tapestry:parameter">
+
+<fieldset>
+	<legend>${message:educationInformation}</legend>
+	<t:zone t:id="educationInfoZone" id="educationInfoZone">
+	<t:form t:zone="educationInfoZone">
+		<table class="form">
+			<t:if test="show">
+				<tr>
+					<td>
+						<label><span class="red">*</span>${message:country}</label>
+						<t:select 
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}"
+							t:id="ulsClick" 
+							t:model="countrySelectionModel" 
+							t:value="education.country" 
+							t:validate="required" 
+							t:zone="eduLocZone"/>
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:city}</label>
+						<t:zone t:id="eduLocZone" id="eduLocZone">
+							<t:if test="mongolia">
+								<t:select 
+									t:id="aimagClick" 
+									t:model="provinceSelectionModel" 
+									t:value="education.city" 
+									t:validate="required" 
+									t:zone="sumZone"
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" />
+									<p:else>
+										<t:select 
+											t:blankOption="ALWAYS"
+											t:blankLabel="${message:Choose}"
+											t:model="citySelectionModel" 
+											t:value="education.cityProvince" 
+											t:validate="required" />
+									</p:else>
+							</t:if>
+						</t:zone>
+					</td>
+					<td>
+						<label>Сум дүүрэг</label>
+						<t:zone t:id="sumZone" id="sumZone">
+							<t:select 
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}"
+								t:model="DistrictSumSelectionModel" 
+								t:value="education.districtSum"
+								t:disabled="visibleSumDuureg" />
+						</t:zone>
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:schoolType}</label>
+						<t:select 
+							t:id="schoolTypeClick" 
+							t:model="SchoolTypeSelectionModel" 
+							t:value="education.schoolType" 
+							t:validate="required" 
+							t:zone="surguuliZone,schoolTypeZone" 
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}"/>
+					</td>
+				</tr>
+				<tr>		
+					<td>
+						<label><span class="red">*</span>Өмчийн хэлбэр</label>
+						<t:select
+							t:id="universityTypeClick"  
+							t:model="universityTypeSelectionModel" 
+							t:value="education.universityType" 
+							validate="required"
+							t:zone="surguuliZone"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}" />
+					</td>
+					<td>
+						<label>${message:school}</label>
+						<t:zone t:id="surguuliZone" id="surguuliZone">						
+							<t:if test="primarySchool">
+								<t:textfield t:id="school" t:value="education.school" t:validate="required"/>
+							</t:if>
+							<t:if test="university">
+								<t:select 
+									t:id="university" 
+									t:model="SchoolSelectionModel" 
+									t:value="education.university" 
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}"
+									t:validate="required" />						
+							</t:if>
+							<t:if test="MSUT">
+								<t:textfield t:id="school_msut" t:value="education.school" t:validate="required"/>
+							</t:if>
+							<t:if test="COLLEGE">
+								<t:textfield t:id="school_college" t:value="education.school" t:validate="required"/>
+							</t:if>	
+						</t:zone>					
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:inGoingDate}</label>
+						<t:textfield 
+							t:value="education.ingoingDate" 
+							t:id="inGoingDate" 
+							t:validate="required"/>
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:graduatedDate}</label>
+						<t:textfield 
+							t:value="education.graduatedDate" 
+							t:id="graduatedDate" 
+							t:validate="required"/>
+					</td>
+				</tr>
+				<tr>	
+					<td>
+						<label><span class="red">*</span>${message:degreeType}</label>
+						<t:select 
+							t:id="degreeType"
+							t:blankOption="ALWAYS"
+							t:blankLabel="${message:Choose}"
+							t:model="degreeTypeSelectionModel" 
+							t:value="education.degreeType" 
+							t:validate="required"
+							t:zone="schoolTypeZone"/></td>
+					<td>
+						<label>${message:position}</label>
+						<t:zone t:id="schoolTypeZone" id="schoolTypeZone">						
+							<t:select 
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}"
+								t:model="OccupationSelectionModel" 
+								t:value="education.occupation"
+								t:disabled="occDisabled" />
+						</t:zone>
+					</td>
+					<td>
+						<label>${message:occupationOther}</label>
+						<t:textfield 
+							t:value="education.occupationOther"/>
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:diplomaNo}</label>
+						<t:textfield 
+							t:id="diplomaNo"
+							t:value="education.diplomaNo"
+							t:validate="required"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						${message:diplomaSubject}
+						<t:textfield 
+							t:value="education.diplomaSubject"/>
+					</td>	
+					<td colspan="3" style="text-align:right;" valign="bottom">
+						<t:security.hasPermission permission="add_education">
+							<t:submit t:id="save" t:value="${message:save}"/>
+						</t:security.hasPermission>
+						<t:actionlink t:id="cancel" t:zone="educationInfoZone">
+							<input type="button"  value="${message:cancel}"/>
+						</t:actionlink>
+					</td>
+				</tr>
+			</t:if>
+			</table>
+		</t:form>
+	</t:zone>	
+	
+	<t:zone t:id="educationListZone" id="educationListZone">	
+		<t:grid 
+			t:source="listEducation" 
+			t:row="valueEducation" 
+			t:include="school,degreeType,occupation,occupationOther,
+				ingoingDate,graduatedDate,country" 
+			t:add="edit,delete,numberCo" 
+			reOrder="numberCo" rowsPerPage="10"
+			inPlace="true">
+			<p:numberCoCell>
+				${numberCo}
+			</p:numberCoCell>
+			<p:degreeTypeCell>
+				${valueEducation?.degreeType?.name}
+			</p:degreeTypeCell>
+			<p:occupationCell>
+				${valueEducation?.occupation?.name}
+			</p:occupationCell>
+			<p:countryCell>
+				${countryName}
+			</p:countryCell>
+			<p:ingoingDateCell>
+				${ingoingDate}
+			</p:ingoingDateCell>
+			<p:graduatedDateCell>
+				${graduatedDate}
+			</p:graduatedDateCell>
+			<p:schoolCell>
+				${schoolCell}
+			</p:schoolCell>
+			<p:editCell>
+				<t:security.hasPermission permission="edit_education">
+					<t:actionlink t:id="edit" t:context="valueEducation"  t:zone="educationInfoZone">
+						Засах
+					</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>
+			<p:deleteCell>
+				<t:security.hasPermission permission="delete_education">
+					<t:actionlink t:id="delete" t:context="valueEducation" t:mixins="confirmDelete" message="${message:AreYouSureDelete}" t:zone="educationInfoZone">
+						Устгах
+					</t:actionlink>
+				</t:security.hasPermission>
+			</p:deleteCell>
+			<p:empty>
+				${message:noData}
+			</p:empty>
+		</t:grid>
+		<p align="right">
+			<t:actionlink t:id="exportEducation">
+					<img src="${imgExcel}" />
+			</t:actionlink>
+		</p>
+	</t:zone>	
+</fieldset>
+
+<fieldset>
+	<legend>${message:degreeInformation}</legend>
+	<t:zone t:id="degreeInfoZone" id="degreeInfoZone">
+	<t:form t:zone="degreeInfoZone">
+		<table class="form">
+			<t:if test="show">
+				<tr>
+					<td>
+						<label><span class="red">*</span>${message:doctorType}</label>
+						<t:select 
+							t:id="doctorTypeClick" 
+							t:model="DoctorTypeSelectionModel" 
+							t:value="doctorType" 
+							t:validate="required" 
+							t:zone="doctorZone"/>
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:degree}</label>
+						<t:zone t:id="doctorZone" id="doctorZone">
+							<t:if test="educationDoctor">
+								<t:select 
+									t:model="educationDoctorTypeSelectionModel" 
+									t:value="educationDoctorType" 
+									t:validate="required" />
+							</t:if>
+							<t:if test="scienceDoctor">
+								<t:select 
+									t:model="scienceDoctorTypeSelectionModel" 
+									t:value="scienceDoctorType" 
+									t:validate="required" />
+							</t:if>
+						</t:zone>	
+					</td>
+					<td>
+						<label><span class="red">*</span>${message:issuedPlace}</label>
+						<t:select 
+							t:model="countrySelectionModel" 
+							t:value="degrees.issuedCountry" 
+							t:validate="required"/>
+					</td>
+					<td>
+						<label>${message:issuedSubject}</label>
+						<t:textfield t:value="degrees.subject"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<label><span class="red">*</span>${message:degreeDate}</label>
+						<t:textfield 
+							t:id="date" 
+							t:value="degrees.issuedDate"/>
+					</td>
+					<td>
+						<span class="red">*</span>${message:certificatedNo}
+						<t:textfield 
+							t:id="certificatedNo" 
+							t:value="degrees.certificatedNo" 
+							t:validate="required" />
+					</td>
+					<td colspan="2" align="right" valign="bottom">
+						<t:security.hasPermission permission="add_degree">
+							<t:submit t:id="saveDegree" t:value="${message:save}"/>
+						</t:security.hasPermission>
+						
+						<t:actionlink t:id="cancelDegree" t:zone="degreeInfoZone"> 
+							<input type="button" value="${message:cancel}"/>
+						</t:actionlink>
+					</td>
+				</tr>
+			</t:if>
+		</table>
+	</t:form>
+	</t:zone>
+	
+	<t:zone t:id="degreeListZone" id="degreeListZone">
+		<t:grid 
+			t:source="listDegrees" 
+			t:row="valueDegrees" 
+			t:include="doctorType,issuedCountry,certificatedNo" 
+			t:add="degreeDate,edit,delete,number"
+			reOrder="number" rowsPerPage="25"
+			inPlace="true">
+			<p:numberCell>
+				${number}
+			</p:numberCell>
+			<p:doctorTypeCell>
+				${doctorTypeName}
+			</p:doctorTypeCell>
+			<p:issuedCountryCell>
+				${issuedCountryName}
+			</p:issuedCountryCell>
+			<p:degreeDateCell>
+				${degreeDate}
+			</p:degreeDateCell>
+			<p:editCell>
+				<t:security.hasPermission permission="edit_degree">
+					<t:actionlink t:id="editDegree" t:context="valueDegrees" t:zone="degreeInfoZone">
+						Засах
+					</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>
+			<p:deleteCell>
+				<t:security.hasPermission permission="delete_degree" t:zone="degreeInfoZone">
+					<t:actionlink t:zone="degreeInfoZone" t:id="deleteDegree" t:context="valueDegrees" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+						Устгах
+					</t:actionlink>
+				</t:security.hasPermission>
+			</p:deleteCell>
+			<p:empty>
+					${message:noData}
+			</p:empty>
+		</t:grid>
+		<p align="right">
+			<t:actionlink t:id="exportDegrees">
+				<img src="${imgExcel}" />
+			</t:actionlink>
+		</p>
+	</t:zone>
+</fieldset>
+
+<fieldset>
+	<legend>${message:employeeAcademicRank}</legend>
+	<t:zone t:id="empAcademicRankZone" id="empAcademicRankZone">
+	<t:form t:zone="empAcademicRankZone">
+		<table class="form">
+			<t:if test="show">
+			<tr>
+				<td>
+					<label>${message:academicRank}</label>
+					<t:select 
+						t:model="academicRankSelectionModel" 
+						t:value="degreeGradeRank.academicRank"/>
+				</td>
+				<td>
+					<label><span class="red">*</span>${message:rankOrganization}</label>
+					<t:textfield 
+						t:id="rankOrganization" 
+						t:value="degreeGradeRank.rankOrganization" 
+						t:validate="required"/>
+				</td>
+				<td>
+					<label><span class="red">*</span>${message:rankDate}</label>
+					<t:textfield 
+						t:id="rankDate" 
+						t:value="degreeGradeRank.rankDate" 
+						t:validate="required"/>
+				</td>
+				<td>
+					<label><span class="red">*</span>${message:rankCertificate}</label>
+					<t:textfield 
+						t:id="rankCertificate" 
+						t:value="degreeGradeRank.rankCertificate" 
+						t:validate="required"/>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4" align="right">
+					<t:security.HasPermission permission= "edit_degree_grade">
+						<t:submit t:id="saveRank" t:value="${message:save}"/>
+					</t:security.HasPermission>
+					<t:actionlink t:id="cancelRank" t:zone="empAcademicRankZone">
+						<input type="button" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+		</table>
+	</t:form> 
+	</t:zone>
+	
+	<t:zone t:id="empAcademicRankListZone" id="empAcademicRankListZone">
+		<t:grid 
+			t:source="listDegreeGradeRank" 
+			t:row="valueDegreeGradeRank" 
+			include="academicRank,rankOrganization,rankDate,rankCertificate" 
+			add="edit,delete,numberRank" 
+			reOrder="numberRank" rowsPerPage="25"
+			inPlace="true">
+			<p:numberRankCell>
+				${numberRank}
+			</p:numberRankCell>
+			<p:academicRankCell>
+				${academicRank}
+			</p:academicRankCell>
+			<p:rankOrganizationCell>
+				${rankOrganization}
+			</p:rankOrganizationCell>
+			<p:rankDateCell>
+				${rankDate}
+			</p:rankDateCell>
+			<p:rankCertificateCell>
+				${rankCertificate}
+			</p:rankCertificateCell>
+			<p:editCell>
+			<t:security.HasPermission permission= "edit_degreeGrade">
+				<t:actionlink 
+					t:id="editRank" 
+					t:context="valueDegreeGradeRank" 
+					t:zone="empAcademicRankZone">
+					Засах
+				</t:actionlink>
+			</t:security.HasPermission>
+			</p:editCell>
+			<p:deleteCell>
+			<t:security.HasPermission permission= "delete_degreeGrade">
+				<t:actionlink 
+					t:id="deleteRank" 
+					t:context="valueDegreeGradeRank" 
+					t:mixins="confirmDelete" 
+					message="${message:AreYouSureDelete}" 
+					t:zone="empAcademicRankZone">
+					Устгах
+				</t:actionlink>
+			</t:security.HasPermission>
+			</p:deleteCell>
+			<p:empty>
+				${message:noData}
+			</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportRank">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+	</t:zone>
+</fieldset>	
+</t:container>
+

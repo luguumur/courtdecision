@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE script PUBLIC
+	"-//Apache Software Foundation//Tapestry Script Specification 3.0//EN"
+	"http://jakarta.apache.org/tapestry/dtd/Script_3_0.dtd">
+  
+<script>
+
+<body>
+
+<![CDATA[ 
+
+function highlightTableRows(tableId) {
+    var previousClass = null;
+    var table = document.getElementById(tableId); 
+    var tbody = table.getElementsByTagName("tbody")[0];
+    if (tbody == null) {
+        var rows = table.getElementsByTagName("tr");
+    } else {
+        var rows = tbody.getElementsByTagName("tr");
+    }
+    // add event handlers so rows light up and are clickable
+    for (i=0; i < rows.length; i++) {
+        rows[i].onmouseover = function() { previousClass=this.className;this.className+=' over' };
+        rows[i].onmouseout = function() { this.className=previousClass };
+    }
+}
+
+function highlightFormElements() {
+    // add input box highlighting 
+    addFocusHandlers(document.getElementsByTagName("input"));
+    addFocusHandlers(document.getElementsByTagName("textarea"));
+}
+
+function addFocusHandlers(elements) {
+    for (i=0; i < elements.length; i++) {
+        if (elements[i].type != "button" && elements[i].type != "submit" &&
+            elements[i].type != "reset" && elements[i].type != "checkbox") {
+            elements[i].onfocus=function() {this.className+=' focus'};
+            elements[i].onclick=function() {this.select()};
+            elements[i].onblur=function() {this.className=''};
+        }
+    }
+}
+
+]]>
+</body>
+
+</script>

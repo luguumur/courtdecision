@@ -1,0 +1,37 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<t:select t:model="tuAaSortSelectionModel" value="tuAaLevel.tuAaSort" t:validate="required"/>
+				<t:select t:model="occupationRankSelectionModel" value="tuAaLevel.tuAaRank" t:validate="required"/>
+				
+				<t:submit t:id="save" t:value="${message:save}"/>
+			</div>
+			<div>
+				<t:grid t:source="listTuAaLevel" t:row="valueTuAaLevel" t:include="id,tuAaSort,tuAaRank" t:add="edit,delete">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueTuAaLevel">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueTuAaLevel">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+					<p:tuAaSortcell>
+						${SortName}
+					</p:tuAaSortcell>
+					<p:tuAaRankcell>
+						${RankName}
+					</p:tuAaRankcell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

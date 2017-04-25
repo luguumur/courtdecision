@@ -1,0 +1,42 @@
+table.display {
+
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: #cfcfcf;
+	border-collapse: collapse;
+	background-color: transparent;
+}
+
+table.display thead th {
+	font-weight: bold;
+	white-space: normal;
+	text-align: left;
+	padding: 7px 5px;
+}
+
+table.display tfoot th {
+	padding: 3px 18px 3px 10px;
+	border-top: 1px solid black;
+	font-weight: bold;
+}
+
+table.display tr.heading2 td {
+	border-bottom: 1px solid #aaa;
+}
+
+table.display td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: #cfcfcf;
+	text-align: left;
+	vertical-align: middle;
+	white-space: nowrap;
+	padding: 7px 5px;
+}
+
+table.display td.center {
+	text-align: center;
+}
+

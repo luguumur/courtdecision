@@ -1,0 +1,122 @@
+<html t:type="layoutCD" title="${message:configuration}"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<script>
+	$(function() {
+		$("#accordion").accordion({
+			heightStyle : "content",
+			autoHeight : false
+		});
+	});
+</script>
+</head>
+
+<body>
+	<div class="accordBox">
+		<div id="accordion">
+			<h3>Роль тохиргоо</h3>
+			<div>
+				<fieldset>
+					<legend>Роль бүртгэл</legend>
+					<t:zone t:id="roleZone" id="roleZone">
+						<t:form t:zone="roleZone">
+							<table class="form">
+								<tr>
+									<td><label><span class="red">*</span>
+											${message:roleName}</label> <t:textfield t:value="role?.name"
+											t:validate="required" /></td>
+									<td rowspan="2" colspan="3"><t:jquery.palette
+											t:id="handling" encoder="encoder" model="model"
+											selected="selectedValues" selectedLabel="${message:selected}"
+											availableLabel="${message:active}" size="40" /></td>
+								</tr>
+								<tr>
+									<td><label>${message:description}</label> <t:textarea
+											t:cols="40" t:rows="2" t:value="role.description" /></td>
+									<td><t:submit t:id="save" t:value="${message:save}" /> <t:actionlink
+											t:id="cancel" t:zone="roleZone">
+											<input type="button" value="${message:cancel}" />
+										</t:actionlink></td>
+								</tr>
+							</table>
+						</t:form>
+					</t:zone>
+				</fieldset>
+
+				<fieldset>
+					<legend>Ролийн жагсаалт</legend>
+					<t:zone t:id="roleListZone" id="roleListZone">
+						<t:grid t:source="listRole" t:row="valueRole"
+							t:include="id,name,description" t:add="edit">
+							<p:editCell>
+								<t:actionlink t:id="edit" t:context="valueRole"
+									t:zone="roleZone">
+								${message:edit}
+							</t:actionlink>
+							</p:editCell>
+						</t:grid>
+					</t:zone>
+				</fieldset>
+			</div>
+
+			<h3>Эрхийн тохиргоо</h3>
+			<div>
+				<fieldset>
+					<legend>Эрхийн бүртгэл</legend>
+					<t:zone t:id="permZone" id="permZone">
+						<t:form t:zone="permZone">
+							<table class="form">
+								<tr>
+									<td><label>${message:permissionName}</label> <t:textfield
+											t:value="permission.permissionName" /></td>
+									<td><label>${message:displayName}</label> <t:textfield
+											t:value="permission.displayName" t:validate="required" /></td>
+									<td></td>
+									<td><t:submit t:id="savePermission"
+											t:value="${message:save}" /></td>
+								</tr>
+							</table>
+						</t:form>
+					</t:zone>
+				</fieldset>
+
+				<fieldset>
+					<legend>Эрхийн жагсаалт</legend>
+					<t:zone t:id="permListZone" id="permListZone">
+						<t:grid t:source="listPermission" t:row="valuePermission"
+							t:include="id,permissionName,displayName" t:add="edit,delete">
+							<p:editCell>
+								<t:actionlink t:id="editPermission" t:context="valuePermission" t:zone="permZone">
+								Засах
+							</t:actionlink>
+							</p:editCell>
+						</t:grid>
+					</t:zone>
+				</fieldset>
+			</div>
+			<h3>Мэдээлэл харах тохиргоо</h3>
+			<div>
+				<t:zone t:id="medZone" id="medZone">
+					<t:form t:zone="medZone">
+						<table class="form">
+							<tr>
+								<td><label>Ажилтан</label> <t:select
+										t:model="userSelectionModel" t:value="rowEmp"
+										onChange="this.form.submit()" t:validate="required" /></td>
+								<td colspan="3"><label>Байгууллага</label> <t:jquery.palette
+										t:id="selectedValuesInfo" encoder="valueEncoderInfo"
+										model="organizationSelectionModel" /></td>
+							</tr>
+							<tr>
+								<td colspan="4"><t:submit t:id="saveInfo"
+										t:value="Хадгалах" /></td>
+							</tr>
+						</table>
+					</t:form>
+				</t:zone>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

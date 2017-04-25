@@ -1,0 +1,96 @@
+<html t:type="layoutCD" title="literal:Court-HR"
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+<head>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+
+		$('#dataTable').dataTable({
+			"sScrollX" : "100%",
+			"sScrollY" : 600,
+			"bScrollCollapse" : true,
+			"bPaginate" : false,
+			"bSort" : false,
+			"bFilter" : false,
+			"bInfo" : false,
+			"asStripeClasses" : [ 'strip1', 'strip2', 'strip3' ]
+
+		});
+	});
+	$("div.divWithScroll").scroll();
+</script>
+</head>
+
+<body class="loader">
+	<fieldset class="divWithScroll">
+		<!-- 		<p align="right"> -->
+		<t:actionlink t:id="export">
+			<img src="/court-decision/assets/0.0.1-SNAPSHOT/ctx/images/excel.jpg" />
+		</t:actionlink>
+		<!-- 		</p> -->
+		<table class="report display dataTable" id="dataTable">
+			<thead>
+				<tr>
+					<th rowspan="2">№</th>
+					<th rowspan="2">Анги албад</th>
+					<th colspan="3">Төсвөөс цалинждаг дутуу орон тоо</th>
+					<th rowspan="2">Нийт</th>
+					<th colspan="3">Орлогоос цалинждаг дутуу орон тоо</th>
+					<th rowspan="2">Нийт</th>
+					<th colspan="3">Дутуу орон тоо</th>
+					<th rowspan="2">Нийт</th>
+					<th rowspan="2">Нийт орон тоо</th>
+				</tr>
+				<tr>
+					<th>Офицер</th>
+					<th>Ахлагч</th>
+					<th>Энгийн</th>
+					<th>Офицер</th>
+					<th>Ахлагч</th>
+					<th>Энгийн</th>
+					<th>Офицер</th>
+					<th>Ахлагч</th>
+					<th>Энгийн</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr t:type="loop" t:source="listBean" t:value="bean" t:index="index">
+					<td>${index}</td>
+					<td>${organizationName}</td>
+					<td>${bean.col1Off}</td>
+					<td>${bean.col1Ahlagch}</td>
+					<td>${bean.col1Engiin}</td>
+					<td>${bean.colTotal1}</td>
+					<td>${bean.col2Off}</td>
+					<td>${bean.col2Ahlagch}</td>
+					<td>${bean.col2Engiin}</td>
+					<td>${bean.colTotal2}</td>
+					<td>${bean.col3Off}</td>
+					<td>${bean.col3Ahlagch}</td>
+					<td>${bean.col3Engiin}</td>
+					<td>${bean.colTotal3}</td>
+					<td>${total}</td>
+				</tr>
+				<tr>
+					<td>${index}</td>
+					<td>Нийт</td>
+					<td>${allCol1Off}</td>
+					<td>${allCol1Ahlagch}</td>
+					<td>${allCol1Engiin}</td>
+					<td>${allColTotal1}</td>
+					<td>${allCol2Off}</td>
+					<td>${allCol2Ahlagch}</td>
+					<td>${allCol2Engiin}</td>
+					<td>${allColTotal2}</td>
+					<td>${allCol3Off}</td>
+					<td>${allCol3Ahlagch}</td>
+					<td>${allCol3Engiin}</td>
+					<td>${allColTotal3}</td>
+					<td>${rowTotal}</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</fieldset>
+</body>
+</html>

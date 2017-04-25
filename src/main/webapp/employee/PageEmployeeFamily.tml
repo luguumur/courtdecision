@@ -1,0 +1,158 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> <t:form>
+	
+	<div style="width:100%">
+		<table id="newspaper-c">
+		<t:if test="show">
+			<tr>
+				<td><span class="red">*</span>${message:relation} :</td>
+				<td><span class="red">*</span>${message:lastname} :</td>
+				<td><span class="red">*</span>${message:firstname} :</td>
+				<td>${message:birthdateFamily} :</td>
+			</tr>
+			<tr>
+				<td><t:select t:model="relationSelectionModel" t:value="relative.relation" t:validate="required"/></td>
+				<td><t:textfield t:id="lastname" t:value="relative.lastname" t:validate="required,minlength=2"/></td>
+				<td><t:textfield t:id="firstname" t:value="relative.firstname" t:validate="required,minlength=2"/></td>
+				<td><t:textfield t:value="relative.birthDate"/></td>
+			</tr>
+			<tr>
+				<td>${message:birthCity} :</td>
+				<td>${message:birthSum} :</td>
+				<td>${message:appointmentType}</td>
+				<td>${message:CurrentJob} :</td>
+				<td><span class="red">*</span>${message:relativeType} :</td>
+			</tr>
+			<tr>
+				<td><t:select t:id="aimagHotClick" t:model="CityProvinceSelectionModel" t:value="relative.birthCityProvince" t:validate="required" t:zone="aimagHotZone"/></td>
+				<td>
+					<t:zone t:id="aimagHotZone" style="display: inline;">
+						<t:select t:model="DistrictSumSelectionModel" t:value="relative.districtSum" t:validate="required"/>
+					</t:zone>		
+				</td>
+				<td><t:select t:model="FamilyAppointmentSelectionModel" t:value="relative.appointmentType" style="width:150px"/></td>
+				<td><t:textfield t:value="relative.occupation"/></td>
+				<td><t:select t:model="relativeSelectionModel" t:value="relative.relativeType" t:validate="required"/></td>
+			</tr>
+		
+			<tr>	
+				<td colspan="5" style="text-align:right;" >
+					  <t:security.hasPermission permission="add_employee_relative">
+							<t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>
+					  </t:security.hasPermission>
+					<t:actionlink t:id="cancel">
+						<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+			</t:if>
+			<tr>
+				<td style="text-align:left;font-weight: bold; color: #669;" colspan="4">
+					${message:FamilyDescription}
+				</td>
+			</tr>	
+			<tr>
+				<td colspan="5"> 
+					<t:grid t:source="listFamily" t:row="valueRelative" rowClass="gridRowCSS" style="width:100%"
+					include="relation, lastname,firstname" add="birthDateFamily,appointmentName,currentJob,edit,delete,number"
+					reOrder="number" rowsPerPage="25">
+						<p:relationCell>
+									${relationName}
+						</p:relationCell>
+						<p:numberCell>
+									${numberF}
+						</p:numberCell>
+						<p:appointmentNameCell>
+							${appointmentName}
+						</p:appointmentNameCell>
+						<p:currentJobCell>
+							${currentJob}
+						</p:currentJobCell>
+						<p:birthDateFamilyCell>
+							${birthday}
+						</p:birthDateFamilyCell>
+						<p:editCell>
+							<t:security.hasPermission permission="edit_employee_relative">
+								<t:actionlink t:id="editFamily" t:context="valueRelative">
+										<img src="${editIcon}"/>
+							</t:actionlink>
+							</t:security.hasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.HasPermission permission= "delete_employee_relative">
+									<t:actionlink t:id="deleteFamily" t:context="valueRelative" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+											<img src="${deleteIcon}"/>
+									</t:actionlink>
+							</t:security.HasPermission>
+						</p:deleteCell>
+						<p:empty>
+								${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportFamily">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+				</tr>
+			<tr>
+					<td style="text-align:left;font-weight: bold; color: #669;" colspan="4">
+						${message:RelativeDescription}
+					</td>
+			</tr>
+			<tr>
+				<td colspan="5"> 
+					<t:grid t:source="listRelative" t:row="valueRelative" rowClass="gridRowCSS" style="width:100%"
+						include="relation, lastname,firstname" add="birthDateFamily,appointmentName,currentJob,edit,delete,number"
+						reOrder="number" rowsPerPage="25">
+						<p:relationCell>
+									${relationName}
+						</p:relationCell>
+						<p:numberCell>
+									${number}
+						</p:numberCell>
+						<p:appointmentNameCell>
+							${appointmentName}
+						</p:appointmentNameCell>
+						<p:currentJobCell>
+							${currentJob}
+						</p:currentJobCell>
+						<p:birthDateFamilyCell>
+							${birthday}
+						</p:birthDateFamilyCell>
+						<p:editCell>
+							<t:security.hasPermission permission="edit_employee_relative">
+								<t:actionlink t:id="edit" t:context="valueRelative">
+										<img src="${editIcon}"/>
+							</t:actionlink>
+							</t:security.hasPermission>
+						</p:editCell>
+						<p:deleteCell>
+							<t:security.HasPermission permission= "delete_employee_relative">
+									<t:actionlink t:id="delete" t:context="valueRelative" t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+												<img src="${deleteIcon}"/>
+									</t:actionlink>
+							</t:security.HasPermission>
+						</p:deleteCell>
+						<p:empty>
+								${message:noData}
+						</p:empty>
+					</t:grid>
+					<p align="right">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</td>
+				</tr>
+		</table>
+	</div>
+</t:form> 
+</body> 
+</html>

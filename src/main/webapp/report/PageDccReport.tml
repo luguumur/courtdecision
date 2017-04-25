@@ -1,0 +1,213 @@
+<html t:type="layout" title="${message:report}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+	<body> <t:form>
+				<br />
+				<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+				<t:actionlink t:id="claimant" class="newButtonCss">${message:claimant}</t:actionlink>
+				<t:actionlink t:id="dccReport" class="newButtonCssSelected">${message:dccReport}</t:actionlink>
+		
+		<div class="block">
+			<div class="newspaper-a">
+				
+				<fieldset>
+				<legend class="legendTitle">${message:search}</legend>
+					<table class="searchField">
+						<tr>
+							<td>${message:claimantFirstName} :</td>
+							<td>${message:claimantLastName} :</td>
+							<td>${message:employee} :</td>
+						</tr>
+						<tr>
+							<td><t:textfield t:value="bean.claimantFirstname"/></td>
+							<td><t:textfield t:value="bean.claimantLastname"/></td>
+							
+							<td>
+								<t:zone t:id="empOrgZone" style="display: inline;">
+									<t:select t:model="EmployeeSelectionModel" t:value="bean.employee" t:blankLabel="${message:all}"/>
+								</t:zone>
+							</td>
+						</tr>
+						<tr>
+							<td>${message:organization} :</td>
+							<td>${message:solvingType} :</td>
+							<td>${message:trialCourtSolvingType} :</td>
+						</tr>
+						<tr>
+							<td><t:select t:type="select" t:id="orgClick" t:model="organizationSelectionModel" t:value="bean.organization" t:zone="empOrgZone" validate="required"/></td>
+							<td><t:select t:model="solvingTypeSelectionModel" t:value="bean.solvingtype" t:blankLabel="${message:all}"/></td>
+							<td><t:select t:model="trialCourtSolvingTypeSelectionModel" t:value="bean.trialCourtSolvingtype"  t:blankLabel="${message:all}"/></td>
+						</tr>
+						<tr>
+							<td>${message:membersSolvingType} :</td>
+							<td>${message:imposedDisciplineJudgement} :</td>
+							<td>${message:dccmember} :</td>
+						</tr>
+						<tr>
+							<td><t:select t:model="membersSolvingtypeSelectionModel" t:value="bean.membersSolvingtype" t:blankLabel="${message:all}"/></td>
+							<td><t:select t:model="imposedDisciplineJudgementSelectionModel" t:value="bean.imposedDisciplinejudgement" t:blankLabel="${message:all}"/></td>
+							<td><t:select t:model="DCCMemberSelectionModel" t:value="bean.dccmembers" t:blankLabel="${message:all}"/></td>
+						</tr>
+						<tr>
+							<td style="text-align:right;" colspan="3"><t:submit t:id="search" class="btnFind search" t:value="${message:search}"/></td>
+						</tr>
+					</table>
+				</fieldset>
+				
+				<fieldset>
+				<legend class="legendTitle">${message:listDisciplineExecution}</legend>
+				<p align="right">
+					<t:jquery.dialoglink t:id="link1" t:dialog="myDialog">
+						<u>${message:selectColumn} </u>
+					</t:jquery.dialoglink>
+				</p>
+				<p align="right">
+					${message:sum} ${listSize}
+				</p>
+				<t:grid t:source="listMeasured" t:row="valueMeasured"
+				t:include="${gridColumn}" add="${addedColumn},edit" reOrder="number" 
+				 rowsPerPage="25" rowClass="gridRowCSS" style="width:100%">
+				 	
+				 	<p:organizationNameCell>
+				 		${organizationName}
+				 	</p:organizationNameCell>
+				 	
+				 	<p:employeeNameCell>
+				 		${employeeName}
+				 	</p:employeeNameCell>
+				 	
+				 	<p:imposedCell>
+				 		${imposed}
+				 	</p:imposedCell>				 	
+				 	
+					<p:dateOfComplaintsCell>
+							${dateOfComplaints}
+					</p:dateOfComplaintsCell>
+					
+					<p:memberSolvedDateCell>
+							${memberSolvedDate}
+					</p:memberSolvedDateCell>
+					
+					<p:membersSolvedDateCell>
+							${membersSolvedDate}
+					</p:membersSolvedDateCell>
+					
+					<p:allMembersSolvedDateCell>
+							${allMembersSolvedDate}
+					</p:allMembersSolvedDateCell>
+					
+					<p:numberCell>
+						${number}
+					</p:numberCell>	
+					<p:empty>
+							${message:noData}
+					</p:empty>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueMeasured">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					
+				</t:grid>
+					<p align="right">
+						<t:actionlink t:id="exportMeasured">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+					<p align="right">
+						<t:actionlink t:id="cancel" >
+							<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+						</t:actionlink>
+						<t:actionlink t:id="back" >
+							<input type="button" class="btnFind" value="${message:back}"/>
+						</t:actionlink>
+					</p>
+				</fieldset>
+			</div>
+		</div>
+	</t:form> 
+	
+	<t:form>
+		<fieldset>
+				<legend class="legendTitle">${message:report}</legend>
+					<t:security.hasPermission permission="show_all_organization">
+					<table class="searchField">
+						<tr>
+							<td>${message:organization} :</td>
+							<td><span class="red">*</span>${message:fromDate} :</td>
+							<td><span class="red">*</span>${message:toDate} :</td>
+						</tr>
+						<tr>
+							<td>
+								<t:select t:model="organizationSelectionModel" t:value="org" t:blankLabel="${message:all}"/>
+							</td>				
+							<td>
+								<t:datefield t:id="fromDate" t:value="fromDate" t:validate="required"/>
+							</td>
+							<td>
+								<t:datefield t:id="toDate" t:value="toDate" t:validate="required"/>
+							</td>
+							<td style="text-align:right;">
+								<t:submit t:id="search1" class="btnFind search" t:value="${message:search}"/>
+							</td>
+						</tr>
+					</table>
+					</t:security.hasPermission>
+					<br />
+					<div style="width:50%; margin-left:10px;">
+						<t:grid t:source="listReport" 
+						t:row="valueReport" t:add="solvingType,countOfficer"
+						rowClass="gridRowCSS" rowsPerPage="20" style="width:100%">	
+							
+							<p:solvingTypeCell>
+								${solvingType}
+							</p:solvingTypeCell>				
+							
+							
+							<p:countOfficerCell>
+								${count}
+							</p:countOfficerCell>
+							
+							<p:empty>
+								${message:noData}
+							</p:empty>
+							
+						</t:grid>
+						<p align="right">
+							<t:actionlink t:id="export">
+									<img src="${imgExcel}" />
+							</t:actionlink>
+						</p>
+					</div>
+				</fieldset>	
+	</t:form> 
+	</body> 
+	
+	<t:jquery.dialog t:clientId="myDialog" t:params="param">
+	<t:form>		
+					<b>Багана сонгоно уу</b>
+					<t:zone class="selectColumn" t:id="myZone" id="myZone">
+							<t:checkbox t:value="claimantLastname"/> ${message:claimantLastName}<br/>
+							<t:checkbox t:value="organizationName1"/> ${message:organization}<br/>
+							<t:checkbox t:value="emp"/> ${message:employee}<br/>
+							<t:checkbox t:value="dateOfComplaints1"/> ${message:dateOfComplaints}<br/>
+							<t:checkbox t:value="solvingTypeName"/> ${message:solvingType}<br/>
+							<t:checkbox t:value="memberSolvedDate1"/> ${message:solvedDate1}<br/>
+							<t:checkbox t:value="trialName"/> ${message:trialCourtSolvingType}<br/>
+							<t:checkbox t:value="membersSolvedDate1"/> ${message:solvedDate2}<br/>
+							<t:checkbox t:value="trialTime"/> ${message:trialTime}<br/>
+							<t:checkbox t:value="membersSolvingTypeName"/> ${message:membersSolvingType}<br/>
+							<t:checkbox t:value="allMembersSolvedDate1"/> ${message:solvedDate3}<br/>
+							<t:checkbox t:value="allMemTime"/> ${message:allMemTime}<br/>
+							<t:checkbox t:value="imposedName"/> ${message:imposedDisciplineJudgement}<br/>
+							<t:checkbox t:value="content"/> ${message:disciplineContent}<br/>
+							<t:checkbox t:value="execution"/> ${message:disciplineJudgementExecution}<br/>
+							<t:checkbox t:value="auditorName"/> ${message:auditor}<br/>
+							<t:checkbox t:value="distributedDate1"/> ${message:distributedDate}<br/>
+							<t:submit t:id="save" t:value="${message:choose}"/>
+					</t:zone>
+	</t:form>			
+	</t:jquery.dialog>
+</html>

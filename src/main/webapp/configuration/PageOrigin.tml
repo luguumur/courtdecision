@@ -1,0 +1,25 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				${message:persuasion} :
+				<t:textfield value="origin.name" t:validate="required"/> &nbsp;				
+				<t:submit t:id="save" class="btnFind save"  t:value="${message:save}"/>
+			</div><br/>
+			<div>
+				<t:grid t:source="listOrigin" t:row="valueOrigin" t:include="id, name" t:add="edit"  rowsPerPage="15" >
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueOrigin">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

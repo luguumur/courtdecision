@@ -1,0 +1,105 @@
+<html t:type="layoutCD" title="${message:name}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head></head>
+    <body>
+    	<t:zone t:id="orgFormZone" id="orgFormZone">
+	    	<t:form t:id="orgForm" t:zone="orgFormZone">
+	    		<fieldset>
+		    		<legend>${message:searchField}</legend>
+		    		<table class="form">
+		    			<tr>
+		    				<td>
+		    					<label>${message:organizationName}</label>
+		    					<t:textfield 
+		    						t:value="bean.name"
+		    						t:label="message:organizationName" />
+		    				</td>
+		    				<td>
+		    					<label>${message:shortname}</label>
+		    					<t:textfield 
+		    						t:value="bean.shortName"
+		    						t:label="message:shortname" />
+		    					</td>
+		    				<td>
+		    					<label>${message:registerNo}</label>
+								<t:textfield 
+									t:value="bean.register"
+									t:label="message:registerNo"/>
+							</td>
+							<td>
+		    					<label>${message:cityProvinceName}</label>
+								<t:select 
+									t:model="citySelectionModel" 
+									t:value="bean.cityProvince"
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" />
+							</td>
+						</tr>
+						<tr>	
+							<td>
+								<label>Дэглэмийн төрөл</label>
+								<t:select 
+									t:model="organizationTypeSelectionModel" 
+									t:value="bean.organizationType"
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}" />
+							</td>
+							<td></td>
+							<td></td>
+		    				<td>
+		    					<t:submit 
+		    						t:id="search" 
+									t:value="${message:search}"/>
+									
+								<t:security.HasPermission permission= "add_organization">
+					     			<t:actionlink class="button" t:id="goToOrganizationPage">
+					     				${message:addOrganization}
+					     			</t:actionlink>
+					     		</t:security.HasPermission>	
+							</td>
+		    			</tr>
+		    		</table>
+		    	</fieldset>
+		    </t:form>	
+		</t:zone>	
+     	
+     	<t:zone t:id="orgListZone" id="orgListZone">
+	     	<fieldset>
+	     		<legend>${message:organizationList} - ${listSize}</legend>   		
+					<t:grid 
+						t:source="listOrganization" 
+						t:row="valueOrganization" 
+		     			t:include="name,address,shortName,register,phoneNo,email" 
+		     			t:add="number,edit,delete" 
+		     			rowsPerPage="25" reOrder="number">
+			     		<p:numberCell>
+			     			${number}
+			     		</p:numberCell>
+			     		<p:editCell>
+			     			<t:security.HasPermission permission= "edit_organization">
+				     			<t:actionlink t:id="edit" t:context="valueOrganization">
+									Засах
+								</t:actionlink>
+							</t:security.HasPermission>
+			     		</p:editCell>
+			     		<p:deleteCell>
+			     			<t:security.HasPermission permission= "delete_organization">
+				     			<t:actionlink t:id="delete" t:context="valueOrganization">
+									Устгах
+								</t:actionlink>
+							</t:security.HasPermission> 
+			     		</p:deleteCell>
+			     		<p:empty>
+							${message:noData}
+						</p:empty>
+		     	</t:grid>
+		     	<p align="right">
+					<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>
+	     	</fieldset>
+    	</t:zone>
+    </body> 
+</html>

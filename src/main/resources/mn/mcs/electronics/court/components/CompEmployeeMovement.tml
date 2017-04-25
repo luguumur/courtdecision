@@ -1,0 +1,70 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+	<t:zone t:id="quitJobZone" id="quitJobZone">
+		<t:form t:id="quitJobFrom" t:zone="quitJobZone,quitJobListZone">
+			<table class="form">
+				<tr>
+					<td><label><span class="red">*</span>${message:Type}</label> <t:select
+							t:model="QuitTypeSelectionModel" t:value="quitJobtype"
+							t:id="quitJobtype" t:validate="required" t:zone="causeZone" /></td>
+					<td><label><span class="red">*</span>${message:Cause}</label>
+						<t:zone t:id="causeZone" id="causeZone">
+							<t:select t:model="QuitJobCauseSelectionModel"
+								t:value="quitJob.quitCause" t:validate="required" />
+						</t:zone></td>
+					<td><label><span class="red">*</span>${message:quitDate}</label>
+						<t:datefield t:id="quitJobDate" t:value="quitJob.quitDate"
+							t:validate="required" t:format="yyyy-MM-dd" /></td>
+					<td><label>${message:quitMonth}</label> <t:textfield
+							t:value="quitJob.month" /></td>
+				</tr>
+				<tr>
+					<td><label>${message:Money}</label> <t:textfield
+							t:value="quitJob.money" /></td>
+					<td></td>
+					<td></td>
+					<td><t:if test="show">
+							<t:submit t:id="saveQuitJob" t:value="${message:save}" />
+							<t:actionlink t:id="cancelQuitJob" class="button">
+									${message:cancel}
+								</t:actionlink>
+						</t:if></td>
+				</tr>
+			</table>
+		</t:form>
+	</t:zone>
+	<t:zone t:id="quitJobListZone" id="quitJobListZone">
+		<t:grid t:source="listQuitJob" t:row="valueQuitJob"
+			include="quitType,quitCause,money"
+			t:add="quit,numberQ,edit,delete" reOrder="numberQ" rowsPerPage="10">
+			<p:quitCell>
+				${quitDate}
+			</p:quitCell>
+			<p:quitCauseCell>
+			${valueQuitJob?.quitCause?.causeName}
+		</p:quitCauseCell>
+			<p:numberQCell>
+			${numberQ}
+		</p:numberQCell>
+			<p:deleteCell>
+				<t:security.hasPermission permission="delete_employee_quitJob">
+					<t:actionlink t:id="deleteQuitJob" t:context="valueQuitJob"
+						t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+					Устгах
+				</t:actionlink>
+				</t:security.hasPermission>
+			</p:deleteCell>
+			<p:editCell>
+				<t:security.hasPermission permission="edit_employee_quitJob">
+					<t:actionlink t:id="editQuitJob" t:context="valueQuitJob">
+					Засах
+				</t:actionlink>
+				</t:security.hasPermission>
+			</p:editCell>
+			<p:empty>
+						${message:noData}
+					</p:empty>
+		</t:grid>
+	</t:zone>
+</t:container>

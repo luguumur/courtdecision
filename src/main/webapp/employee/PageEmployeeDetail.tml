@@ -1,0 +1,203 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head></head>
+<body>
+ <t:form>
+	<div style="width:100%">
+		<table id="newspaper-c">
+			<tr width="50%">
+				<td>
+					<fieldset>
+					<legend class="legendTitle2">${message:personalInfo}</legend>	
+						<table style="margin-left:10%;">			
+							<tr>
+								<td style="text-align:right;"><span class="red">*</span>${message:familyName} :</td>
+								<td><t:textfield t:value="employee.familyName" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:birthDate-label} :</td>
+								<td><t:datefield t:id="birthDate" t:value="employee.birthDate" t:format="yyyy-MM-dd" t:validate="required"/></td>
+							</tr>
+							<tr>
+								<td style="text-align:right;"><span class="red">*</span>${message:education} :</td>
+								<td>${currentDegree}</td>
+							</tr>
+							<tr>
+								<td style="text-align:right;"><span class="red">*</span>${message:position} :</td>
+								<td><t:select t:model="OccupationSelectionModel" t:value="employee.occupation"  t:validate="required" style="width:150px"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:gender-label} :</td>
+								<td>
+									<t:radiogroup t:value="employee.gender" validate="max=2" >
+										${message:male}
+						                <t:radio t:id="maleGender"/>
+						                ${message:female}
+						                <t:radio t:id="femaleGender"/>
+									</t:radiogroup>
+								</td>									
+							</tr>
+										
+						</table>	
+					</fieldset>
+				</td>
+				
+				<td>
+					<fieldset>
+					<legend class="legendTitle2">${message:birtPlacePers}</legend>
+						<table style="margin-left:15%;">
+							<tr>
+								<td style="text-align:right;"><span class="red">*</span>${message:birthCity} :</td>
+								<td><t:select t:id="aimagClick" t:model="CityProvinceSelectionModel" t:value="employee.birthCityProvince" t:validate="required" t:zone="aimagZone"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:birthDistrict} :</td>
+								<td>
+									<t:zone t:id="aimagZone" style="display: inline;">
+									<t:select t:model="DistrictSumSelectionModel" t:value="employee.birthDistrictSum" t:validate="required"/>
+									</t:zone>
+								</td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:birthCityProvince-label} :</td>
+								<td><t:textfield t:value="employee.birthPlace"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:persuasion-label} :</td>
+								<td><t:select t:model="OriginSelectionModel" t:value="employee.origin" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:ascription} :</td>
+								<td><t:select t:model="AscriptionSelectionModel" t:value="employee.ascription"/></td>
+							</tr>
+						</table>
+					</fieldset>
+				</td>
+			</tr>
+			
+			<tr width="50%">
+				<td>
+					<fieldset>
+					<legend class="legendTitle2">${message:addressTit}</legend>
+						<table style="margin-left:15%;">
+							<tr>
+								<td style="text-align:right;"><span class="red">*</span>${message:CityProvinceName} :</td>
+								<td><t:select t:id="aimagHotClick" t:model="CityProvinceSelectionModel" t:value="employee.addCity" t:validate="required" t:zone="aimagHotZone"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:DistrictSumName} :</td>
+								<td>
+									<t:zone t:id="aimagHotZone" style="display:inline;">
+									<t:select t:model="DistrictSumSelectionModel2" t:value="employee.addDistrictSum" t:validate="required"/>
+									</t:zone>
+								</td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:address} :</td>
+								<td><t:textfield t:id="address" t:value="employee.address" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:mobilePhoneNo-label} :</td>
+								<td><t:textfield t:value="employee.mobileNo" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:phoneNo} :</td>
+								<td><t:textfield t:value="employee.phoneNo"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:workPhone} :</td>
+								<td><t:textfield t:value="employee.workPhoneNo"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:workFax} :</td>
+								<td><t:textfield t:value="employee.workFax"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:email-label} :</td>
+								<td><t:textfield t:value="employee.eMail"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:postAddress} :</td>
+								<td><t:textfield t:value="employee.postAddress"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:postIndex} :</td>
+								<td><t:textfield t:value="employee.postIndex"/></td>
+							</tr>
+						</table>
+					</fieldset>
+				</td>				
+
+				<td>
+					<fieldset>
+					<legend class="legendTitle2">${message:contactRelative}</legend>
+						<table style="margin-left:15%;">
+							<tr>
+								<td style="text-align:right;"><span class="red">*</span>${message:firstname} :</td>
+								<td><t:textfield t:id="firstname" t:value="employee.eCallPersonName" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:relativeKind} :</td>
+								<td><t:select t:id="eCallPersonRelativeType" t:model="RelativeTypeSelectionModel" t:value="employee.eCallPersonRelativeType" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:address} :</td>
+								<td><t:textfield t:id="eCallPersonAddress" t:value="employee.eCallPersonAddress"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;"><span class="red">*</span>${message:mobilePhoneNo-label} :</td>
+								<td><t:textfield t:id="mobilePhoneNo" t:value="employee.eCallPersonMobileNo" t:validate="required"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:phoneNo-label} :</td>
+								<td><t:textfield t:value="employee.eCallPersonPhoneNo"/></td>
+							</tr>
+							<tr>	
+								<td style="text-align:right;">${message:email-label} :</td>
+								<td><t:textfield t:value="employee.eCallPersonEmail"/></td>
+							</tr>
+						</table>
+					</fieldset>	
+				<t:security.HasPermission permission= "show_admin">
+					<fieldset>
+							<legend class="legendTitle2">${message:systemUserRole}</legend>
+							<table>
+								<tr>
+									<td style="text-align:right;">
+										${message:systemUserRole} :
+									</td>
+									<td>
+										<t:checkbox t:value="employee.systemUser"/>
+									</td>
+									<td>Роль:</td>
+									<td>
+										<t:select t:model="roleSelectionModel" t:value="empRole" t:validate="required"/>
+									</td>
+								</tr>
+								
+							</table>
+					</fieldset>	
+				</t:security.HasPermission>
+				</td>
+			</tr>
+
+			<tr>
+				<td colspan="2" style="text-align:right;">
+					<t:security.HasPermission permission= "edit_employee_detail">
+						<t:if test="show">
+						<t:submit class="btnFind save" t:id="save" t:value="${message:save}"/>
+						</t:if>
+					</t:security.HasPermission>
+					<t:actionlink t:id="back">
+						<input type="button" class="btnFind" value="${message:back}"/>
+					</t:actionlink>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+	
+</t:form>
+ </body> 
+</html>

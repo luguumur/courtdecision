@@ -1,0 +1,33 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				Зэрэглэлийн ангилал: <t:textfield value="occupationRank.rank" t:validate="required"/> &nbsp;				
+				<t:submit t:id="save" t:value="${message:save}" class="btnFind save"/>
+			</div><br/>
+			<div>
+				<t:grid t:source="listOccupationRank"  t:row="valueOccupationRank" t:include="id" t:add="rankQuantity,edit,delete"
+				 rowsPerPage="25">
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueOccupationRank">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueOccupationRank">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+					<p:rankQuantityCell>
+						${rank}
+					</p:rankQuantityCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

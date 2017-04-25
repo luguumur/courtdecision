@@ -1,0 +1,29 @@
+<html t:type="layoutAdmin" title="literal:Configuration" xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd">
+<head>
+	<style type="text/css">
+		body, td	{ font-family: Arial, Helvetica, sans-serif; font-size: 13px; }
+		form		{ background-color: #eee; padding: 15px; }
+		.t-zone		{ background-color: #eee; }
+	</style>
+</head>
+<body>
+	<!--<noscript>
+		<span style="color: red;">
+			${message:javascript_required}<br/><br/>
+		</span> 
+	</noscript> 	-->
+
+	<form t:type="form" t:id="searchCriteria">
+
+		Байгууллага:
+		<select t:type="select" t:id="orgClick" t:model="organizationSelectionModel"  t:value="organization" t:zone="empOrgZone" t:validate="required"/>
+	
+		<t:zone t:id="empOrgZone">
+			Ажилтан:
+			<select t:type="select" t:model="EmployeeOrgSelectionModel" t:value="employee" t:validate="required"/>
+		</t:zone>
+		<t:errors/>
+
+	</form><br/>
+</body>
+</html>

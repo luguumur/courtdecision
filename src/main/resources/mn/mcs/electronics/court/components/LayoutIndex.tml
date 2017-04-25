@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd" xmlns:p="tapestry:parameter">
+
+	<head>
+		<title>${message:header}</title>
+		<t:if test="heading">
+			<meta name="heading" content="${heading}" />
+		</t:if>
+		<t:if test="menu">
+			<meta name="menu" content="${menu}" />
+		</t:if>
+		<link rel="icon" type="image/ico" href="${favicon}" />
+		<link rel="stylesheet" href="${styles}" type="text/css"/>
+	</head>
+	
+	<body> 
+		<div class="index">
+			<div class="header">
+					<div class="headerLeft"></div>
+           			<div class="headerCenter">${message:header}</div>
+           			<t:security.user>
+				    	<div class="headerUser">				    	
+				 			<t:jquery.dialogajaxlink t:id="link2" t:dialog="changePassword" t:zone="changePassword">
+					 			${username} 
+					 		</t:jquery.dialogajaxlink>				 					 		
+				 		</div>
+				 			
+					</t:security.user>
+           			<div class="headerLogOut">
+		           		<t:actionlink t:id="logout">${message:user_logout}</t:actionlink>	
+					</div>
+						<div class="topmenu">
+                             <div class="navigation">
+	                         	<ul>
+									<li class="home selected">
+										<t:actionlink t:id="home" class="actionlink">
+											<span>${message:home}</span>
+										</t:actionlink>
+									</li>
+									<li>
+										<t:security.hasPermission permission="${secondMenuPermission}">
+											<t:actionlink t:id="second" class="actionlink">
+												<span>${secondMenuName}</span>
+											</t:actionlink>
+										</t:security.hasPermission>
+									</li>
+									<li>
+										<t:security.hasPermission permission="${thirdMenuPermission}">
+											<t:actionlink t:id="third" class="actionlink">
+												<span>${thirdMenuName}</span>
+											</t:actionlink>
+										</t:security.hasPermission>
+									</li>
+									<t:if test="McseAdmin">
+										<li>
+											<t:actionlink t:id="settings" class="actionlink">
+												<span>${message:administration}</span>
+											</t:actionlink>
+										</li>
+									</t:if>
+									<li>
+										<t:security.hasPermission permission="${fourthMenuPermission}">
+											<t:actionlink t:id="fourth" class="actionlink">
+												<span>${fourthMenuName}</span>
+											</t:actionlink>
+										</t:security.hasPermission>
+									</li>
+								</ul>
+								<div class="warningBox">
+									<span title="Цол нэмэх">${EmployeeMilitaryNum}</span>
+									<span title="Цалингийн шатлал нэмэх">${EmployeeSalary}</span>
+									<span title="Сахилгын арга хэмжээ дуусах">${EmployeeByDiscipline}</span>
+									<span title="Шагналд тодорхойлох">${ShagnuulahEmployee}</span>
+									<span title="Тэтгэврийн насанд хүрсэн">${TetgevriinEmployee}</span>
+									<span title="Удаан жил">${UdaanJilEmployee}</span>
+								</div>
+                              </div>  
+                     	</div>     
+				</div>
+
+			
+					<t:body />
+				
+		</div>
+		 <div class="footer">HR© Зохиогчийн эрх хуулиар хамгаалагдсан.</div>
+	 </body> 
+
+	<t:jquery.dialog t:clientId="layoutDialog" t:params="param" t:title="${message:warning}">
+		<t:form>
+			<t:zone t:id="myZone" id="myZone" style="width:400px; height:200px;">
+				<t:actionlink t:id="goRetireEmployee">
+					1. ${message:retire} <!-- - ${countRetire}-->
+				</t:actionlink><br/>
+				<t:actionlink t:id="goGeneralJudge">
+					2. ${message:generelJudge}<!-- - ${countGeneralJudge}-->
+				</t:actionlink><br/>
+				<t:actionlink t:id="goWorkedYear">
+					3. ${message:isMajorWorkedYear}<!-- - ${countGeneralJudge}-->
+				</t:actionlink><br/>
+				<t:actionlink t:id="goStateWorkedYear">
+					4. ${message:WorkedYear}<!-- - ${countGeneralJudge}-->
+				</t:actionlink><br/>
+			</t:zone>
+		</t:form>
+	</t:jquery.dialog>
+
+	<t:jquery.dialog t:clientId="changePassword" t:params="param" t:title="${message:userSection}">
+		<t:form>
+			<fieldset>
+				<legend class="legendTitle">${message:UserInformation}</legend>
+				<table style="width:100%;">
+					<tr>
+						<td>${message:lastname} :</td>
+						<td>${lastName}</td>
+					</tr>
+					<tr>	
+						<td>${message:firstname} :</td>
+						<td>${firstName}</td>
+					</tr>
+					<tr>
+						<td>${message:appointment} :</td>
+						<td>${appointmentName}</td>
+					</tr>
+					<tr>	
+						<td>${message:registerNo} :</td>
+						<td>${registerNo}</td>
+					</tr>
+				</table>
+			</fieldset>
+			<fieldset>
+			<legend class="legendTitle">${message:changePassword}</legend>
+				<table>
+					<tr>
+						<td><span class="red">*</span>${message:currentPassword} :</td>
+						<td><t:passwordfield t:value="currentPassword"/></td>
+					</tr>
+					<tr>
+						<td><span class="red">*</span>${message:newPassword} :</td>
+						<td><t:passwordfield t:value="newPassword"/></td>
+					</tr>
+					<tr>
+						<td><span class="red">*</span>${message:confirmPassword} :</td>
+						<td><t:passwordfield t:value="confirmPassword"/> </td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align:right;">
+							<t:submit t:id="changePass" t:value="${message:save}" t:mixins="jquery/button"/> 
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+			<fieldset>
+			<legend class="legendTitle">${message:userLoginHistory}</legend>
+				<t:grid t:source="listLoginHistory" t:row="valueLoginHistory" 
+				t:include="loginName,employee,loginDate" style="width:100%;" rowClass="gridRowCSS">
+					<p:employeeCell>
+						${employeeName}
+					</p:employeeCell>
+					<p:loginDateCell>
+						${loginDate}
+					</p:loginDateCell>
+				</t:grid> 
+			</fieldset>
+		</t:form>
+	</t:jquery.dialog>
+</html>

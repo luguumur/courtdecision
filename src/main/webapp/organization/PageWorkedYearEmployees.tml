@@ -1,0 +1,65 @@
+<html t:type="layout" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+		
+	</head>
+    <body> <t:form>
+		
+			<t:if test="majorWorked">
+				<fieldset>
+				<legend class="legendTitle">${message:majorWorkedYearEmployees}</legend>
+					<p align="right">${message:sum} ${listSize}</p>
+					<t:grid t:source="listEmployee" t:row="valueEmployee" 
+					t:include="firstName,lastname,registerNo,appointment" rowClass="gridRowCSS" 
+					add="number,edit" rowsPerPage="25" style="width:100%" reOrder="number">	
+						<p:numberCell>${number}</p:numberCell>
+						<p:firstNameCell>
+					 		<t:actionlink t:id="view" t:context="valueEmployee">
+					 			${firstName}
+					 		</t:actionlink>
+					 	</p:firstNameCell>
+					 	<p:appointmentCell>
+					 		${appointmentName}
+					 	</p:appointmentCell>
+						<p:editCell>
+							<t:actionlink t:id="edit" t:context="valueEmployee">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</p:editCell>	
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+				</fieldset>		
+			</t:if>
+			<t:if test="stateWorked">
+				<fieldset>
+					<legend class="legendTitle">${message:stateWorkedYearEmployees}</legend>
+					<p align="right">${message:sum} ${listSize}</p>
+					<t:grid t:source="listEmployee1" t:row="valueEmployee" 
+					t:include="firstName,lastname,registerNo,appointment" rowClass="gridRowCSS" 
+					add="number,edit" rowsPerPage="25" style="width:100%" reOrder="number">	
+						<p:numberCell>${numberState}</p:numberCell>
+						<p:firstNameCell>
+					 		<t:actionlink t:id="viewStateWorked" t:context="valueEmployee">
+					 			${firstName}
+					 		</t:actionlink>
+					 	</p:firstNameCell>
+					 	<p:appointmentCell>
+					 		${appointmentName}
+					 	</p:appointmentCell>
+						<p:editCell>
+							<t:actionlink t:id="editStateWorked" t:context="valueEmployee">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</p:editCell>	
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>	
+				</fieldset>
+			</t:if>
+			
+    </t:form> </body> 
+</html>

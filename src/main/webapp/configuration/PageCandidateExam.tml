@@ -1,0 +1,57 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body>
+		<t:form>
+			<div>
+				<table>
+					<tr>
+						<td>Шалгалтын нэр :<br/><t:textfield value="exam.name" t:validate="required"/></td>
+						<td>
+							${message:organizationType} :<br/>
+							<t:select t:model="organizationTypeSelectionModel" t:value="exam.organizationType" validate="required"/>
+						</td>
+						<td>
+							${message:examType} :<br/>
+							<t:select t:model="candidateExamTypeSelectionModel" t:value="exam.candidateExamType" validate="required"/>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="text-align:right;"><t:submit t:id="save" class="btnFind save" t:value="${message:save}"/></td>
+					</tr>	
+				</table>
+			</div>
+			<div>
+				<t:grid t:source="listExam"  t:row="valueExam" t:include="id,name,organizationType,candidateExamType" t:add="edit,delete">
+					
+					<p:organizationTypeCell>
+						${organizationType}
+					</p:organizationTypeCell>
+					
+					<p:candidateExamTypeCell>
+						${candidateExamType}
+					</p:candidateExamTypeCell>
+					
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueExam">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueExam">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid> 
+			</div>
+		</t:form>
+	</body> 
+</html>

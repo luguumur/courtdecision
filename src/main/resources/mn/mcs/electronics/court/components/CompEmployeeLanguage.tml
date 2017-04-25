@@ -1,0 +1,327 @@
+<t:container
+	xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter">
+
+	<fieldset>
+		<legend>${message:languageInformation}</legend>
+		<t:zone t:id="formLanguageZone" id="formLanguageZone">
+			<t:form t:zone="formLanguageZone">
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:language}</label>
+							<t:select 
+								t:model="ForeignLanguageSelectionModel"
+								t:value="language.foreignLanguage" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:listening}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="language.listening" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:speaking}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="language.speaking" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:reading}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="language.reading" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:writing}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="language.writing" 
+								t:validate="required" />
+						</td>
+					</tr>
+					<tr>						
+						<td colspan="5" style="text-align: right;" valign="bottom">
+							<t:security.hasPermission permission="add_language">
+								<t:submit t:id="save" value="${message:save}" />
+							</t:security.hasPermission> 
+							
+							<t:actionlink t:id="cancel" zone="formLanguageZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+		
+		<t:zone t:id="listLanguageZone" id="listLanguageZone">
+			<t:grid 
+				t:source="listLanguage"
+				t:row="valueLanguage"
+				t:include="listening,speaking,reading,writing"
+				add="edit,delete,numberCo,languageName" 
+				reOrder="numberCo,languageName" rowsPerPage="10">
+				<p:numberCoCell>
+					${numberCo}
+				</p:numberCoCell>
+				<p:languageNameCell>
+					${valueLanguage?.foreignLanguage?.languageName}
+				</p:languageNameCell>
+				<p:editCell>
+					<t:security.hasPermission permission="edit_language">
+						<t:actionlink t:id="edit" t:context="valueLanguage"
+							t:zone="formLanguageZone">
+							Засах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_language">
+						<t:actionlink t:id="delete" t:context="valueLanguage"
+							t:zone="listLanguageZone" t:mixins="confirmDelete"
+							message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportLanguage">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend>${message:softwareInformation}</legend>
+		<t:zone t:id="formProgramZone" id="formProgramZone">
+			<t:form t:zone="formProgramZone">
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:program}</label>
+							<t:select 
+								t:model="ComputerProgramSelectionModel"
+								t:value="computer.program" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:programlevel}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="computer.programlevel" 
+								t:validate="required" />
+						</td>
+						<td colspan="2" style="text-align: right;" valign="bottom">
+							<t:security.hasPermission permission="add_computer">
+								<t:submit t:id="saveProgram" value="${message:save}" />
+							</t:security.hasPermission> 
+							
+							<t:actionlink t:id="cancelProgram" t:zone="formProgramZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink></td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+		
+		<t:zone t:id="listProgramZone" id="listProgramZone">
+			<t:grid 
+				t:source="listComputer"
+				t:row="valueComputer"
+				include="program,programlevel" 
+				add="edit,delete,number"
+				reOrder="number" 
+				rowsPerPage="25">
+				<p:numberCell>
+					${number}
+				</p:numberCell>
+				<p:programCell>
+					${programName}
+				</p:programCell>
+				<p:editCell>
+					<t:security.hasPermission permission="edit_computer">
+						<t:actionlink t:id="editProgram" t:context="valueComputer"
+							t:zone="formProgramZone">
+							Засах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_computer">
+						<t:actionlink t:id="deleteProgram" t:context="valueComputer"
+							t:zone="listProgramZone" t:mixins="confirmDelete"
+							message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportComputer">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+
+		<t:zone t:id="formOtherProgramZone" id="formOtherProgramZone">
+			<t:form t:zone="formOtherProgramZone">
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:otherProgram}</label>
+							<t:textfield 
+								t:id="program"
+								t:value="computerOther.otherProgram" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:programlevel}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="computerOther.otherProgramlevel" 
+								t:validate="required" />	
+						</td>
+						<td colspan="2" style="text-align: right;" valign="bottom">
+							<t:security.hasPermission permission="add_computer">
+								<t:submit t:id="saveOtherProgram" value="${message:save}" />
+							</t:security.hasPermission> 
+							
+							<t:actionlink t:id="cancelOtherProgram" t:zone="formOtherProgramZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+		
+		<t:zone t:id="listOtherProgramZone" id="listOtherProgramZone">
+			<t:grid 
+				t:source="listComputerOther"
+				t:row="valueComputerOther"
+				t:include="otherProgram,otherProgramlevel" 
+				add="edit,delete,number"
+				reOrder="number" rowsPerPage="25">
+				<p:numberCell>
+					${numberComputerOther}
+				</p:numberCell>
+				<p:editCell>
+					<t:security.hasPermission permission="edit_computer">
+						<t:actionlink t:id="editOtherProgram"
+							t:zone="formOtherProgramZone" t:context="valueComputerOther">
+							Засах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_computer">
+						<t:actionlink t:id="deleteOtherProgram"
+							t:zone="listOtherProgramZone" t:context="valueComputerOther"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportOtherProgram">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</fieldset>
+
+	<fieldset>
+		<legend>${message:officefacilityInformation}</legend>
+		<t:zone t:id="formEquipmentZone" id="formEquipmentZone">
+			<t:form t:zone="formEquipmentZone">
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:facility}</label>
+							<t:select 
+								t:model="OfficeEquipmentSelectionModel"
+								t:value="officeEquipment.facility" 
+								t:validate="required" />
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:facilityLevel}</label>
+							<t:select 
+								t:model="LanguageLevelSelectionModel"
+								t:value="officeEquipment.facilityLevel" 
+								t:validate="required" />
+						</td>
+						<td colspan="2" style="text-align: right;" valign="bottom">
+							<t:security.hasPermission permission="add_language">
+								<t:submit t:id="saveOfficeEquipment" value="${message:save}" />
+							</t:security.hasPermission> 
+							
+							<t:actionlink t:id="cancelOfficeEquipment" t:zone="formEquipmentZone">
+								<input type="button" value="${message:cancel}" />
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</t:form>
+		</t:zone>
+		
+		<t:zone t:id="listEquipmentZone" id="listEquipmentZone">
+			<t:grid 
+				t:source="listOfficeEquipment"
+				t:row="valueOfficeEquipment"
+				t:include="facility,facilityLevel"
+				t:add="edit,delete,numberCo" 
+				reOrder="numberCo" rowsPerPage="25">
+				<p:facilityCell>
+					${facilityName}
+				</p:facilityCell>
+				<p:numberCoCell>
+					${numberOfficeEquipment}
+				</p:numberCoCell>
+				<p:editCell>
+					<t:security.hasPermission permission="edit_language">
+						<t:actionlink t:id="editOfficeEquipment"
+							t:zone="formEquipmentZone" t:context="valueOfficeEquipment">
+							Засах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:editCell>
+				<p:deleteCell>
+					<t:security.hasPermission permission="delete_language">
+						<t:actionlink t:id="deleteOfficeEquipment"
+							t:zone="listEquipmentZone" t:context="valueOfficeEquipment"
+							t:mixins="confirmDelete" message="${message:AreYouSureDelete}">
+							Устгах
+						</t:actionlink>
+					</t:security.hasPermission>
+				</p:deleteCell>
+				<p:empty>
+					${message:noData}
+				</p:empty>
+			</t:grid>
+			<p align="right">
+				<t:actionlink t:id="exportOfficeEquipment">
+					<img src="${imgExcel}" />
+				</t:actionlink>
+			</p>
+		</t:zone>
+	</fieldset>
+</t:container>

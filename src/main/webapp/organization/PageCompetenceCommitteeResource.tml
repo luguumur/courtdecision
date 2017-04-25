@@ -1,0 +1,49 @@
+<html t:type="layout" title="${message:MERGESHILHOROO}"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+	
+    <body>
+	    <t:form>
+	    <br />
+	    	<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+			<t:actionlink t:id="openPosition" class="newButtonCss">${message:openPosition}</t:actionlink>
+			<t:actionlink t:id="resource" class="newButtonCssSelected">${message:resource}</t:actionlink>
+			<t:actionlink t:id="promote" class="newButtonCss">${message:promote}</t:actionlink>
+			<t:actionlink t:id="conclusion" class="newButtonCss">${message:conclusion}</t:actionlink>
+			
+			<fieldset>
+				<legend class="legendTitle">${message:resources}</legend>
+				
+					<p align="right">${message:sum} ${listSize}</p>
+					
+					<t:grid t:source="listCompetenceCommitteeCandidates"
+					t:row="valueCompetenceCommitteeCandidates"
+					t:include="lastname,firstname,gender,job,school" add="number,age"
+					rowClass="gridRowCSS" reOrder="number,lastname,firstname,age,gender" rowsPerPage="10" style="width:100%">	
+					
+					<p:numberCell>${number}</p:numberCell>
+					
+					<p:firstnameCell>
+						${firstName}
+					</p:firstnameCell>
+					
+					<p:ageCell>${age}</p:ageCell>
+					<p:genderCell>${candidateGender}</p:genderCell>
+					<p:schoolCell>${schoolName}</p:schoolCell>
+					
+					<p:empty>
+						${message:noData}
+					</p:empty>
+				</t:grid>
+				<p align="right">
+					<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+					</t:actionlink>
+				</p>	
+			</fieldset>
+			
+	    </t:form>			
+    </body>    
+</html>

@@ -1,0 +1,46 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" id="tynamoLoginFormContainer">
+
+<head>
+<title>${message:software}</title>
+<link rel="stylesheet" href="${styles}" type="text/css" />
+<script type="text/javascript">
+			$(document).ready(function() {
+				if( $.browser.msie) {
+					$('html').addClass('ie9');
+				}
+				
+			});
+</script>
+</head>
+<body class="body">
+	<div class="loginLogo"></div>
+	<div class="login" id="loginBox">
+		<div class="loginHeader">${message:header}</div>
+		
+		<div class="loginUser">
+			<t:form t:id="tynamoLoginForm" t:name="login">
+				<div class="lblError">${loginMessage}</div>
+				<div class="lblUsername">${message:username} :</div>
+				<t:textfield t:id="username" class="txtUsername" validate="required" />
+				<div class="lblPassword">${message:password} :</div>
+				<t:passwordfield t:id="password" class="txtPassword" validate="required" />
+				<t:submit class="loginbtn" value="${message:login}" />
+			</t:form>
+		</div>
+		
+		<div class="loginFooter">
+			HR© Зохиогчийн эрхийн хуулиар хамгаалагдсан.
+		</div>
+		
+	</div>
+	
+	<div class="notice">
+		<fieldset>
+			<legend>Зарлал</legend>
+			${content}
+		</fieldset>
+	</div>
+	
+</body>
+</html>

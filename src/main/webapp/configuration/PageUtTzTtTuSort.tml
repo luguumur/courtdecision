@@ -1,0 +1,45 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>${message:name}:</td>
+						<td>${message:nameDetail}:</td>
+						<td>${message:type}:</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><t:textfield t:id="name" value="utTzTtTuSort.name" t:validate="required"/></td>
+						<td><t:textfield t:id="nameDetail" value="utTzTtTuSort.nameDetail" t:validate="required"/></td>
+						<td><t:select t:model="UtTzTtTuSortNameSelectionModel" t:value="utTzTtTuSort.category" t:validate="required"/></td>
+						<td><t:submit t:id="save" t:value="${message:save}" class="btnFind save" /></td>
+					</tr>
+				</table>
+			</div>
+			<div><br/>
+				<t:grid t:source="listutTzTtTuSort" t:row="valueUtTzTtTuSort" t:include="name,nameDetail" t:add="number,edit,delete"
+				 reOrder="number"  rowsPerPage="25" >
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueUtTzTtTuSort">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueUtTzTtTuSort">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

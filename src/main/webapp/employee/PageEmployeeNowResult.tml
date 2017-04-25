@@ -1,0 +1,111 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> <t:form>
+
+	<div style="width:100%">
+		<table id="newspaper-c">
+			<thead>
+				<td>Үр дүнгийн гэрээний биелэлт</td>
+				<td>Өгвөл зохих оноо</td>
+				<td>Өгсөн/дундаж оноо</td>
+			</thead>
+			<tr>
+				<td>
+					<span class="red">*</span>
+					${message:allProductSupply}
+				</td>
+				<td>
+					0-40
+				</td>
+				<td>
+					<t:textfield t:id="allSupplyScore" t:value="result.allSupplyScore" t:validate="required"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="red">*</span>
+					${message:specialProductSupply}
+				</td>
+				<td>
+					0-40
+				</td>
+				<td>
+					<t:textfield t:id="specialSupplyScore" t:value="result.specialSupplyScore" t:validate="required"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="red">*</span>
+					${message:qualificationLevel}
+				</td>
+				<td>
+					0-30
+				</td>
+				<td>
+					<t:textfield t:id="qualificationLevel" t:value="result.qualificationLevel" t:validate="required"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="red">*</span>
+					${message:contractDate}
+								</td>
+				<td>
+					<t:datefield t:id="date" t:value="result.contractDate" t:validate="required" t:format="yyyy-MM-dd"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="red">*</span>
+					${message:directSuperiorScore}
+				</td>
+				<td>
+					<t:select t:model="LanguageLevelSelectionModel" t:value="result.directSuperiorScore" t:validate="required"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${message:directSuperiorCause}
+				</td>
+				<td>
+					<t:textarea t:value="result.directSuperiorCause"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<span class="red">*</span>
+					${message:SuperiorScore}
+				</td>
+				<td>
+					<t:select t:model="LanguageLevelSelectionModel" t:value="result.SuperiorScore" t:validate="required" />			
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${message:SuperiorCause}
+								</td>
+				<td>
+					<t:textarea t:value="result.SuperiorCause"/>
+				</td>
+			</tr>
+			<tr >
+			<td>
+			</td>
+				<!--<t:if test="show">-->
+					<td style="text-align:right;" colspan="2">
+						<t:submit t:id="saveResultContract" class="btnFind save" value="${message:save}" />
+							<t:actionlink t:id="cancel">
+								<input type="button" class="btnFind refresh" value="${message:cancel}"/>
+							</t:actionlink>
+					</td>
+				<!--</t:if>-->
+			</tr>
+		</table>
+	</div>
+
+</t:form> </body> 
+</html>

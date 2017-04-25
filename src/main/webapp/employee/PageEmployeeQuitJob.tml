@@ -1,0 +1,63 @@
+<html t:type="layoutEmployee" title="literal:Employee Home"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+<head>
+
+</head>
+<body> <t:form>
+
+	<div style="width:100%">
+		<table id="newspaper-c" bgcolor="#E5E5E5">
+			<tr>
+				<td>
+					${message:Type}
+				</td>
+				<td>
+					<t:select t:model="QuitTypeSelectionModel" t:value="quitJob.type" />	
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${message:Cause}
+				</td>
+				<td>
+					<t:textfield t:value="quitJob.quitCause"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${message:quitDate}
+				</td>
+				<td>
+					<t:datefield t:value="quitJob.date"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${message:quitMonth}
+				</td>
+				<td>
+					<t:textfield t:value="quitJob.month"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					${message:Money}
+				</td>
+				<td>
+					<t:textfield t:value="quitJob.money"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+						<t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>
+						<t:actionlink t:id="cancel">
+							<input type="submit" class="btnFind refresh" value="${message:cancel}"/>
+						</t:actionlink>
+				</td>
+			</tr>
+		</table>		
+	</div>
+
+</t:form> </body> 
+</html>

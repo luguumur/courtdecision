@@ -1,0 +1,50 @@
+<html t:type="layout" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+    <body> <t:form>
+     		<t:actionlink t:id="members" class="newButtonCss">${message:members}</t:actionlink>
+			<t:actionlink t:id="employees" class="newButtonCssSelected">${message:employeeGeneralCouncil}</t:actionlink>
+				<fieldset>
+	    			<legend class="legendTitle">${message:employeeGeneralCouncilList}</legend>
+					<t:actionlink t:id="goPageEmployeeDetail"><input type="button" class="newButtonCss" value="${message:add}"/></t:actionlink>
+					<br/>
+					<p align="right">
+							${message:sum} ${listSize}
+					</p>
+					<t:grid t:source="listGeneralCouncilEmployee" t:row="valueEmployee"
+					 t:include="lastname,firstname,registerNo,gender" add="number,edit,delete"
+					 reOrder="number" rowsPerPage="25" width="100%" rowClass="gridRowCSS">
+					
+						<p:numberCell>
+							${number}
+						</p:numberCell>				
+						
+						<p:editCell>
+						<t:security.HasPermission permission="edit_employee">
+							<t:actionlink t:id="edit" t:context="valueEmployee">
+								<img src="${editIcon}"/>
+							</t:actionlink>
+						</t:security.HasPermission>	
+						</p:editCell>	
+						<p:deleteCell>
+						<t:security.HasPermission permission="delete_employee">
+							<t:actionlink t:id="delete" t:context="valueEmployee">
+								<img src="${deleteIcon}"/>
+							</t:actionlink>
+						</t:security.HasPermission>
+						</p:deleteCell>
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>	
+					<p align="right">
+						<t:actionlink t:id="export">
+							<img src="${imgExcel}" />
+						</t:actionlink>
+					</p>
+				</fieldset>
+    </t:form> 
+  </body> 
+</html>

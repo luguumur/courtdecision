@@ -1,0 +1,42 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td>${message:country}:</td>
+						<td>${message:language}:</td>
+					</tr>
+					<tr>
+						<td><t:textfield t:id="country" value="country.countryName" t:validate="required" style="width: 200px"/> &nbsp;</td>
+						<td><t:textfield t:id="language" value="country.language" t:validate="required"  style="width: 200px"/></td>
+					</tr>
+					<tr>
+						<td>${message:isMongolia}: <t:checkbox value="country.isMongolia"/></td>
+						<td style="text-align:right;"><t:submit t:id="save" t:value="${message:save}"   class="btnFind save"/></td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				<t:grid t:source="listCountry" t:row="valueCountry" t:include="id,countryName,language" t:add="edit,delete"
+				 rowsPerPage="25" >
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueCountry">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueCountry">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

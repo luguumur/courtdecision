@@ -1,0 +1,206 @@
+<html t:type="layoutCD" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+	<body>
+    	<t:zone t:id="organizationFormZone" id="organizationFormZone"> 
+    		<t:form t:zone="organizationFormZone">
+			<fieldset>
+				<legend>${message:organizationInfo}</legend>
+				<table class="form">
+					<tr>	
+						<td>
+							<label><span class="red">*</span>${message:register}</label>
+							<t:textfield 
+								t:id="register" 
+								t:value="organization.register" 
+								validate="required"/>
+						</td>
+						<td><span class="red">*</span>${message:organizationName}
+							<t:textfield 
+								t:id="organizationName" 
+								t:value="organization.name" 
+								validate="required"/>
+						</td>
+						<td>
+							<label>Дэглэмийн төрөл</label>
+							<t:select 
+								t:model="organizationTypeSelectionModel" 
+								t:value="organization.organizationType"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</td>
+						<td>
+							<label>${message:workPhone}</label>
+							<t:textfield 
+								t:value="organization.phoneNo"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:fax}</label>
+							<t:textfield 
+								t:value="organization.fax"/>
+						</td>
+						<td>
+							<label>${message:email-label}</label>
+							<t:textfield 
+								t:value="organization.email"/>
+						</td>
+						<td>
+							<label>${message:webpage-label}</label>
+							<t:textfield 
+								t:value="organization.webpage"/>
+						</td>
+						<td>
+							<label>${message:shortname}</label>
+							<t:textfield 
+								t:value="organization.shortName"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:CityProvinceName}</label>
+							<t:select 
+								t:model="cityProvinceSelectionModel" 
+								t:id="orgClick" 
+								t:value="organization.cityProvince" 
+								t:zone="CityZone"
+								t:blankOption="ALWAYS"
+								t:blankLabel="${message:Choose}" />
+						</td>
+						<td>
+							<label>${message:DistrictSumName}</label>
+							<t:zone t:id="CityZone" style="display: inline;">
+								<t:select 
+									t:model="districtSumSelectionModel" 
+									t:value="organization.districtSum" 
+									t:blankOption="ALWAYS"
+									t:blankLabel="${message:Choose}"/>
+							</t:zone>
+						</td>
+						<td>
+							<label>${message:KhorooBagName}</label>
+							<t:textfield 
+								t:value="organization.khorooBag"/>
+						</td>
+						<td>
+							<label>${message:zip}</label>
+							<t:textfield 
+								t:value="organization.zip"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<label>${message:postAddress}</label>
+							<t:textfield 
+								t:value="organization.postAddress"/>
+						</td>
+						<td>
+							<label>${message:street}</label>
+							<t:textfield 
+								t:value="organization.street"/>
+						</td>
+						<td>
+							<label>${message:address}</label>
+							<t:textfield 
+								t:value="organization.address"/>
+						</td>
+						<td>
+							<label>${message:prescription}</label>
+							<t:textarea cols="35" rows="4" 
+								t:value="organization.briefIntroduction"/>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td colspan="3" style="text-align:right;">
+							<t:security.HasPermission permission= "edit_organization_info">
+								<t:submit t:id="save" value="${message:save}" />
+							</t:security.HasPermission>	
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		</t:form>		
+	</t:zone>			
+	
+	<!-- <t:zone t:id="departmentFormZone" id="departmentFormZone">
+		<t:form t:zone="departmentFormZone">
+			<fieldset>
+				<legend>${message:department}</legend>
+				<table class="form">
+					<tr>
+						<td>
+							<label><span class="red">*</span>${message:code}</label>
+							<t:textfield 
+								t:id="code" 
+								t:value="department.code" 
+								validate="required"/>
+						</td>
+						<td>
+							<label><span class="red">*</span>${message:departmentName}</label>
+							<t:textfield 
+								t:id="name" 
+								t:value="department.name" 
+								validate="required"/>	
+						</td>
+						<td></td>
+						<td>
+							<t:security.HasPermission permission= "add_department">
+				 				<t:submit t:id="saveDepartment" value="${message:save}" />
+				 			</t:security.HasPermission>
+				 			
+			     			<t:actionlink t:id="cancelDepartment" class="button">
+								${message:cancel}
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+			</fieldset>
+		</t:form>
+	</t:zone>					
+			
+	<t:zone t:id="departmentListZone" id="departmentListZone">					
+		<t:grid 
+			t:source="listOrganizationDepartment" 
+			t:row="valueOrganizationDepartment" 
+			t:include="code" 
+			add="departmentName,edit,delete"
+			rowsPerPage="10" inPlace="true">
+			
+			<p:departmentNameCell>
+				<t:security.HasPermission permission= "go_subDepartment">
+					<t:pagelink t:page="organization/pageSubdepartment" t:context="valueOrganizationDepartment">
+						${subDepartmentName}
+					</t:pagelink>
+				</t:security.HasPermission>
+				<t:if test="SubDepartmentPermission">
+					${subDepartmentName}
+				</t:if>
+			</p:departmentNameCell>		
+			<p:editCell>
+				<t:security.HasPermission permission= "edit_department">
+					<t:actionlink t:id="edit" t:context="valueOrganizationDepartment" t:zone="departmentFormZone">
+						Засах
+					</t:actionlink>
+				</t:security.HasPermission>
+			</p:editCell>		
+			<p:deleteCell>
+				<t:security.HasPermission permission= "delete_department">
+					<t:actionlink t:id="deleteDepartment" t:context="valueOrganizationDepartment" 
+						t:mixins="confirmDelete" 
+						message="${message:AreYouSureDelete}"
+						t:zone="departmentListZone">
+						Устгах
+					</t:actionlink>
+				</t:security.HasPermission>	
+			</p:deleteCell>		
+			<p:empty>
+				${message:noData}
+			</p:empty>
+		</t:grid>
+	</t:zone> -->	
+	</body> 
+</html>

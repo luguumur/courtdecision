@@ -1,0 +1,99 @@
+<html t:type="layoutOrganization" title="literal:Organization"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	</head>
+    <body> <t:form>
+
+	    
+	    	<div class="block">
+				<t:delegate to = "activeBlock"/>
+			</div>
+		
+	
+		<t:block t:id="search">
+		<table id="newspaper-c">
+			<tr>
+				<td>
+				<fieldset>
+				<legend class="legendTitle">${message:department}</legend>
+				<table id="newspaper-layEmp">
+					<tr>
+						<td><span class="red">*</span>${message:code} :</td>
+						<td><span class="red">*</span>${message:departmentName} :</td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><t:textfield t:id="code" t:value="department.code" validate="required"/></td>
+						<td><t:textfield t:id="name" t:value="department.name" validate="required"/></td>
+						<td>
+				 			<t:submit t:id="save" class="btnFind save" value="${message:save}" />
+			     			<t:actionlink t:id="cancel">
+								<input type="button" class="btnFind" value="${message:cancel}"/>
+							</t:actionlink>
+						</td>
+					</tr>
+				</table>
+				</fieldset>
+				</td>
+			</tr>
+		</table>		
+		</t:block>
+	
+	    <t:block t:id="subUnit">
+	    <table id="newspaper-c">
+			<tr>
+				<td>
+				<fieldset>
+					<legend class="legendTitle">${message:goToOrganizationSubUnit}</legend>
+					
+					<t:security.HasPermission permission= "add_department">
+						<t:submit t:id="add" class="newButtonCss" value="${message:add}" />
+					</t:security.HasPermission>	
+						
+					<p align="right">${message:sum} ${listSize}</p>		
+					<t:grid t:source="listOrganizationDepartment" 
+					t:row="valueOrganizationDepartment" t:include="code" 
+					add="departmentName,edit,delete" rowClass="gridRowCSS" rowsPerPage="10" style="width:100%">
+								
+						<p:departmentNameCell>
+							<t:security.hasPermission permission="go_subDepartment">
+								<t:actionlink t:id="subDepartment" t:context="valueOrganizationDepartment">
+									${departmentName}
+								</t:actionlink>
+							</t:security.HasPermission>
+							
+							<t:if test="SubDepartmentPermission">
+								${departmentName}
+							</t:if>
+						</p:departmentNameCell>
+								
+						<p:editCell>
+							<t:security.HasPermission permission= "edit_department">
+								<t:actionlink t:id="edit" t:context="valueOrganizationDepartment">
+									<img src="${editIcon}"/>
+								</t:actionlink>
+							</t:security.HasPermission>
+								
+						</p:editCell>
+								
+						<p:deleteCell>
+							<t:security.HasPermission permission= "delete_department">
+								<t:actionlink t:id="delete" t:context="valueOrganizationDepartment">
+									<img src="${deleteIcon}"/>
+								</t:actionlink>
+							</t:security.HasPermission>	
+						</p:deleteCell>
+						
+						<p:empty>
+							${message:noData}
+						</p:empty>
+					</t:grid>
+				</fieldset>
+				</td>
+			</tr>
+		</table>		
+		</t:block>
+	
+  </t:form> </body> 
+</html>

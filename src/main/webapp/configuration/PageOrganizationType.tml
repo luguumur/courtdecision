@@ -1,0 +1,43 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+		
+			<div>
+				<table>
+					<tr>
+						<td><span class="red">*</span>Дэглэмийн төрлийн нэр :<br/></td>
+						<td><span class="red">*</span>Цалин нэмэгдэх хувь:<br/></td>
+						<td></td>	
+					</tr>	
+					<tr>
+						<td><t:textfield value="organizationType.name" t:validate="required" style="width:200px"/> &nbsp;</td>
+						<td><t:textfield value="organizationType.addSalaryPercent" t:validate="required" style="width:80px"/> &nbsp;</td>
+						<td align="right"><t:submit t:id="save" class="btnFind save" t:value="${message:save}"/></td>	
+					</tr>				
+				</table>				
+			</div>
+			<div>
+				<t:grid t:source="listOrganizationType"  t:row="valueOrganizationType" t:include="name,addSalaryPercent" t:add="edit,delete,number" 
+				rowClass="gridRowCSS" rowsPerPage="15" reOrder="number">
+				    <p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueOrganizationType">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueOrganizationType">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+		
+	</t:form> </body> 
+</html>

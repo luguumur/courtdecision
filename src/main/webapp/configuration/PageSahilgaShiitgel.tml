@@ -1,0 +1,47 @@
+<html t:type="layoutAdmin" title="literal:Configuration"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+	<head>
+	
+	</head>
+	<body> <t:form>
+			<div>
+			<table width="50%">
+				<tr>
+					<td><span class="red">*</span>${message:demeritType} :</td>
+					<td>Шийтгэлийн хугацаа /сараар/</td>
+				</tr>
+				<tr>
+				     <td>
+				         <t:textfield value="sahilgaShiitgel.shiitgelName" t:validate="required" t:style="width:70%"/>
+				     </td>
+				     <td>  
+				          <t:textfield value="sahilgaShiitgel.duration" /> &nbsp;
+				         <t:submit t:id="save" class="btnFind save" t:value="${message:save}"/>				         
+				     </td>
+				</tr>
+			</table>
+			</div><br/>
+			<div>
+				<t:grid t:source="listSahilgaShiitgel"  t:include="shiitgelName" t:row="valueSahilgaShiitgel" t:add="durationTime,edit,delete,number"
+				 rowClass="gridRowCSS" rowsPerPage="15" reOrder="number" style="width:75%">
+					<p:numberCell>
+						${number}
+					</p:numberCell>
+					<p:durationTimeCell>
+						${duration}
+					</p:durationTimeCell>
+					<p:editCell>
+						<t:actionlink t:id="edit" t:context="valueSahilgaShiitgel">
+							<img src="${editIcon}"/>
+						</t:actionlink>
+					</p:editCell>
+					<p:deleteCell>
+						<t:actionlink t:id="delete" t:context="valueSahilgaShiitgel">
+							<img src="${deleteIcon}"/>
+						</t:actionlink>
+					</p:deleteCell>
+				</t:grid> 
+			</div>
+	</t:form> </body> 
+</html>
